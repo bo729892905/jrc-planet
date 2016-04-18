@@ -18,10 +18,74 @@
     <script type="text/javascript" src="libs/easyui/jquery.easyui.min.js"></script>
     <style>
         html.panel-fit{overflow: auto}
+        .console-topbar{
+            position: relative;
+            z-index: 100;
+            clear: both;
+            height: 50px;
+            background: #09C;
+            font-size: 12px;
+        }
+        .console-topbar .topbar-wrap, .console-topbar .topbar-logo, .console-topbar .topbar-home, .console-topbar .topbar-home-link, .console-topbar .topbar-nav, .console-topbar .topbar-info {
+            height: 100%;
+        }
+        .console-topbar .topbar-head {
+            background: #008fbf;
+            height: 50px;
+            position: relative;
+            z-index: 3;
+        }
+        .console-topbar .topbar-left {
+            float: left;
+        }
+        .console-topbar a {
+            text-decoration: none;
+        }
+        .console-topbar .topbar-logo, .console-topbar .topbar-home {
+            display: block;
+            width: 50px;
+            background: #0099cc;
+            font-size: 18px;
+            color: #FFF;
+            text-align: center;
+            line-height: 50px;
+        }
+        .console-topbar .topbar-logo {
+            background: #0087b4;
+        }
+        .console-topbar .topbar-logo span, .console-topbar .topbar-home span {
+            line-height: 50px;
+        }
+        .console-topbar .topbar-btn {
+            color: #fff;
+            font-size: 14px;
+            line-height: 50px;
+        }
+        .console-topbar .topbar-home-link {
+            padding: 0 20px;
+            margin-right: 1px;
+            background: #09c;
+        }
+        .console-topbar .topbar-home-link {
+             padding: 0 20px;
+             margin-right: 1px;
+             background: #09c;
+         }
     </style>
 </head>
 <body class="easyui-layout" style="min-width: 1200px;min-height: 800px">
-    <div data-options="region:'north'" style="height:50px"></div>
+    <div class="console-topbar" data-options="region:'north',border:false">
+        <div class="topbar-wrap">
+            <div class="topbar-head topbar-left">
+                <a href="http://www.aliyun.com" target="_blank" class="topbar-logo topbar-left">
+                    <span class="icon-logo1"></span>
+                </a>
+                <a href="http://home.console.aliyun.com" target="_self" class="topbar-home-link topbar-btn topbar-left">
+                    <span class="ng-binding">管理控制台</span>
+                </a>
+            </div>
+        </div>
+    </div>
     <div data-options="region:'south'" style="height:50px;"></div>
     <div data-options="region:'east'" title="East" style="width:180px;">
         <ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true,dnd:true"></ul>
