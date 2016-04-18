@@ -17,8 +17,7 @@
     <script type="text/javascript" src="libs/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="libs/easyui/jquery.easyui.min.js"></script>
 </head>
-<body>
-<div class="easyui-layout" style="width:700px;height:350px;">
+<body class="easyui-layout">
     <div data-options="region:'north'" style="height:50px"></div>
     <div data-options="region:'south',split:true" style="height:50px;"></div>
     <div data-options="region:'east',split:true" title="East" style="width:180px;">
@@ -57,6 +56,5 @@
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
