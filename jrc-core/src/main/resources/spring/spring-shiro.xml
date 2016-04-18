@@ -39,7 +39,7 @@
                 /errors/** =anon
                 /libs/**   =anon
                 /login*    = anon
-                /**   = authc
+                <!--/**   = authc-->
             </value>
         </property>
     </bean>
