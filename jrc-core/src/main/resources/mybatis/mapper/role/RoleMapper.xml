@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jrcplanet.mapper.role.RoleMapper">
+    <!-- 配置缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <!-- 保存角色 -->
+    <insert id="insertRole" parameterType="com.jrcplanet.domain.Role">
+        INSERT INTO t_res_role
+          (id, name, code, remark, role_type)
+        VALUES
+          (#{id},#{name},#{code},#{remark},#{roleType})
+    </insert>
+
+    <!-- 根据用户查询角色 -->
+    <select id="getRoleByUserId" parameterType="String" resultType="Role" useCache="true">
+        SELECT
+          r.*
+        FROM
+          t_res_role r
+          INNER JOIN t_res_user_role ur on r.id = ur.role_id
+        WHERE ur.user_id=#{userId}
+    </select>
+
+    <insert id="setPermissionsToRole">
+        INSERT INTO t_res_role_permission
+          (role_id, permission_id)
+        VALUES
+        <foreach collection="perIdList" item="perId" separator=",">
+            (#{roleId}, #{perId})
+        </foreach>
+    </insert>
+</mapper>

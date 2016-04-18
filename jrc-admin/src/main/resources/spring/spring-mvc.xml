@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 自动扫描指定包下的所有Controller控制器 -->
+    <context:component-scan base-package="com.jrcplanet.controller"/>
+
+    <!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 启动Spring MVC注解功能,完成请求和注解POJO的映射 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <!-- 避免IE执行AJAX时，返回json出现下载文件 -->
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 注意：如果为DispatcherServlet指定多个ViewResolver的话，不要给予InternalResourceViewResolver以及其他UrlBasedViewResolver子类过高的优先级
+        因为这些ViewResolver即使找不到相应的视图，也不会返回null以给我们轮询下一个ViewResolver的机会，这样，我们所指定的其他ViewResolver实际上
+        就形同虚设。合理的处理方式是，给予ResourceBundleViewResolver或者XmlViewResolver这种能够通过返回null以表明无法找到相应视图的ViewResolver
+        较高的优先级，而只是将InternalResourceViewResolver（或者其他类似行为的ViewResolver）添加为最低优先级ViewResolver，以作为DispatcherServlet
+        的后备查找对象。 -->
+
+    <!-- 配置资源视图处理器，为模型视图添加后缀 -->
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+            p:prefix="WEB-INF/page/" p:suffix=".jsp">
+    </bean>
+
+    <!-- 配置FreeMarker视图处理器 -->
+    <bean
+            class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"
+            p:prefix="/" p:suffix=".ftl">
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="order" value="0"/>
+    </bean>
+
+    <!-- freemarker的配置 -->
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/template/"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">10</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="datetime_format">yyyy-MM-dd</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="number_format">#.##</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean name="beetlConfig" class="org.beetl.ext.spring.BeetlGroupUtilConfiguration" init-method="init">
+        <property name="configFileResource" value="classpath:beetl.properties"/>
+    </bean>
+
+    <!-- freemarker的配置 -->
+    <bean name="beetlViewResolver" class="org.beetl.ext.spring.BeetlSpringViewResolver">
+        <!--<property name="viewNames">
+            <list>
+                <value>/beetemplate/**</value>
+            </list>
+        </property>-->
+        <property name="viewClass" value="com.jrcplanet.beetl.ext.spring.RichBeetlSpringView"/>
+        <property name="prefix" value="/beetemplate/"/>
+        <property name="suffix" value=".btl"/>
+        <property name="config" ref="beetlConfig"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="order" value="1"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置上传文件的最大尺寸为1GB -->
+        <property name="maxUploadSize" value="1073741824"/>
+    </bean>
+
+    <bean class="com.jrcplanet.web.handler.DefaultExceptionHandler"/>
+
+    <import resource="classpath:spring/spring-aop-shiro.xml"/>
+</beans>
