@@ -1,0 +1,135 @@
+*{margin: 0;padding: 0}
+html,body {
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
+    font-size:12px;
+}
+
+h2 {
+    font-size:18px;
+    font-weight:bold;
+    margin:0;
+    margin-bottom:15px;
+}
+
+html.panel-fit {
+    overflow: auto
+}
+
+.console-topbar {
+    position: relative;
+    z-index: 100;
+    clear: both;
+    height: 50px;
+    background: #09C;
+    font-size: 12px;
+}
+
+.console-topbar .topbar-wrap, .console-topbar .topbar-logo, .console-topbar .topbar-home, .console-topbar .topbar-home-link, .console-topbar .topbar-info {
+    height: 100%;
+}
+
+.console-topbar .topbar-head {
+    background: #008fbf;
+    height: 50px;
+    position: relative;
+    z-index: 3;
+}
+
+.console-topbar .topbar-left {
+    float: left;
+}
+
+.console-topbar .topbar-left:hover, .console-topbar .topbar-info .topbar-btn:hover, .aliyun-console-topbar .topbar-info .topbar-btn.topbar-btn-dark {
+    background: #008fbf;
+}
+
+.console-topbar a {
+    text-decoration: none;
+}
+
+.console-topbar .topbar-logo, .console-topbar .topbar-home {
+    display: block;
+    width: 50px;
+    background: #09c;
+    font-size: 18px;
+    color: #FFF;
+    text-align: center;
+    line-height: 50px;
+}
+
+.console-topbar .topbar-logo {
+    background: #0087b4;
+}
+
+.console-topbar .topbar-logo span, .console-topbar .topbar-home span {
+    line-height: 50px;
+}
+
+.console-topbar .topbar-btn {
+    color: #fff;
+    font-size: 14px;
+    line-height: 50px;
+}
+
+.console-topbar .topbar-home-link {
+    padding: 0 20px;
+    margin-right: 1px;
+    background: #09c;
+}
+
+.console-topbar .topbar-right {
+    float: right;
+}
+
+.console-topbar .topbar-info {
+    background: #008fbf;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+}
+.console-topbar .topbar-info .topbar-btn-search,.console-topbar .topbar-user{
+    padding: 0;
+    margin-left: 1px;
+}
+.console-topbar .topbar-info .topbar-btn {
+    padding: 0 10px;
+    height: 50px;
+    display: block;
+    z-index: 2;
+    background: #09c;
+}
+.console-topbar .topbar-info .topbar-btn:hover {
+    background: #394555;
+}
+.console-sidebar{
+    background: #293038;
+    color:#fefefe;
+    font-size: 12px;
+}
+
+.panel-header {
+    background-color: #394555;
+    border-bottom: 1px;
+    padding: 0;
+}
+
+.panel-title{
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+}
+
+.tree-node{
+    padding:14px 0 14px 0;
+}
+
+.tree-node-hover {
+    background: #37424f;
+    color: #fff;
+}
+.tree-node-selected {
+    background: #09c;
+    color: #fff;
+}
