@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/easyui-icon.css">
 </head>
-<body class="easyui-layout" style="min-width: 1200px;min-height: 800px">
+<body class="easyui-layout" style="min-width: 1100px;min-height: 650px">
 <div class="console-topbar" data-options="region:'north',border:false">
     <div class="topbar-wrap">
         <div class="topbar-head topbar-left">
@@ -57,13 +57,34 @@
     </div>
 </div>
 <div class="console-sidebar" data-options="region:'west',border:false" title="导航菜单" style="width:180px;">
-    <ul id="leftMenuTree"></ul>
+    <ul id="leftMenuTree" class="accordion-tree"></ul>
 </div>
-<div data-options="region:'center'">
+<div data-options="region:'center',border:false" style="padding:15px">
+    <%--<div class="easyui-layout" data-options="fit:true" style="width: 100%;height: 100%">
+        <div class="child-tree-sidebar" data-options="region:'west',border:false">
+            <div class="child-tree-sidebar-top"></div>
+        </div>
+        <div data-options="region:'center',border:false">
 
+        </div>
+    </div>--%>
+    <table class="easyui-datagrid"
+           data-options="url:'datagrid_data1.json',method:'get',singleSelect:true,fit:true,fitColumns:true">
+        <thead>
+        <tr>
+            <th data-options="field:'itemid'" width="80">Item ID</th>
+            <th data-options="field:'productid'" width="100">Product ID</th>
+            <th data-options="field:'listprice',align:'right'" width="80">List Price</th>
+            <th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
+            <th data-options="field:'attr1'" width="150">Attribute</th>
+            <th data-options="field:'status',align:'center'" width="50">Status</th>
+        </tr>
+        </thead>
+    </table>
 </div>
 </body>
 <script type="text/javascript" src="libs/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="libs/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="libs/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 </html>

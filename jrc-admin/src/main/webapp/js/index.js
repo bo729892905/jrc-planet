@@ -13,13 +13,7 @@ function initLeftMenuTree() {
             var roots=$("#leftMenuTree").tree("getRoots");
             for(var i=0;i<roots.length;i++) {
                 var rootTarget=roots[i].target;
-                $(rootTarget).css("background","#22282e");
-                $(rootTarget).css("margin-bottom","0.5px");
-                $(rootTarget).mouseenter(function() {
-                    $(this).css("background","#414d5c");
-                }).mouseout(function(){
-                    $(this).css("background","#22282e");
-                });
+                $(rootTarget).addClass("root-tree-node");
             }
         },
         onBeforeSelect: function (node) {
@@ -28,9 +22,12 @@ function initLeftMenuTree() {
                 $("#leftMenuTree").tree('toggle', node.target);
                 return false;
             }
-        }/*,
+        },
         onCollapse: function (node) {
-            $(node.target).css("background","#37424f");
-        }*/
+            $(node.target).addClass("root-tree-node-selected");
+        },
+        onExpand: function (node) {
+            $(node.target).removeClass("root-tree-node-selected");
+        }
     });
 }
