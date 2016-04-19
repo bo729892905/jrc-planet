@@ -136,7 +136,7 @@ html.panel-fit {
 }
 
 .tree-node{
-    padding:14px 0 14px 0;
+    padding:14px 0 14px 20px;
 }
 
 .tree-node-hover {
@@ -149,6 +149,10 @@ html.panel-fit {
 }
 
 .tree-folder{
+    display: none;
+}
+
+.tree-indent{
     display: none;
 }
 
