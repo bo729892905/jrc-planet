@@ -88,7 +88,7 @@ html.panel-fit {
     top: 0;
     right: 0;
 }
-.console-topbar .topbar-info .topbar-btn-search,.console-topbar .topbar-user{
+.console-topbar .topbar-info .topbar-btn-search,.console-topbar .topbar-user,.console-topbar .topbar-notice {
     padding: 0;
     margin-left: 1px;
 }
@@ -99,13 +99,27 @@ html.panel-fit {
     z-index: 2;
     background: #09c;
 }
-.console-topbar .topbar-info .topbar-btn:hover {
-    background: #394555;
-}
 .console-sidebar{
     background: #293038;
     color:#fefefe;
     font-size: 12px;
+}
+.console-topbar .span-icon{
+    line-height: 50px;
+    vertical-align: text-bottom;
+}
+
+.console-topbar .topbar-btn-notice .topbar-btn-notice-num {
+    font-size: 12px;
+    color: #fff;
+    background: #ff9900;
+    border-radius: 5px;
+    padding: 2px 5px;
+    display: inline-block;
+    margin-top: 15px;
+    line-height: 16px;
+    vertical-align: top;
+    text-align: center;
 }
 
 .panel-header {
@@ -132,4 +146,12 @@ html.panel-fit {
 .tree-node-selected {
     background: #09c;
     color: #fff;
+}
+
+.tree-folder{
+    display: none;
+}
+
+.tree .tree-icon{
+    margin-right:5px;
 }

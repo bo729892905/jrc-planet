@@ -5,15 +5,18 @@
     "children": [
       {
         "id": 11,
-        "text": "用户管理"
+        "text": "用户管理",
+        "iconCls":"icon-user-white"
       },
       {
         "id": 12,
-        "text": "角色管理"
+        "text": "角色管理",
+        "iconCls":"icon-hand-left-white"
       },
       {
         "id": 13,
-        "text": "权限管理"
+        "text": "权限管理",
+        "iconCls":"icon-lock-white"
       }
     ]
   },
@@ -23,11 +26,13 @@
     "children": [
       {
         "id": 11,
-        "text": "字典管理"
+        "text": "字典管理",
+        "iconCls":"icon-book-white"
       },
       {
         "id": 12,
-        "text": "菜单管理"
+        "text": "菜单管理",
+        "iconCls":"icon-list-white"
       }
     ]
   }

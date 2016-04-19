@@ -1,0 +1,47 @@
+.span-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+.icon-user{
+    background:url('../imgs/glyphicons-halflings.png') no-repeat -167px 3px;
+}
+.icon-user-white{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px 3px;
+}
+.icon-hand-left{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px -143px;
+}
+.icon-hand-left-white{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px -143px;
+}
+.icon-tasks{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px 2px;
+}
+.icon-tasks-white{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px 2px;
+}
+.icon-lock{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px 2px;
+}
+.icon-lock-white{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px 2px;
+}
+.icon-book{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px 2px;
+}
+.icon-book-white{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px 2px;
+}
+.icon-list{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px 2px;
+}
+.icon-list-white{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -167px 2px;
+}
+.icon-bell{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -47px -143px;
+}
+.icon-bell-white{
+    background:url('../imgs/glyphicons-halflings-white.png') no-repeat -47px -143px;
+}

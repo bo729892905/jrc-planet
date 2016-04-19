@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="libs/easyui/themes/material/easyui.css">
     <link rel="stylesheet" type="text/css" href="libs/easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/easyui-icon.css">
 </head>
 <body class="easyui-layout" style="min-width: 1200px;min-height: 800px">
 <div class="console-topbar" data-options="region:'north',border:false">
@@ -37,12 +38,12 @@
                 </div>
             </div>
             <!-- 站内信 -->
-            <%--<div class="dropdown topbar-notice topbar-btn topbar-left ng-scope">
+            <div class="topbar-notice topbar-btn topbar-left">
                 <a href="#" class="topbar-btn-notice">
-                    <span class="topbar-btn-notice-icon icon-bell"></span>
-                    <span class="topbar-btn-notice-num ng-binding">24</span>
+                    <span class="span-icon icon-bell-white"></span>
+                    <span class="topbar-btn-notice-num">24</span>
                 </a>
-            </div>--%>
+            </div>
             <!-- 用户 -->
             <div class="topbar-left topbar-user">
                 <div class="topbar-info-item">
