@@ -1,6 +1,7 @@
 package com.jrcplanet.controller.user;
 
 import com.jrcplanet.domain.User;
+import com.jrcplanet.model.easyui.DataGrid;
 import com.jrcplanet.server.user.UserService;
 import com.jrcplanet.util.EncryptUtil;
 import org.apache.shiro.SecurityUtils;
@@ -22,6 +23,7 @@ import java.util.List;
  * Created by rxb on 2016/4/18.
  */
 @Controller
+@RequestMapping("user")
 public class UserController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -68,5 +70,12 @@ public class UserController {
 
         logger.debug("登录成功！");
         return new ModelAndView("redirect:test.do");
+    }
+
+    @RequestMapping(value = "list",produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public DataGrid getUserList() {
+        List<User> userList = userService.getUserList();
+        return new DataGrid(userList.size(), userList);
     }
 }
