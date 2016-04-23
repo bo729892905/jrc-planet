@@ -1,6 +1,5 @@
-package com.jrcplanet.server;
+package com.jrcplanet;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

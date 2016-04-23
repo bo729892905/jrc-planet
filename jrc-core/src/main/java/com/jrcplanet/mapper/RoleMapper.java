@@ -1,4 +1,4 @@
-package com.jrcplanet.mapper.role;
+package com.jrcplanet.mapper;
 
 import com.jrcplanet.domain.Role;
 import org.apache.ibatis.annotations.Param;

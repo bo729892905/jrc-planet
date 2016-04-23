@@ -1,4 +1,4 @@
-package com.jrcplanet.server.permission;
+package com.jrcplanet.service;
 
 import com.jrcplanet.domain.Permission;
 

@@ -1,4 +1,4 @@
-package com.jrcplanet.server.role;
+package com.jrcplanet.service;
 
 import com.jrcplanet.domain.Role;
 

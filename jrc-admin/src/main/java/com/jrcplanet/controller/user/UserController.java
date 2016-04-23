@@ -2,7 +2,7 @@ package com.jrcplanet.controller.user;
 
 import com.jrcplanet.domain.User;
 import com.jrcplanet.model.easyui.DataGrid;
-import com.jrcplanet.server.user.UserService;
+import com.jrcplanet.service.UserService;
 import com.jrcplanet.util.EncryptUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;

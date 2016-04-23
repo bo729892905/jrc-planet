@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jrcplanet.mapper.MenuLinkMapper">
+    <insert id="insertMenu"></insert>
+    <update id="updateMenu"></update>
+    <delete id="deleteMenu"></delete>
+    <select id="getMenuById" resultType="com.jrcplanet.domain.MenuLink"></select>
+    <select id="getMenuByParent" resultType="com.jrcplanet.domain.MenuLink"></select>
+    <select id="getMenuTree" resultType="com.jrcplanet.model.easyui.Tree"></select>
+</mapper>

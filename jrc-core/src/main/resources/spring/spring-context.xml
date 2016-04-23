@@ -33,12 +33,12 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <property name="typeAliasesPackage" value="com.jrcplanet.domain"/>
-        <property name="mapperLocations" value="classpath:mybatis/mapper/*/*.xml"/>
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
     </bean>
 
     <!-- 配置mybatis的mapper接口所在包名，自动查找 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.jrcplanet.mapper.*"/>
+        <property name="basePackage" value="com.jrcplanet.mapper"/>
     </bean>
 
     <!-- 配置事务管理 -->

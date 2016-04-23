@@ -11,12 +11,12 @@
 <head>
     <meta charset="UTF-8">
     <title>管理控制平台</title>
-    <link rel="stylesheet" type="text/css" href="libs/easyui/themes/material/easyui.css">
+    <link rel="stylesheet" type="text/css" href="libs/easyui/themes/bootstrap/easyui.css">
     <link rel="stylesheet" type="text/css" href="libs/easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/easyui-icon.css">
 </head>
-<body class="easyui-layout" style="min-width: 1100px;min-height: 650px">
+<body class="easyui-layout" style="min-width: 1000px;min-height: 650px">
 <div class="console-topbar" data-options="region:'north',border:false">
     <div class="topbar-wrap">
         <div class="topbar-head topbar-left">

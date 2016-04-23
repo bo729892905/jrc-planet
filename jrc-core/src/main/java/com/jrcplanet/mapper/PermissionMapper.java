@@ -1,4 +1,4 @@
-package com.jrcplanet.mapper.permission;
+package com.jrcplanet.mapper;
 
 import com.jrcplanet.domain.Permission;
 import org.springframework.stereotype.Repository;

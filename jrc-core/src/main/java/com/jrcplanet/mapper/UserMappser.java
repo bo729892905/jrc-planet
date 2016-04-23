@@ -1,4 +1,4 @@
-package com.jrcplanet.mapper.user;
+package com.jrcplanet.mapper;
 
 import com.jrcplanet.domain.User;
 import org.apache.ibatis.annotations.Param;

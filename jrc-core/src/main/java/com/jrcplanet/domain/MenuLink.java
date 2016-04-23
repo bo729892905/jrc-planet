@@ -4,7 +4,7 @@ package com.jrcplanet.domain;
  * 菜单链接
  * Created by rxb on 2016/4/20.
  */
-public class MenuLink {
+public class MenuLink extends BaseEntity {
     /**
      * 链接名称
      */
@@ -16,7 +16,7 @@ public class MenuLink {
     /**
      * 链接图片
      */
-    private String icon;
+    private String iconCls;
     /**
      * 打开方式
      */
@@ -29,6 +29,20 @@ public class MenuLink {
      * 父菜单
      */
     private MenuLink parent;
+
+    public MenuLink() {
+    }
+
+    public MenuLink(String id,String name) {
+        super(id);
+        this.name = name;
+    }
+
+    public MenuLink(String id, String name, String iconCls) {
+        super(id);
+        this.name = name;
+        this.iconCls = iconCls;
+    }
 
     public String getName() {
         return name;
@@ -46,12 +60,12 @@ public class MenuLink {
         this.url = url;
     }
 
-    public String getIcon() {
-        return icon;
+    public String getIconCls() {
+        return iconCls;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setIconCls(String iconCls) {
+        this.iconCls = iconCls;
     }
 
     public String getTarget() {

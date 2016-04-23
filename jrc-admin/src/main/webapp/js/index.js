@@ -8,7 +8,7 @@ $(function () {
  */
 function initLeftMenuTree() {
     $("#leftMenuTree").tree({
-        url: "json/leftMenuTree.json",
+        url: "menu/tree",
         animate: true,
         onLoadSuccess: function (node) {
             var roots = $("#leftMenuTree").tree("getRoots");

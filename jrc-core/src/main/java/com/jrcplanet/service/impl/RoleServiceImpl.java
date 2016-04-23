@@ -1,8 +1,8 @@
-package com.jrcplanet.server.role.impl;
+package com.jrcplanet.service.impl;
 
 import com.jrcplanet.domain.Role;
-import com.jrcplanet.mapper.role.RoleMapper;
-import com.jrcplanet.server.role.RoleService;
+import com.jrcplanet.mapper.RoleMapper;
+import com.jrcplanet.service.RoleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

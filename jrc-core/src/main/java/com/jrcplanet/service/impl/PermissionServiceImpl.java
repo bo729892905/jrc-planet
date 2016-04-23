@@ -1,8 +1,8 @@
-package com.jrcplanet.server.permission.impl;
+package com.jrcplanet.service.impl;
 
 import com.jrcplanet.domain.Permission;
-import com.jrcplanet.mapper.permission.PermissionMapper;
-import com.jrcplanet.server.permission.PermissionService;
+import com.jrcplanet.mapper.PermissionMapper;
+import com.jrcplanet.service.PermissionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

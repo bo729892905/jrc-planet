@@ -130,19 +130,6 @@ html.panel-fit {
     text-align: center;
 }
 
-.panel-header {
-    background-color: #394555;
-    border-bottom: 1px;
-    padding: 0;
-}
-
-.panel-title {
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    color: #fff;
-}
-
 .accordion-tree .tree-node {
     padding: 11px 0 11px 20px;
 }
@@ -208,6 +195,20 @@ html.panel-fit {
     width: 100%;
     height: 70px;
     background: #d9dee4;
+}
+
+.panel-header {
+    background-color: #394555;
+    border-bottom: 1px;
+    padding: 0;
+}
+
+.panel-title {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #394555;
+    color: #fff;
 }
 
 .datagrid-header tr td {

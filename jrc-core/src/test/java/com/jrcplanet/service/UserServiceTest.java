@@ -1,7 +1,7 @@
-package com.jrcplanet.server.user;
+package com.jrcplanet.service;
 
+import com.jrcplanet.BaseTest;
 import com.jrcplanet.domain.User;
-import com.jrcplanet.server.BaseTest;
 import org.junit.Test;
 
 import javax.annotation.Resource;

@@ -1,8 +1,8 @@
-package com.jrcplanet.server.user.impl;
+package com.jrcplanet.service.impl;
 
 import com.jrcplanet.domain.User;
-import com.jrcplanet.mapper.user.UserMappser;
-import com.jrcplanet.server.user.UserService;
+import com.jrcplanet.mapper.UserMappser;
+import com.jrcplanet.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

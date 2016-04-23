@@ -1,4 +1,4 @@
-package com.jrcplanet.server.user;
+package com.jrcplanet.service;
 
 import com.jrcplanet.domain.User;
 

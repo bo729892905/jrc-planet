@@ -16,13 +16,17 @@ public class TreeNode {
      */
     private String text;
     /**
+     * 图标样式
+     */
+    private String iconCls;
+    /**
      * 状态
      */
     private String states;
     /**
      * 是否选中
      */
-    private Boolean checked;
+    private Boolean checked = false;
     /**
      * 属性
      */
@@ -46,6 +50,14 @@ public class TreeNode {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getIconCls() {
+        return iconCls;
+    }
+
+    public void setIconCls(String iconCls) {
+        this.iconCls = iconCls;
     }
 
     public String getStates() {

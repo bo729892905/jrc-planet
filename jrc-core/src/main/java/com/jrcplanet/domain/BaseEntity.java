@@ -17,6 +17,13 @@ public class BaseEntity implements Serializable {
      */
     private Integer version = 0;
 
+    public BaseEntity() {
+    }
+
+    public BaseEntity(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
