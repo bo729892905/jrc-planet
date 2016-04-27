@@ -26,7 +26,7 @@ public class MenuLinkController {
         root.add(menuLink1);
         root.add(menuLink2);
 
-        Tree tree = TreeUtil.getInstance().formatTree(root, "id", "name", treeNode -> {
+        Tree tree = TreeUtil.getInstance().formatTree(root, treeNode -> {
             List<MenuLink> children = new ArrayList<>();
             if (treeNode.getId().equals("1")) {
                 MenuLink menuLink11 = new MenuLink("11", "用户管理", "icon-user-white");

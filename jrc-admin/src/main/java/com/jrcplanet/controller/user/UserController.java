@@ -17,6 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -77,5 +84,35 @@ public class UserController {
     public DataGrid getUserList() {
         List<User> userList = userService.getUserList();
         return new DataGrid(userList.size(), userList);
+    }
+
+    @RequestMapping(value = "pdf")
+    public String getPdf(HttpServletResponse response) {
+        InputStream is = null;
+        ServletOutputStream sos = null;
+        try {
+            is = new FileInputStream(new File("D:\\TY-JD-XY20160421022.pdf"));
+            sos = response.getOutputStream();
+            response.setContentType("application/pdf;charset=UTF-8");
+            int i = 0;
+            byte[] b = new byte[1024];
+            while ((i = is.read(b)) != -1) {
+                sos.write(b);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+                if (sos != null) {
+                    sos.flush();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "success";
+        }
     }
 }

@@ -77,14 +77,9 @@
 
     <!-- freemarker的配置 -->
     <bean name="beetlViewResolver" class="org.beetl.ext.spring.BeetlSpringViewResolver">
-        <!--<property name="viewNames">
-            <list>
-                <value>/beetemplate/**</value>
-            </list>
-        </property>-->
         <property name="viewClass" value="com.jrcplanet.beetl.ext.spring.RichBeetlSpringView"/>
         <property name="prefix" value="/beetemplate/"/>
-        <property name="suffix" value=".btl"/>
+        <property name="suffix" value=".html"/>
         <property name="config" ref="beetlConfig"/>
         <property name="contentType" value="text/html;charset=UTF-8"/>
         <property name="order" value="1"/>

@@ -1,13 +1,21 @@
 package com.jrcplanet.domain;
 
+import com.jrcplanet.model.easyui.annotation.TreeId;
+import com.jrcplanet.model.easyui.annotation.TreeText;
+
+import java.util.UUID;
+
 /**
  * 菜单链接
  * Created by rxb on 2016/4/20.
  */
 public class MenuLink extends BaseEntity {
+    @TreeId
+    private String id= UUID.randomUUID().toString();
     /**
      * 链接名称
      */
+    @TreeText
     private String name;
     /**
      * 链接地址
@@ -34,14 +42,24 @@ public class MenuLink extends BaseEntity {
     }
 
     public MenuLink(String id,String name) {
-        super(id);
+        this.id = id;
         this.name = name;
     }
 
     public MenuLink(String id, String name, String iconCls) {
-        super(id);
+        this.id = id;
         this.name = name;
         this.iconCls = iconCls;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
