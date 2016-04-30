@@ -37,8 +37,8 @@ public class TreeUtil {
      * @param treeNodeStateSetter
      * @return
      */
-    public Tree formatTree(List<?> list, String id, String text, List<?> children, TreeNodeStateSetter treeNodeStateSetter) {
-        return formatTree(list, id, text, children, null, treeNodeStateSetter, 0, -1);
+    public Tree formatTree(List<?> list, String id, String text, List<?> children, TreeNodeStateSetter treeNodeStateSetter,boolean containAttr) {
+        return formatTree(list, id, text, children, null, treeNodeStateSetter, 0, -1,containAttr);
     }
 
     /**
@@ -49,8 +49,8 @@ public class TreeUtil {
      * @param treeNodeStateSetter
      * @return
      */
-    public Tree formatTree(List<?> list, List<?> children, TreeNodeStateSetter treeNodeStateSetter) {
-        return formatTree(list, children, null, treeNodeStateSetter, 0, -1);
+    public Tree formatTree(List<?> list, List<?> children, TreeNodeStateSetter treeNodeStateSetter,boolean containAttr) {
+        return formatTree(list, children, null, treeNodeStateSetter, 0, -1,containAttr);
     }
 
     /**
@@ -63,8 +63,8 @@ public class TreeUtil {
      * @param treeNodeStateSetter
      * @return
      */
-    public Tree formatTree(List<?> list, String id, String text, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter) {
-        return formatTree(list, id, text, null, treeChildrenGetter, treeNodeStateSetter, 0, -1);
+    public Tree formatTree(List<?> list, String id, String text, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter,boolean containAttr) {
+        return formatTree(list, id, text, null, treeChildrenGetter, treeNodeStateSetter, 0, -1,containAttr);
     }
 
     /**
@@ -75,8 +75,8 @@ public class TreeUtil {
      * @param treeNodeStateSetter
      * @return
      */
-    public Tree formatTree(List<?> list, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter) {
-        return formatTree(list, null, treeChildrenGetter, treeNodeStateSetter, 0, -1);
+    public Tree formatTree(List<?> list, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter,boolean containAttr) {
+        return formatTree(list, null, treeChildrenGetter, treeNodeStateSetter, 0, -1,containAttr);
     }
 
     /**
@@ -90,8 +90,8 @@ public class TreeUtil {
      * @param level 显示到的最低级别，0为根节点，每增加一级加1
      * @return
      */
-    public Tree formatTree(List<?> list, String id, String text, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter,int level) {
-        return formatTree(list, id, text, null, treeChildrenGetter, treeNodeStateSetter, 0, level);
+    public Tree formatTree(List<?> list, String id, String text, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter,int level,boolean containAttr) {
+        return formatTree(list, id, text, null, treeChildrenGetter, treeNodeStateSetter, 0, level,containAttr);
     }
 
     /**
@@ -103,20 +103,20 @@ public class TreeUtil {
      * @param level 显示到的最低级别，0为根节点，每增加一级加1
      * @return
      */
-    public Tree formatTree(List<?> list, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter,int level) {
-        return formatTree(list, null, treeChildrenGetter, treeNodeStateSetter, 0, level);
+    public Tree formatTree(List<?> list, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter,int level,boolean containAttr) {
+        return formatTree(list, null, treeChildrenGetter, treeNodeStateSetter, 0, level,containAttr);
     }
 
-    private Tree formatTree(List<?> list, String id, String text, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level) {
+    private Tree formatTree(List<?> list, String id, String text, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level,boolean containAttr) {
         Tree tree = new Tree();
-        List<TreeNode> treeNodes = formatTreeList(list, id, text, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level);
+        List<TreeNode> treeNodes = formatTreeList(list, id, text, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level,containAttr);
         tree.setTreeNodeList(treeNodes);
         return tree;
     }
 
-    private Tree formatTree(List<?> list, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level) {
+    private Tree formatTree(List<?> list, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level,boolean containAttr) {
         Tree tree = new Tree();
-        List<TreeNode> treeNodes = formatTreeList(list, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level);
+        List<TreeNode> treeNodes = formatTreeList(list, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level,containAttr);
         tree.setTreeNodeList(treeNodes);
         return tree;
     }
@@ -132,12 +132,12 @@ public class TreeUtil {
      * @param treeNodeStateSetter 设置实体状态的方法
      * @return
      */
-    private List<TreeNode> formatTreeList(List<?> list, String id, String text, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level) {
+    private List<TreeNode> formatTreeList(List<?> list, String id, String text, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level,boolean containAttr) {
         List<TreeNode> treeNodes = new ArrayList<>();
         if (list != null) {
             list.forEach(instance -> {
                 Class<?> class1 = instance.getClass();
-                TreeNode treeNode = formatTreeNode(class1, instance, id, text, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level);
+                TreeNode treeNode = formatTreeNode(class1, instance, id, text, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level,containAttr);
                 treeNodes.add(treeNode);
             });
         }
@@ -153,12 +153,12 @@ public class TreeUtil {
      * @param treeNodeStateSetter 设置实体状态的方法
      * @return
      */
-    private List<TreeNode> formatTreeList(List<?> list, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level) {
+    private List<TreeNode> formatTreeList(List<?> list, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level,boolean containAttr) {
         List<TreeNode> treeNodes = new ArrayList<>();
         if (list != null) {
             list.forEach(instance -> {
                 Class<?> class1 = instance.getClass();
-                TreeNode treeNode = formatTreeNode(class1, instance, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level);
+                TreeNode treeNode = formatTreeNode(class1, instance, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level,containAttr);
                 treeNodes.add(treeNode);
             });
         }
@@ -177,7 +177,7 @@ public class TreeUtil {
      * @param treeNodeStateSetter 设置实体状态的方法
      * @return
      */
-    private TreeNode formatTreeNode(Class<?> class1, Object instance, String id, String text, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level) {
+    private TreeNode formatTreeNode(Class<?> class1, Object instance, String id, String text, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level,boolean containAttr) {
         TreeNode treeNode = new TreeNode();
         try {
             Method idMethod = getGetterByField(id, class1);
@@ -201,11 +201,13 @@ public class TreeUtil {
             if (level == -1 || currentLevel < level) {
                 if (treeChildrenGetter != null && children == null) {
                     children = treeChildrenGetter.getChildren(treeNode);
-                } else {
+                }
+
+                if (containAttr) {
                     treeNode.setAttributes(instance);
                 }
 
-                List<TreeNode> treeNodeList = formatTreeList(children, id, text, treeChildrenGetter, treeNodeStateSetter, ++currentLevel, level);
+                List<TreeNode> treeNodeList = formatTreeList(children, id, text, treeChildrenGetter, treeNodeStateSetter, ++currentLevel, level,containAttr);
                 treeNode.setChildren(treeNodeList);
             }
 
@@ -230,8 +232,8 @@ public class TreeUtil {
      * @param treeNodeStateSetter 设置实体状态的方法
      * @return
      */
-    private List<TreeNode> formatTreeList(List<?> list, String id, String text, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level) {
-        return formatTreeList(list, id, text, null, treeChildrenGetter, treeNodeStateSetter, currentLevel, level);
+    private List<TreeNode> formatTreeList(List<?> list, String id, String text, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level,boolean containAttr) {
+        return formatTreeList(list, id, text, null, treeChildrenGetter, treeNodeStateSetter, currentLevel, level,containAttr);
     }
 
     /**
@@ -244,7 +246,7 @@ public class TreeUtil {
      * @param treeNodeStateSetter 设置实体状态的方法
      * @return
      */
-    private TreeNode formatTreeNode(Class<?> class1, Object instance, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level) {
+    private TreeNode formatTreeNode(Class<?> class1, Object instance, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level,boolean containAttr) {
         String id = null, text = null;
         Field[] fields = class1.getDeclaredFields();
         for (Field field : fields) {
@@ -261,7 +263,7 @@ public class TreeUtil {
 
         //TODO 异常点：如果id和text都为空应抛出异常
 
-        return formatTreeNode(class1,instance, id, text, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level);
+        return formatTreeNode(class1,instance, id, text, children, treeChildrenGetter, treeNodeStateSetter, currentLevel, level,containAttr);
     }
 
     /**

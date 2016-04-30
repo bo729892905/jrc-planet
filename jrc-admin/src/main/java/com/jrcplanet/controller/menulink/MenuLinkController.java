@@ -42,7 +42,7 @@ public class MenuLinkController {
                 children.add(menuLink22);
             }
             return children;
-        }, null);
+        }, null,true);
         return tree.getTreeNodeList();
     }
 

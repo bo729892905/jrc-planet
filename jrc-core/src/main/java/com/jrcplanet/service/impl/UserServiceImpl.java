@@ -1,5 +1,6 @@
 package com.jrcplanet.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.jrcplanet.domain.User;
 import com.jrcplanet.mapper.UserMappser;
 import com.jrcplanet.service.UserService;
@@ -12,27 +13,28 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Resource
-	private UserMappser userMappser;
+    @Resource
+    private UserMappser userMappser;
 
-	@Transactional
-	@Override
-	public int insertUser(User user) {
-		return userMappser.insertUser(user);
-	}
+    @Transactional
+    @Override
+    public int insertUser(User user) {
+        return userMappser.insertUser(user);
+    }
 
-	@Override
-	public List<User> getUserList() {
-		return userMappser.getUserList();
-	}
+    @Override
+    public List<User> getUserList(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return userMappser.getUserList();
+    }
 
-	@Override
-	public User getUserByUsername(String username) {
-		return userMappser.getUserByUsername(username);
-	}
+    @Override
+    public User getUserByUsername(String username) {
+        return userMappser.getUserByUsername(username);
+    }
 
-	@Override
-	public int setRolesToUser(String userId, List<String> roleIdList) {
-		return userMappser.setRolesToUser(userId,roleIdList);
-	}
+    @Override
+    public int setRolesToUser(String userId, List<String> roleIdList) {
+        return userMappser.setRolesToUser(userId, roleIdList);
+    }
 }

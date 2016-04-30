@@ -8,7 +8,7 @@ $(function () {
  */
 function initLeftMenuTree() {
     $("#leftMenuTree").tree({
-        url: "menu/tree",
+        url: ctx + "/menu/tree",
         animate: true,
         onLoadSuccess: function (node) {
             var roots = $("#leftMenuTree").tree("getRoots");
@@ -41,5 +41,5 @@ function initUserTable() {
         {field: 'mobilePhone', title: '手机号', width: 100, align: 'right'},
         {field: 'email', title: '邮箱', width: 100, align: 'right'}
     ]];
-    EasyuiUtil.initDatagrid("userList", columns, "user/list");
+    EasyuiUtil.initDatagrid("userList", columns, ctx + "/user/list");
 }

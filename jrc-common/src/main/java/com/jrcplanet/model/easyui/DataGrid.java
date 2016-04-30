@@ -10,7 +10,7 @@ public class DataGrid {
 
     }
 
-    public DataGrid(Integer total, List<?> rows) {
+    public DataGrid(long total, List<?> rows) {
         this.total = total;
         this.rows = rows;
     }
@@ -18,17 +18,17 @@ public class DataGrid {
     /**
      * 总数
      */
-    private Integer total;
+    private long total;
     /**
      * 列
      */
     private List<?> rows;
 
-    public Integer getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 

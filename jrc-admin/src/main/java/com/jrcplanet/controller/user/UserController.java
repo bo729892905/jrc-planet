@@ -1,5 +1,6 @@
 package com.jrcplanet.controller.user;
 
+import com.github.pagehelper.Page;
 import com.jrcplanet.domain.User;
 import com.jrcplanet.model.easyui.DataGrid;
 import com.jrcplanet.service.UserService;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,19 +45,12 @@ public class UserController {
     @RequestMapping(value = "test", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List test() {
-        return userService.getUserList();
-    }
-
-    @RequestMapping(value = "beetl.html")
-    public ModelAndView testBeetl() {
-        ModelAndView view = new ModelAndView();
-        view.setViewName("hellobee");
-        view.addObject("name","张三");
-        return view;
+        return userService.getUserList(0, 10);
     }
 
     /**
      * 登录
+     *
      * @param username 用户名
      * @param password 密码
      * @return ModelAndView
@@ -79,40 +74,12 @@ public class UserController {
         return new ModelAndView("redirect:test.do");
     }
 
-    @RequestMapping(value = "list",produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "list", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public DataGrid getUserList() {
-        List<User> userList = userService.getUserList();
-        return new DataGrid(userList.size(), userList);
-    }
-
-    @RequestMapping(value = "pdf")
-    public String getPdf(HttpServletResponse response) {
-        InputStream is = null;
-        ServletOutputStream sos = null;
-        try {
-            is = new FileInputStream(new File("D:\\TY-JD-XY20160421022.pdf"));
-            sos = response.getOutputStream();
-            response.setContentType("application/pdf;charset=UTF-8");
-            int i = 0;
-            byte[] b = new byte[1024];
-            while ((i = is.read(b)) != -1) {
-                sos.write(b);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                if (is != null) {
-                    is.close();
-                }
-                if (sos != null) {
-                    sos.flush();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return "success";
-        }
+    public DataGrid getUserList(@RequestParam Integer page, @RequestParam Integer rows) {
+        List<User> userList = userService.getUserList(page, rows);
+        @SuppressWarnings("unchecked")
+        Page<User> list = (Page) userList;
+        return new DataGrid(list.getTotal(), userList);
     }
 }

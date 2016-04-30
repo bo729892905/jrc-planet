@@ -22,8 +22,8 @@ public class UserServiceTest extends BaseTest {
 
     @Test
     public void testGetUserList() throws Exception {
-        List<User> userList = userService.getUserList();
-        List<User> userList1 = userService.getUserList();
+        List<User> userList = userService.getUserList(0, 10);
+        List<User> userList1 = userService.getUserList(0, 10);
         userList.forEach(user -> System.out.println(user.toString()));
     }
 

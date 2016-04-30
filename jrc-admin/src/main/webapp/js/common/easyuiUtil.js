@@ -1,7 +1,7 @@
 var EasyuiUtil={
     initDatagrid:function(id,columns,url) {
         $("#"+id).datagrid({
-            url:"user/list",
+            url:url,
             columns:columns,
             singleSelect:true,
             fit:true,

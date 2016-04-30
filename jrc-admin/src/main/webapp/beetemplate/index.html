@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>管理控制平台</title>
-    <link rel="stylesheet" type="text/css" href="libs/easyui/themes/bootstrap/easyui.css">
-    <link rel="stylesheet" type="text/css" href="libs/easyui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/easyui-icon.css">
+    <link rel="stylesheet" type="text/css" href="${ctxPath}/libs/easyui/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${ctxPath}/libs/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="${ctxPath}/css/index.css">
+    <link rel="stylesheet" type="text/css" href="${ctxPath}/css/easyui-icon.css">
 </head>
 <body class="easyui-layout" style="min-width: 1000px;min-height: 650px">
 <div class="console-topbar" data-options="region:'north',border:false">
@@ -60,12 +60,16 @@
 
         </div>
     </div>-->
-        <table id="userList"></table>
+    <%include("userList.html"){}%>
+
 </div>
 </body>
-<script type="text/javascript" src="libs/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="libs/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="libs/easyui/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="js/common/easyuiUtil.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="${ctxPath}/libs/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/libs/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/libs/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${ctxPath}/js/common/easyuiUtil.js"></script>
+<script type="text/javascript" src="${ctxPath}/js/index.js"></script>
+<script type="text/javascript">
+    var ctx = "${ctxPath}";
+</script>
 </html>

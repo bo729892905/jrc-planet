@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by rxb on 2016/4/27.
  */
 @Controller
+@RequestMapping(value = "/")
 public class TemplateController {
     @RequestMapping(value = "/")
     public ModelAndView index() {
