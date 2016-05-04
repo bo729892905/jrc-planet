@@ -14,6 +14,10 @@ public class Dictionary extends BaseEntity {
      */
     private String enName;
     /**
+     * 编码
+     */
+    private String code;
+    /**
      * 上级id
      */
     private String parentId;
@@ -49,6 +53,14 @@ public class Dictionary extends BaseEntity {
 
     public void setEnName(String enName) {
         this.enName = enName;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getParentId() {

@@ -22,6 +22,10 @@ public class MenuLink extends BaseEntity {
      */
     private String url;
     /**
+     * 是否为首页
+     */
+    private boolean isHome;
+    /**
      * 链接图片
      */
     private String iconCls;
@@ -76,6 +80,14 @@ public class MenuLink extends BaseEntity {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public boolean isHome() {
+        return isHome;
+    }
+
+    public void setHome(boolean home) {
+        isHome = home;
     }
 
     public String getIconCls() {
