@@ -4,9 +4,12 @@
     <!-- 配置缓存 -->
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
+    <sql id="roleTable">t_res_role</sql>
+    <sql id="userRoleTable">t_res_user_role</sql>
+
     <!-- 保存角色 -->
     <insert id="insertRole" parameterType="com.jrcplanet.domain.Role">
-        INSERT INTO t_res_role
+        INSERT INTO <include refid="roleTable"/>
           (id, name, code, remark, role_type)
         VALUES
           (#{id},#{name},#{code},#{remark},#{roleType})
@@ -17,13 +20,13 @@
         SELECT
           r.*
         FROM
-          t_res_role r
-          INNER JOIN t_res_user_role ur on r.id = ur.role_id
+          <include refid="roleTable"/> r
+          INNER JOIN <include refid="userRoleTable"/> ur on r.id = ur.role_id
         WHERE ur.user_id=#{userId}
     </select>
 
     <insert id="setPermissionsToRole">
-        INSERT INTO t_res_role_permission
+        INSERT INTO <include refid="com.jrcplanet.mapper.PermissionMapper.rolePermissionTable"/>
           (role_id, permission_id)
         VALUES
         <foreach collection="perIdList" item="perId" separator=",">

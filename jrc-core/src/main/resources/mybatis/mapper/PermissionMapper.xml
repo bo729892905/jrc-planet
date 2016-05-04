@@ -4,9 +4,12 @@
     <!-- 配置缓存 -->
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
+    <sql id="permissionTable">t_res_permission</sql>
+    <sql id="rolePermissionTable">t_res_role_permission</sql>
+
     <!-- 保存权限 -->
     <insert id="insertPermission" parameterType="com.jrcplanet.domain.Permission">
-        INSERT INTO t_res_permission
+        INSERT INTO <include refid="permissionTable"/>
         (id, url, name, per_type, parent_id, visible, remark)
         VALUES
         (#{id},#{url},#{name},#{perType},#{parentId},#{visible},#{remark})
@@ -14,8 +17,8 @@
 
     <!-- 根据角色获取权限列表 -->
     <select id="getPermissionByRole" parameterType="String" resultType="com.jrcplanet.domain.Permission" useCache="true">
-        SELECT p.* FROM t_res_permission p
-         INNER JOIN t_res_role_permission rp ON p.id = rp.permission_id
+        SELECT p.* FROM <include refid="permissionTable"/> p
+         INNER JOIN <include refid="rolePermissionTable"/> rp ON p.id = rp.permission_id
          WHERE rp.role_id=#{roleId}
     </select>
 

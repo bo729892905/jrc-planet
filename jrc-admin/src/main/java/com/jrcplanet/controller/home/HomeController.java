@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     @RequestMapping(value = "{modelName}.html")
     public ModelAndView render(@PathVariable String modelName) {
-        ModelAndView mav = new ModelAndView("index");
-        return mav;
+        return new ModelAndView("index");
     }
 }

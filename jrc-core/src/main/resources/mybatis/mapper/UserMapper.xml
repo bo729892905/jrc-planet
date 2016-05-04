@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jrcplanet.mapper.UserMappser">
-	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
-	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+    <!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
 
-	<!-- 新建用户 -->
-	<insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.jrcplanet.domain.User">
-		insert into t_res_user
-		(id,username,password,real_name,gender,mobile_phone,email,salt,locked,register_date)
-		values 
-		(#{id},#{username},#{password},#{realName},#{gender},#{mobilePhone},#{email},#{salt},#{locked},#{registerDate})
-	</insert>
+    <sql id="userTable">t_res_user</sql>
 
-	<!-- 获取用户列表 -->
-	<select id="getUserList" resultType="com.jrcplanet.domain.User" useCache="true">
-		select * from t_res_user
-	</select>
+    <!-- 新建用户 -->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.jrcplanet.domain.User">
+        insert into
+        <include refid="userTable"/>
+        (id,username,password,real_name,gender,mobile_phone,email,salt,locked,register_date)
+        values
+        (#{id},#{username},#{password},#{realName},#{gender},#{mobilePhone},#{email},#{salt},#{locked},#{registerDate})
+    </insert>
 
-	<!-- 根据用户名查询用户信息 -->
-	<select id="getUserByUsername" parameterType="String" resultType="com.jrcplanet.domain.User" useCache="true">
-		select * from t_res_user where username=#{username}
-	</select>
+    <!-- 获取用户列表 -->
+    <select id="getUserList" resultType="com.jrcplanet.domain.User" useCache="true">
+        select * from
+        <include refid="userTable"/>
+    </select>
 
-	<insert id="setRolesToUser">
-		INSERT INTO t_res_user_role
-			(user_id, role_id)
-		VALUES
-		<foreach collection="roleIdList" item="roleId" separator=",">
-			(#{userId},#{roleId})
-		</foreach>
-	</insert>
+    <!-- 根据用户名查询用户信息 -->
+    <select id="getUserByUsername" parameterType="String" resultType="com.jrcplanet.domain.User" useCache="true">
+        select * from
+        <include refid="userTable"/>
+        where username=#{username}
+    </select>
+
+    <insert id="setRolesToUser">
+        INSERT INTO
+        <include refid="com.jrcplanet.mapper.RoleMapper.userRoleTable"/>
+        (user_id, role_id)
+        VALUES
+        <foreach collection="roleIdList" item="roleId" separator=",">
+            (#{userId},#{roleId})
+        </foreach>
+    </insert>
 </mapper>
