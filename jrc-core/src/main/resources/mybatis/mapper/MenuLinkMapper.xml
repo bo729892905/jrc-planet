@@ -1,10 +1,156 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jrcplanet.mapper.MenuLinkMapper">
-    <insert id="insertMenu"></insert>
-    <update id="updateMenu"></update>
-    <delete id="deleteMenu"></delete>
-    <select id="getMenuById" resultType="com.jrcplanet.domain.MenuLink"></select>
-    <select id="getMenuByParent" resultType="com.jrcplanet.domain.MenuLink"></select>
-    <select id="getMenuTree" resultType="com.jrcplanet.model.easyui.Tree"></select>
+    <!-- 配置缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <resultMap id="BaseResultMap" type="com.jrcplanet.domain.MenuLink">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="is_home" property="isHome" jdbcType="BIT"/>
+        <result column="icon_cls" property="iconCls" jdbcType="VARCHAR"/>
+        <result column="target" property="target" jdbcType="VARCHAR"/>
+        <result column="visible" property="visible" jdbcType="BIT"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, name, url, is_home, icon_cls, target, visible, parent_id,seq_no
+  </sql>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_res_menu_link
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+    delete from t_res_menu_link
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insert" parameterType="com.jrcplanet.domain.MenuLink">
+    insert into t_res_menu_link (id, name, url, 
+      is_home, icon_cls, target, 
+      visible, parent_id ,seq_no)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{isHome,jdbcType=BIT}, #{iconCls,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, 
+      #{visible,jdbcType=BIT}, #{parentId,jdbcType=VARCHAR}, #{seqNo,jdbcType=INTEGER})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.jrcplanet.domain.MenuLink">
+        insert into t_res_menu_link
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="isHome != null">
+                is_home,
+            </if>
+            <if test="iconCls != null">
+                icon_cls,
+            </if>
+            <if test="target != null">
+                target,
+            </if>
+            <if test="visible != null">
+                visible,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="seqNo != null">
+                seq_no,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="isHome != null">
+                #{isHome,jdbcType=BIT},
+            </if>
+            <if test="iconCls != null">
+                #{iconCls,jdbcType=VARCHAR},
+            </if>
+            <if test="target != null">
+                #{target,jdbcType=VARCHAR},
+            </if>
+            <if test="visible != null">
+                #{visible,jdbcType=BIT},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="seqNo != null">
+                #{seqNo,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByIdSelective" parameterType="com.jrcplanet.domain.MenuLink">
+        update t_res_menu_link
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="isHome != null">
+                is_home = #{isHome,jdbcType=BIT},
+            </if>
+            <if test="iconCls != null">
+                icon_cls = #{iconCls,jdbcType=VARCHAR},
+            </if>
+            <if test="target != null">
+                target = #{target,jdbcType=VARCHAR},
+            </if>
+            <if test="visible != null">
+                visible = #{visible,jdbcType=BIT},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="seqNo != null">
+                seq_no = #{seqNo,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateById" parameterType="com.jrcplanet.domain.MenuLink">
+    update t_res_menu_link
+    set name = #{name,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      is_home = #{isHome,jdbcType=BIT},
+      icon_cls = #{iconCls,jdbcType=VARCHAR},
+      target = #{target,jdbcType=VARCHAR},
+      visible = #{visible,jdbcType=BIT},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      seq_no = #{seqNo,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <select id="getRoots" resultType="com.jrcplanet.domain.MenuLink" useCache="true">
+      SELECT * FROM t_res_menu_link WHERE parent_id IS NULL ORDER BY seq_no
+  </select>
+
+    <select id="getChildrenByParent" resultType="com.jrcplanet.domain.MenuLink" useCache="true">
+      SELECT * FROM t_res_menu_link WHERE parent_id = #{parentId} ORDER BY seq_no
+  </select>
 </mapper>

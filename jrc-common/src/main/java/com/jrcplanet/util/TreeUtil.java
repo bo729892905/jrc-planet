@@ -87,11 +87,11 @@ public class TreeUtil {
      * @param text
      * @param treeChildrenGetter
      * @param treeNodeStateSetter
-     * @param level 显示到的最低级别，0为根节点，每增加一级加1
+     * @param level               显示到的最低级别，0为根节点，每增加一级加1
      * @return
      */
-    public Tree formatTree(List<?> list, String id, String text, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter,int level,boolean containAttr) {
-        return formatTree(list, id, text, null, treeChildrenGetter, treeNodeStateSetter, 0, level,containAttr);
+    public Tree formatTree(List<?> list, String id, String text, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, boolean containAttr, int level) {
+        return formatTree(list, id, text, null, treeChildrenGetter, treeNodeStateSetter, 0, level, containAttr);
     }
 
     /**
@@ -100,11 +100,11 @@ public class TreeUtil {
      * @param list
      * @param treeChildrenGetter
      * @param treeNodeStateSetter
-     * @param level 显示到的最低级别，0为根节点，每增加一级加1
+     * @param level               显示到的最低级别，0为根节点，每增加一级加1
      * @return
      */
-    public Tree formatTree(List<?> list, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter,int level,boolean containAttr) {
-        return formatTree(list, null, treeChildrenGetter, treeNodeStateSetter, 0, level,containAttr);
+    public Tree formatTree(List<?> list, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, boolean containAttr, int level) {
+        return formatTree(list, null, treeChildrenGetter, treeNodeStateSetter, 0, level, containAttr);
     }
 
     private Tree formatTree(List<?> list, String id, String text, List<?> children, TreeChildrenGetter treeChildrenGetter, TreeNodeStateSetter treeNodeStateSetter, int currentLevel, int level,boolean containAttr) {

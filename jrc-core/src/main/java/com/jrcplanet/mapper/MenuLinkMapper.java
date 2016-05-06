@@ -1,24 +1,23 @@
 package com.jrcplanet.mapper;
 
 import com.jrcplanet.domain.MenuLink;
-import com.jrcplanet.model.easyui.Tree;
 
 import java.util.List;
 
-/**
- * 菜单持久层接口
- * Created by rxb on 2016/4/22.
- */
 public interface MenuLinkMapper {
-    int insertMenu(MenuLink menuLink);
+    int deleteById(String id);
 
-    int updateMenu(MenuLink menuLink);
+    int insert(MenuLink record);
 
-    int deleteMenu(String id);
+    int insertSelective(MenuLink record);
 
-    MenuLink getMenuById(String id);
+    MenuLink selectById(String id);
 
-    List<MenuLink> getMenuByParent(String parentId);
+    int updateByIdSelective(MenuLink record);
 
-    Tree getMenuTree();
+    int updateById(MenuLink record);
+
+    List<MenuLink> getRoots();
+
+    List<MenuLink> getChildrenByParent(String parentId);
 }

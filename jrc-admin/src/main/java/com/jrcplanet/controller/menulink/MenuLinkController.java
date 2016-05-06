@@ -3,11 +3,13 @@ package com.jrcplanet.controller.menulink;
 import com.jrcplanet.domain.MenuLink;
 import com.jrcplanet.model.easyui.Tree;
 import com.jrcplanet.model.easyui.TreeNode;
+import com.jrcplanet.service.MenuLinkService;
 import com.jrcplanet.util.TreeUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,32 +19,15 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "menu")
 public class MenuLinkController {
-    @RequestMapping(value = "tree",produces = "application/json;charset=UTF-8")
+    @Resource
+    private MenuLinkService menuLinkService;
+
+    @RequestMapping(value = "tree", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<TreeNode> getMenuTree() {
-        MenuLink menuLink1 = new MenuLink("1","用户管理");
-        MenuLink menuLink2 = new MenuLink("2","系统管理");
-        List<MenuLink> root = new ArrayList<>();
-        root.add(menuLink1);
-        root.add(menuLink2);
+        List<MenuLink> root = menuLinkService.getRoots();
 
-        Tree tree = TreeUtil.getInstance().formatTree(root, treeNode -> {
-            List<MenuLink> children = new ArrayList<>();
-            if (treeNode.getId().equals("1")) {
-                MenuLink menuLink11 = new MenuLink("11", "用户管理", "icon-user-white");
-                MenuLink menuLink12 = new MenuLink("12", "角色管理", "icon-hand-left-white");
-                MenuLink menuLink13 = new MenuLink("13", "权限管理", "icon-lock-white");
-                children.add(menuLink11);
-                children.add(menuLink12);
-                children.add(menuLink13);
-            } else if (treeNode.getId().equals("2")) {
-                MenuLink menuLink21 = new MenuLink("21", "字典管理", "icon-user-white");
-                MenuLink menuLink22 = new MenuLink("22", "菜单管理", "icon-user-white");
-                children.add(menuLink21);
-                children.add(menuLink22);
-            }
-            return children;
-        }, null,true);
+        Tree tree = TreeUtil.getInstance().formatTree(root, treeNode -> menuLinkService.getChildrenByParent(treeNode.getId()), null, true, 1);
         return tree.getTreeNodeList();
     }
 

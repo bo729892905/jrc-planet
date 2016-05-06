@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jrcplanet.mapper.DictionaryMapper">
+    <!-- 配置缓存 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <resultMap id="BaseResultMap" type="com.jrcplanet.domain.Dictionary">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="cn_name" property="cnName" jdbcType="VARCHAR"/>
+        <result column="en_name" property="enName" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <result column="seq_no" property="seqNo" jdbcType="INTEGER"/>
+        <result column="d_level" property="dLevel" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, cn_name, en_name, code, parent_id, seq_no, d_level, status
+    </sql>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_res_dict
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from t_res_dict
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.jrcplanet.domain.Dictionary">
+        insert into t_res_dict (id, cn_name, en_name,
+          code, parent_id, seq_no,
+          d_level, status)
+        values (#{id,jdbcType=VARCHAR}, #{cnName,jdbcType=VARCHAR}, #{enName,jdbcType=VARCHAR},
+          #{code,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{seqNo,jdbcType=INTEGER},
+          #{dLevel,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+      </insert>
+    <insert id="insertSelective" parameterType="com.jrcplanet.domain.Dictionary">
+        insert into t_res_dict
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="cnName != null">
+                cn_name,
+            </if>
+            <if test="enName != null">
+                en_name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="seqNo != null">
+                seq_no,
+            </if>
+            <if test="dLevel != null">
+                d_level,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="cnName != null">
+                #{cnName,jdbcType=VARCHAR},
+            </if>
+            <if test="enName != null">
+                #{enName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="seqNo != null">
+                #{seqNo,jdbcType=INTEGER},
+            </if>
+            <if test="dLevel != null">
+                #{dLevel,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByIdSelective" parameterType="com.jrcplanet.domain.Dictionary">
+        update t_res_dict
+        <set>
+            <if test="cnName != null">
+                cn_name = #{cnName,jdbcType=VARCHAR},
+            </if>
+            <if test="enName != null">
+                en_name = #{enName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="seqNo != null">
+                seq_no = #{seqNo,jdbcType=INTEGER},
+            </if>
+            <if test="dLevel != null">
+                d_level = #{dLevel,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateById" parameterType="com.jrcplanet.domain.Dictionary">
+        update t_res_dict
+        set cn_name = #{cnName,jdbcType=VARCHAR},
+          en_name = #{enName,jdbcType=VARCHAR},
+          code = #{code,jdbcType=VARCHAR},
+          parent_id = #{parentId,jdbcType=VARCHAR},
+          seq_no = #{seqNo,jdbcType=INTEGER},
+          d_level = #{dLevel,jdbcType=INTEGER},
+          status = #{status,jdbcType=INTEGER}
+        where id = #{id,jdbcType=VARCHAR}
+      </update>
+</mapper>

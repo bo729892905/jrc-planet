@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 public class MenuLink extends BaseEntity {
     @TreeId
-    private String id= UUID.randomUUID().toString();
+    private String id= UUID.randomUUID().toString().replace("-","");
     /**
      * 链接名称
      */
@@ -38,9 +38,13 @@ public class MenuLink extends BaseEntity {
      */
     private Boolean visible;
     /**
-     * 父菜单
+     * 父菜单id
      */
-    private MenuLink parent;
+    private String parentId;
+    /**
+     * 排序
+     */
+    private Integer seqNo;
 
     public MenuLink() {
     }
@@ -114,11 +118,19 @@ public class MenuLink extends BaseEntity {
         this.visible = visible;
     }
 
-    public MenuLink getParent() {
-        return parent;
+    public String getParentId() {
+        return parentId;
     }
 
-    public void setParent(MenuLink parent) {
-        this.parent = parent;
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public Integer getSeqNo() {
+        return seqNo;
+    }
+
+    public void setSeqNo(Integer seqNo) {
+        this.seqNo = seqNo;
     }
 }

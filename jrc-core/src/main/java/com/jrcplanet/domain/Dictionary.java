@@ -28,7 +28,7 @@ public class Dictionary extends BaseEntity {
     /**
      * 排序
      */
-    private Integer order;
+    private Integer seqNo;
     /**
      * 级别
      * 0：集合，1字典项
@@ -79,12 +79,12 @@ public class Dictionary extends BaseEntity {
         this.parent = parent;
     }
 
-    public Integer getOrder() {
-        return order;
+    public Integer getSeqNo() {
+        return seqNo;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setSeqNo(Integer seqNo) {
+        this.seqNo = seqNo;
     }
 
     public Integer getdLevel() {
