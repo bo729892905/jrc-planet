@@ -2,9 +2,11 @@ package com.jrcplanet.service;
 
 import com.jrcplanet.BaseTest;
 import com.jrcplanet.domain.User;
+import com.jrcplanet.util.EncryptUtil;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +19,17 @@ public class UserServiceTest extends BaseTest {
 
     @Test
     public void testInsertUser() throws Exception {
+        User user = new User();
+        user.setUsername("test");
+        user.setPassword(EncryptUtil.encryptMD5("123456"));
+        user.setRealName("测试");
+        user.setGender(0);
+        user.setMobilePhone("123456");
+        user.setEmail("123@qq.com");
+        user.setSalt("123");
+        user.setRegisterDate(new Date());
+
+        userService.insertUser(user);
 
     }
 
