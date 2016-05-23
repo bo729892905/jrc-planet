@@ -5,6 +5,7 @@ import com.jrcplanet.domain.User;
 import com.jrcplanet.model.MonitorInfo;
 import com.jrcplanet.model.SystemProperty;
 import com.jrcplanet.model.easyui.DataGrid;
+import com.jrcplanet.model.easyui.JsonData;
 import com.jrcplanet.service.UserService;
 import com.jrcplanet.util.EncryptUtil;
 import com.jrcplanet.util.MathUtil;
@@ -76,9 +77,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "addUser")
-    public ModelAndView createUser(User user) {
+    public JsonData<User> createUser(User user) {
         userService.insertUser(user);
-        return new ModelAndView("redirect:/");
+        return JsonData.createSuccessData(user);
     }
 
     @RequestMapping(value = "list", produces = "application/json;charset=UTF-8")

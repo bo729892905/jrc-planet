@@ -197,14 +197,14 @@ public class TreeUtil {
                 //ignore
             }
 
+            if (containAttr) {
+                treeNode.setAttributes(instance);
+            }
+
             //当级别为-1时返回所有节点，否则返回level级节点，从1开始
             if (level == -1 || currentLevel < level) {
                 if (treeChildrenGetter != null && children == null) {
                     children = treeChildrenGetter.getChildren(treeNode);
-                }
-
-                if (containAttr) {
-                    treeNode.setAttributes(instance);
                 }
 
                 List<TreeNode> treeNodeList = formatTreeList(children, id, text, treeChildrenGetter, treeNodeStateSetter, ++currentLevel, level,containAttr);

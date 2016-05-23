@@ -197,18 +197,29 @@ html.panel-fit {
     background: #d9dee4;
 }
 
+.window-proxy-mask, .window-mask {
+    background: #333;
+}
+
 .panel-header {
     background-color: #394555;
     border-bottom: 1px;
     padding: 0;
 }
 
-.panel-title {
+.layout-panel-west .panel-title {
     height: 30px;
     line-height: 30px;
     text-align: center;
     background-color: #394555;
     color: #fff;
+}
+
+.datagrid-toolbar {
+    height: auto;
+    padding: 5px 2px;
+    border-width: 0 0 1px 0;
+    border-style: solid;
 }
 
 .datagrid-header tr td {

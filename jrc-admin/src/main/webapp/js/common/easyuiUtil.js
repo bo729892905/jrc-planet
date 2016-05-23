@@ -7,7 +7,8 @@ var EasyuiUtil={
             fit:true,
             fitColumns:true,
             rownumbers:true,
-            pagination:true
+            pagination:true,
+            border:false
         });
     }
 }

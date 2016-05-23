@@ -1,8 +1,9 @@
 $(function () {
     initLeftMenuTree();
     initTabs();
-    initUserTable();
 });
+
+var mainTableId = "mainTabs";
 
 /**
  * 初始化菜单树
@@ -25,6 +26,13 @@ function initLeftMenuTree() {
                 return false;
             }
         },
+        onSelect: function (node) {
+            var opt = {
+                title: node.text,
+                href: node.attributes.url
+            };
+            addTabs(mainTableId, opt);
+        },
         onCollapse: function (node) {
             $(node.target).addClass("root-tree-node-selected");
         },
@@ -35,19 +43,26 @@ function initLeftMenuTree() {
 }
 
 function initTabs() {
-    $('#mainTabs').tabs({
-        fit:true,
-        border:false
+    var obj = $("#" + mainTableId);
+    obj.tabs({
+        fit: true,
+        border: false
     });
 }
 
-function initUserTable() {
-    var columns = [[
-        {field: 'username', title: '用户名', width: 100},
-        {field: 'realName', title: '姓名', width: 100},
-        {field: 'gender', title: '性别', width: 100, align: 'right'},
-        {field: 'mobilePhone', title: '手机号', width: 100, align: 'right'},
-        {field: 'email', title: '邮箱', width: 100, align: 'right'}
-    ]];
-    EasyuiUtil.initDatagrid("userList", columns, ctx + "/user/list");
+function addTabs(id, opt) {
+    var obj = $("#" + id);
+
+    var tab = obj.tabs("getTab", opt.title);
+    if (tab) {//如果已存在则直接选中
+        obj.tabs("select", opt.title);
+    } else {
+        obj.tabs("add", {
+            title: opt.title,
+            href: ctx + "/" + opt.href,
+            selected: true,
+            closable: true,
+            border:false
+        });
+    }
 }
