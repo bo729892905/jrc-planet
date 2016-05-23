@@ -1,5 +1,6 @@
 $(function () {
     initLeftMenuTree();
+    initTabs();
     initUserTable();
 });
 
@@ -30,6 +31,13 @@ function initLeftMenuTree() {
         onExpand: function (node) {
             $(node.target).removeClass("root-tree-node-selected");
         }
+    });
+}
+
+function initTabs() {
+    $('#mainTabs').tabs({
+        fit:true,
+        border:false
     });
 }
 

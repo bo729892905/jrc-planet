@@ -51,7 +51,7 @@
 <div class="console-sidebar" data-options="region:'west',border:false" title="导航菜单" style="width:180px;">
     <ul id="leftMenuTree" class="accordion-tree"></ul>
 </div>
-<div data-options="region:'center',border:false" style="padding:15px">
+<div data-options="region:'center',border:false">
     <!--<div class="easyui-layout" data-options="fit:true" style="width: 100%;height: 100%">
         <div class="child-tree-sidebar" data-options="region:'west',border:false">
             <div class="child-tree-sidebar-top"></div>
@@ -60,8 +60,24 @@
 
         </div>
     </div>-->
-    <%include("userList.html"){}%>
 
+    <div id="mainTabs" style="width: 100%;height: 100%">
+        <div title="用户管理" style="padding:20px;display:none;">
+            <%include("userList.html"){}%>
+        </div>
+        <div title="角色管理" style="overflow:auto;padding:20px;display:none;">
+            <form id="addUserForm" action="user/addUser" method="post">
+                <input type="text" name="username" placeholder="用户名"><br>
+                <input type="password" name="password" placeholder="密码"><br>
+                <input type="text" name="realName" placeholder="真实姓名"><br>
+                <input type="email" name="email" placeholder="邮箱"><br>
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        <div title="权限管理" style="padding:20px;display:none;">
+            tab3
+        </div>
+    </div>
 </div>
 </body>
 <script type="text/javascript" src="${ctxPath}/libs/jquery/jquery.min.js"></script>
