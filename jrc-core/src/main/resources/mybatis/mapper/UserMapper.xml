@@ -17,9 +17,20 @@
     </insert>
 
     <!-- 获取用户列表 -->
-    <select id="getUserList" resultType="com.jrcplanet.domain.User" useCache="true">
+    <select id="getUserList" parameterType="com.jrcplanet.domain.User" resultType="com.jrcplanet.domain.User" useCache="true">
         select * from
         <include refid="userTable"/>
+        <where>
+            <if test="username != null">
+              username LIKE CONTAT('%',#{username},'%')
+            </if>
+            <if test="realName != null">
+                real_name LIKE CONTAT('%',#{realName},'%')
+            </if>
+            <if test="mobilePhone != null">
+                mobile_phone LIKE CONTAT('%',#{mobilePhone},'%')
+            </if>
+        </where>
     </select>
 
     <!-- 根据用户名查询用户信息 -->

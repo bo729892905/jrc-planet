@@ -16,6 +16,14 @@ public class BaseEntity implements Serializable {
      * 版本号
      */
     private Integer version = 0;
+    /**
+     * 页数
+     */
+    private Integer page;
+    /**
+     * 每页行数
+     */
+    private Integer rows;
 
     public BaseEntity() {
     }
@@ -38,5 +46,21 @@ public class BaseEntity implements Serializable {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
 }

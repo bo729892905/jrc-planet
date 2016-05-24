@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserList(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        return userMappser.getUserList();
+    public List<User> getUserList(User user) {
+        PageHelper.startPage(user.getPage(), user.getRows());
+        return userMappser.getUserList(user);
     }
 
     @Override

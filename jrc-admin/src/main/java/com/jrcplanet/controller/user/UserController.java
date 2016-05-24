@@ -43,13 +43,6 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @RequiresPermissions("test1")
-    @RequestMapping(value = "test", produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public List test() {
-        return userService.getUserList(0, 10);
-    }
-
     /**
      * 登录
      *
@@ -85,29 +78,10 @@ public class UserController {
 
     @RequestMapping(value = "list", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public DataGrid getUserList(@RequestParam Integer page, @RequestParam Integer rows) {
-        List<User> userList = userService.getUserList(page, rows);
+    public DataGrid getUserList(User user) {
+        List<User> userList = userService.getUserList(user);
         @SuppressWarnings("unchecked")
         Page<User> list = (Page) userList;
-
-        // JVM使用率
-        Runtime runtime = Runtime.getRuntime();
-        long jvmUsage = Math.round(MathUtil.div(runtime.totalMemory() - runtime.freeMemory(), runtime.totalMemory(), 2) * 100);
-        System.out.println(jvmUsage);
-
-        Sigar sigar = new Sigar();
-        Mem mem;
-        try {
-            // 内存使用率
-            mem = sigar.getMem();
-            long ramUsage = Math.round(MathUtil.div(mem.getUsed(), mem.getTotal(), 2) * 100);
-            System.out.println(ramUsage);
-
-            CpuPerc[] cpus = sigar.getCpuPercList();
-            System.out.println(cpus.length);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         return new DataGrid(list.getTotal(), userList);
     }

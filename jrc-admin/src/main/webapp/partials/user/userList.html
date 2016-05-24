@@ -23,6 +23,10 @@
 <script src="js/userList.js"></script>
 <!--<script type="text/javascript">
     $(function() {
-        easyloader.load("../../js/userList.js");
+        easyloader.load("../../js/userList.js",function() {
+            userListOpt.initUserTable();
+            $("#toCreateUser").unbind("click").bind("click",userListOpt.toCreateUserFn);
+            $("#toDeleteUser").unbind("click").bind("click", userListOpt.toDeleteUserFn);
+        });
     });
 </script>-->

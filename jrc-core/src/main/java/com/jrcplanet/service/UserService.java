@@ -16,7 +16,7 @@ public interface UserService {
 	 * 获取用户列表
 	 * @return List<User>
 	 */
-	List<User> getUserList(int pageNum, int pageSize);
+	List<User> getUserList(User user);
 
 	/**
 	 * 根据用户名获取用户
