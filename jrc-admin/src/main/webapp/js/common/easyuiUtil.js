@@ -10,7 +10,7 @@ var EasyuiUtil = {
             frozenColumns: [[{
                 field: 'checkbox',
                 checkbox: true,
-                hidden: opt.showCheckBox | true
+                hidden: opt.showCheckBox || true
             }]],
             columns: opt.columns,
             singleSelect: true,
@@ -22,6 +22,22 @@ var EasyuiUtil = {
             toolbar: opt.toolbar,
             onBeforeLoad: opt.onOpen
         });
+    },
+    /**
+     * 删除选中行
+     * @param id
+     */
+    deleteRow: function (id) {
+        var obj = $('#' + id);
+        var row = obj.datagrid('getSelections');
+        if (row.length == 0) {
+            dialogUtil.alert("请选择要删除的数据！");
+            return;
+        }
+        for (var i = 0, j = row.length; i < j; i++) {
+            var rowIndex = obj.datagrid('getRowIndex', row[i]);
+            obj.datagrid('deleteRow', rowIndex);
+        }
     },
     /**
      * 动态添加新Tab
@@ -54,8 +70,8 @@ var EasyuiUtil = {
         var obj = $('#' + id);
         obj.dialog({
             title: opt.title,
-            width: opt.width | 600,
-            height: opt.height | 400,
+            width: opt.width || 600,
+            height: opt.height || 400,
             closable: true,
             modal: true,
             buttons: [{
@@ -65,11 +81,75 @@ var EasyuiUtil = {
             }, {
                 id: 'cancel',
                 text: '取消',
-                handler: opt.cancelFn | function () {
+                handler: opt.cancelFn || function () {
                     obj.dialog('close');
                 }
             }
             ]
+        });
+    },
+    /**
+     * 弹出框
+     * @param obj
+     * title:标题 msgString:提示信息 msgType:信息类型 [error,info,question,warning]
+     */
+    alert: function (obj) {
+        if (typeof obj == "string") {
+            obj = {"title": "信息提醒", "msgString": obj, "msgType": "info"};
+        }
+        var title = obj.title || "信息提醒";
+        var msgString = obj.msgString || "信息提醒";
+        var msgType = obj.msgType || "info";
+        $.messager.alert(title, msgString, msgType);
+    },
+    /**
+     * 提示信息
+     * @param msg
+     * @param fn
+     */
+    confirm: function (msg, fn) {
+        $.messager.confirm("提示信息", msg, fn)
+    },
+    msgshow:function(obj){
+        if(typeof obj =='string'){
+            obj = {w: 250, h: 100, msg: obj};
+        }
+        var w=obj.w||250,h=obj.h||100;
+        $.messager.show({
+            title: '提示',
+            msg: obj.msg,
+            width: w,
+            height: h,
+            timeout: 2500,
+            showType: 'show'
+        });
+    },
+    msgslide:function(obj) {
+        if(typeof obj =='string'){
+            obj = {w: 250, h: 100, msg: obj};
+        }
+        var w=obj.w||250,h=obj.h||100;
+        $.messager.show({
+            title: '提示',
+            msg: obj.msg,
+            width: w,
+            height: h,
+            timeout: 3000,
+            showType: 'slide'
+        });
+    },
+    msgfade:function(obj) {
+        if(typeof obj =='string'){
+            obj = {w: 250, h: 100, msg: obj};
+        }
+        var w=obj.w||250,h=obj.h|100,t=obj.t||3000;
+        $.messager.show({
+            title: '提示',
+            msg: obj.msg,
+            timeout: t,
+            width: w,
+            height: h,
+            showType: 'fade'
         });
     }
 }

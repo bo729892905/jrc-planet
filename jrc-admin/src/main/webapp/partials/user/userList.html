@@ -1,8 +1,23 @@
+<style>
+    .tool-bar {
+        display: inline;
+    }
+    .hidden-tool-bar {
+        display: none;
+    }
+</style>
+
 <table id="userList"></table>
 
 <div id="userToolBar">
-    <a id="toCreateUser" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新建</a>
-    <a id="toDeleteUser" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">删除</a>
+    <div id="initialToolBar" class="tool-bar">
+        <a id="toCreateUser" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">新建</a>
+        <a id="toDeleteUser" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">删除</a>
+    </div>
+    <div id="deleteToolBar" class="hidden-tool-bar">
+        <a id="deleteUser" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true">确定</a>
+        <a id="cancelDelete" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true">取消</a>
+    </div>
     <input id="userSearch" class="easyui-searchbox" style="width:300px"/>
     <div id="userSearchMenu">
         <div data-options="name:'username'" style="height: 25px">用户名</div>
@@ -20,13 +35,11 @@
     </form>
 </div>
 
-<!--<script src="js/userList.js"></script>-->
-<script type="text/javascript">
+<script src="js/userList.js"></script>
+<!--<script type="text/javascript">
     $(function() {
         easyloader.load("../../js/userList.js",function() {
-            userListOpt.initUserTable();
-            $("#toCreateUser").unbind("click").bind("click",userListOpt.toCreateUserFn);
-            $("#toDeleteUser").unbind("click").bind("click", userListOpt.toDeleteUserFn);
+            userListOpt.init();
         });
     });
-</script>
+</script>-->
