@@ -77,6 +77,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "addUser")
+    @ResponseBody
     public JsonData<User> createUser(User user) {
         userService.insertUser(user);
         return JsonData.createSuccessData(user);

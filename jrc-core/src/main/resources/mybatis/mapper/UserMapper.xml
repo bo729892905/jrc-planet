@@ -13,7 +13,7 @@
         <include refid="userTable"/>
         (id,username,password,real_name,gender,mobile_phone,email,salt,locked,register_date)
         values
-        (#{id},#{username},#{password},#{realName},#{gender},#{mobilePhone},#{email},#{salt},#{locked},#{registerDate})
+        (#{id},#{username},#{password},#{realName},#{gender},#{mobilePhone},#{email},#{salt},#{locked},now())
     </insert>
 
     <!-- 获取用户列表 -->
@@ -27,6 +27,7 @@
         select * from
         <include refid="userTable"/>
         where username=#{username}
+        order by register_date
     </select>
 
     <insert id="setRolesToUser">

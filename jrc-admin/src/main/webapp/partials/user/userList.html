@@ -5,7 +5,7 @@
     <a id="toDeleteUser" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">删除</a>
     <input id="userSearch" class="easyui-searchbox" style="width:300px"/>
     <div id="userSearchMenu" style="width:150px">
-        <div data-options="name:'username',selected:true" style="height: 25px">用户名</div>
+        <div data-options="name:'username,selected:true'" style="height: 25px">用户名</div>
         <div data-options="name:'realName'" style="height: 25px">真实姓名</div>
         <div data-options="name:'mobilePhone'" style="height: 25px">手机号</div>
     </div>
@@ -16,17 +16,13 @@
         <input type="text" name="username" placeholder="用户名"><br>
         <input type="password" name="password" placeholder="密码"><br>
         <input type="text" name="realName" placeholder="真实姓名"><br>
-        <input type="email" name="email" placeholder="邮箱">
+        <input type="email" name="email" placeholder="邮箱"><br>
     </form>
 </div>
 
 <script src="js/userList.js"></script>
-<script type="text/javascript">
-    var origin = window.location.origin;
-    var pathname = window.location.pathname;
-    var pathLen = pathname.length;
-    if (pathLen.length > 1) {
-        pathname = pathname.split("/")[1];
-    }
-    var ctx = origin + pathname;
-</script>
+<!--<script type="text/javascript">
+    $(function() {
+        easyloader.load("../../js/userList.js");
+    });
+</script>-->

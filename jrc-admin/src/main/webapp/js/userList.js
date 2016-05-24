@@ -21,9 +21,10 @@ $(function () {
                             return isValid;	// 返回false终止表单提交
                         },
                         success: function (data) {
+                            data = eval('('+data+')');
                             var userListId = "userList";
-                            $("#" + userListId).datagrid("appendRow",data.data);
                             $.messager.progress('close');	// 如果提交成功则隐藏进度条
+                            $("#" + userListId).datagrid("appendRow",data.data);
                             $('#createUserWin').dialog('close');
                         }
                     });
