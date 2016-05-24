@@ -14,19 +14,25 @@ var userListOpt = {
             columns: columns,
             showCheckBox: false,
             toolbar: '#userToolBar',
-            onBeforeLoad: userListOpt.initSearchBox
+            onOpen: userListOpt.initSearchBox
         };
         EasyuiUtil.initDatagrid(this.userListId, opt)
     },
     initSearchBox: function () {
         $('#userSearch').searchbox({
-            searcher: function (value, name) {
-                alert(value + "," + name)
+            searcher: function(value,name){
+                //alert(value + "," + name)
+                userListOpt.findUser(value, name);
             },
             menu: '#userSearchMenu',
             prompt: '请输入值',
             height: 32
-        })
+        });
+    },
+    findUser:function(value, name) {
+        var obj={};
+        obj[name] = value;
+        $("#" + this.userListId).datagrid('reload', obj);
     },
     toCreateUserFn: function () {
         var opt = {
@@ -67,8 +73,9 @@ var userListOpt = {
     }
 }
 
+/*
 $(function() {
     userListOpt.initUserTable();
     $("#toCreateUser").unbind("click").bind("click",userListOpt.toCreateUserFn);
     $("#toDeleteUser").unbind("click").bind("click", userListOpt.toDeleteUserFn);
-});
+});*/

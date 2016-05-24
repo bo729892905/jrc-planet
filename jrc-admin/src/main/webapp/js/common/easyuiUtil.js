@@ -20,7 +20,7 @@ var EasyuiUtil = {
             pagination: true,
             border: false,
             toolbar: opt.toolbar,
-            onBeforeLoad: opt.onBeforeLoad
+            onBeforeLoad: opt.onOpen
         });
     },
     /**

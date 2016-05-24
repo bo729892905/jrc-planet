@@ -22,13 +22,13 @@
         <include refid="userTable"/>
         <where>
             <if test="username != null">
-              username LIKE CONTAT('%',#{username},'%')
+              AND username LIKE CONCAT('%',#{username},'%')
             </if>
             <if test="realName != null">
-                real_name LIKE CONTAT('%',#{realName},'%')
+              AND  real_name LIKE CONCAT('%',#{realName},'%')
             </if>
             <if test="mobilePhone != null">
-                mobile_phone LIKE CONTAT('%',#{mobilePhone},'%')
+              AND mobile_phone LIKE CONCAT('%',#{mobilePhone},'%')
             </if>
         </where>
     </select>
