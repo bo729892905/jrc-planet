@@ -18,6 +18,10 @@ public class MenuLink extends BaseEntity {
     @TreeText
     private String name;
     /**
+     * 英文名
+     */
+    private String enName;
+    /**
      * 链接地址
      */
     private String url;
@@ -76,6 +80,14 @@ public class MenuLink extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEnName() {
+        return enName;
+    }
+
+    public void setEnName(String enName) {
+        this.enName = enName;
     }
 
     public String getUrl() {

@@ -37,9 +37,11 @@ $(function () {
             ]
         });
     });
+    $("#toDeleteUser").unbind("click").bind("click",toDeleteUserFn);
 });
 
 function initUserTable() {
+    var userListId = "userList";
     var columns = [[
         {field: 'username', title: '用户名', width: 100},
         {field: 'realName', title: '姓名', width: 100},
@@ -47,9 +49,13 @@ function initUserTable() {
         {field: 'mobilePhone', title: '手机号', width: 100, align: 'right'},
         {field: 'email', title: '邮箱', width: 100, align: 'right'}
     ]];
-    var userListId = "userList";
     $("#" + userListId).datagrid({
         url: ctx + "/user/list",
+        frozenColumns : [[{
+            field : 'checkbox',
+            checkbox : true,
+            hidden:true
+        }]],
         columns: columns,
         singleSelect: true,
         fit: true,
@@ -71,4 +77,15 @@ function initSearchBox() {
         prompt: '请输入值',
         height: 32
     });
+}
+
+function toDeleteUserFn() {
+    var userListId = "userList";
+    var obj=$("#" + userListId);
+    //显示多选框
+    obj.datagrid('showColumn', 'checkbox');
+    //设置可多选
+    obj.datagrid("options").singleSelect = false;
+    //调整由于显示多选框导致的滚动条
+    obj.datagrid("resize");
 }
