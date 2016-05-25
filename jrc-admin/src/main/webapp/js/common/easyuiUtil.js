@@ -59,8 +59,40 @@ var EasyuiUtil = {
                 href: ctx + "/" + opt.href,
                 selected: true,
                 closable: true,
-                border: false
+                border: false,
             });
+        }
+    },
+
+    refreshTab:function(id,index) {
+        var obj = $("#" + id);
+        obj.tabs('getTab', index).panel('refresh');
+    },
+
+    closeTab: function (id, index) {
+        var obj = $("#" + id);
+        obj.tabs('close', index);
+    },
+
+    closeOtherTab:function(id,index) {
+        EasyuiUtil.closeRightTab(id, index);
+        EasyuiUtil.closeLeftTab(id, index);
+    },
+
+    closeLeftTab:function(id,index) {
+        var obj = $("#" + id);
+        for(var i=index-1;i>0;i--) {
+            if(i!=index) {
+                obj.tabs('close', i);
+            }
+        }
+    },
+
+    closeRightTab:function(id,index) {
+        var obj = $("#" + id);
+        var tabs = obj.tabs("tabs");
+        for(var i=tabs.length-1;i>index;i--) {
+            obj.tabs('close', i);
         }
     },
 
@@ -160,4 +192,4 @@ var EasyuiUtil = {
             showType: 'fade'
         });
     }
-}
+};

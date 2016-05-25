@@ -3,6 +3,7 @@ package com.jrcplanet.domain;
 import com.jrcplanet.model.easyui.annotation.TreeId;
 import com.jrcplanet.model.easyui.annotation.TreeText;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -49,6 +50,8 @@ public class MenuLink extends BaseEntity {
      * 排序
      */
     private Integer seqNo;
+
+    private List<MenuLink> children;
 
     public MenuLink() {
     }
@@ -144,5 +147,13 @@ public class MenuLink extends BaseEntity {
 
     public void setSeqNo(Integer seqNo) {
         this.seqNo = seqNo;
+    }
+
+    public List<MenuLink> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<MenuLink> children) {
+        this.children = children;
     }
 }

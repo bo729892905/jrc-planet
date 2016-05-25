@@ -32,4 +32,13 @@ public class MenuLinkServiceImpl implements MenuLinkService {
     public List<MenuLink> getChildrenByParent(String parentId) {
         return menuLinkMapper.getChildrenByParent(parentId);
     }
+
+    @Override
+    public List<MenuLink> getAllMenuLink(String parentId) {
+        List<MenuLink> menuLinkList = getChildrenByParent(parentId);
+        menuLinkList.forEach(menuLink -> {
+            menuLink.setChildren(getAllMenuLink(menuLink.getId()));
+        });
+        return menuLinkList;
+    }
 }

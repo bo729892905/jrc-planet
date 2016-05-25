@@ -1,6 +1,7 @@
 package com.jrcplanet.mapper;
 
 import com.jrcplanet.domain.MenuLink;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface MenuLinkMapper {
 
     List<MenuLink> getRoots();
 
-    List<MenuLink> getChildrenByParent(String parentId);
+    List<MenuLink> getChildrenByParent(@Param("parentId") String parentId);
 }

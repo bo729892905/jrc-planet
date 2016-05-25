@@ -1,9 +1,11 @@
 var mainOpt = {
     mainTableId: "mainTabs",
+    mainTabMenuId: "mainTabMenu",
     leftTreeId: "leftMenuTree",
     init: function () {
         mainOpt.initLeftMenuTree();
         mainOpt.initTabs();
+        mainOpt.initTabMenu();
     },
     initLeftMenuTree: function () {
         /**
@@ -47,7 +49,46 @@ var mainOpt = {
         var obj = $("#" + mainOpt.mainTableId);
         obj.tabs({
             fit: true,
-            border: false
+            border: false,
+            onContextMenu: function (e, title, index) {
+                e.preventDefault();
+                var menuObj=$("#" + mainOpt.mainTabMenuId);
+                menuObj.menu("show", {
+                    left: e.pageX,
+                    top: e.pageY
+                });
+                menuObj.menu('options').index = index;
+            }
+        });
+    },
+    initTabMenu:function() {
+        var obj = $("#" + mainOpt.mainTabMenuId);
+        obj.menu({
+            onClick:function(item) {
+                var index=obj.menu('options').index;
+                if(index) {
+                    var itemId = item.id;
+                    switch(itemId) {
+                        case 'refresh':
+                            EasyuiUtil.refreshTab(mainOpt.mainTableId,index);
+                            break;
+                        case 'closeCurrent':
+                            EasyuiUtil.closeTab(mainOpt.mainTableId,index);
+                            break;
+                        case 'closeOther':
+                            EasyuiUtil.closeOtherTab(mainOpt.mainTableId,index);
+                            break;
+                        case 'closeLeft':
+                            EasyuiUtil.closeLeftTab(mainOpt.mainTableId,index);
+                            break;
+                        case 'closeRight':
+                            EasyuiUtil.closeRightTab(mainOpt.mainTableId,index);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         });
     }
 };

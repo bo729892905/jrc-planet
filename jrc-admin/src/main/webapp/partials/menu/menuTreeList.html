@@ -1,0 +1,25 @@
+<table id="tt"></table>
+
+<script>
+    $(function () {
+        $('#tt').treegrid({
+            rownumbers: true,
+            animate: true,
+            collapsible: true,
+            border:false,
+            fit:true,
+            fitColumns: true,
+            url: 'menu/treegrid',
+            method: 'get',
+            idField: 'id',
+            treeField: 'name',
+            showFooter: true,
+            columns: [[
+                {title: '名称', field: 'name', width: 100},
+                {field: 'enName', title: '英文名', width: 60, align: 'right'},
+                {field: 'url', title: '请求地址', width: 80},
+                {field: 'iconCls', title: '图标样式', width: 80}
+            ]]
+        });
+    });
+</script>

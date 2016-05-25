@@ -230,7 +230,7 @@ html.panel-fit {
     background-color: #F5F6FA;
 }
 
-.datagrid-body tr td {
+.datagrid-body tr.datagrid-row td {
     padding: 12px 8px;
     border-top: 0px;
     border-bottom: 1px solid #e1e6eb;

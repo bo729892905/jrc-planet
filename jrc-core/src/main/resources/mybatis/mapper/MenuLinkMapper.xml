@@ -161,6 +161,15 @@
   </select>
 
     <select id="getChildrenByParent" resultType="com.jrcplanet.domain.MenuLink" useCache="true">
-      SELECT * FROM t_res_menu_link WHERE parent_id = #{parentId} ORDER BY seq_no
+      SELECT * FROM t_res_menu_link
+      <where>
+          <if test="parentId == null">
+              AND parent_id IS NULL
+          </if>
+          <if test="parentId != null">
+              AND parent_id = #{parentId}
+          </if>
+      </where>
+      ORDER BY seq_no
   </select>
 </mapper>

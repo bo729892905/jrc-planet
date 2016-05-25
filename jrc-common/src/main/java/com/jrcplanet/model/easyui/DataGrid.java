@@ -24,6 +24,8 @@ public class DataGrid {
      */
     private List<?> rows;
 
+    private List<?> footer;
+
     public long getTotal() {
         return total;
     }
@@ -38,5 +40,13 @@ public class DataGrid {
 
     public void setRows(List<?> rows) {
         this.rows = rows;
+    }
+
+    public List<?> getFooter() {
+        return footer;
+    }
+
+    public void setFooter(List<?> footer) {
+        this.footer = footer;
     }
 }

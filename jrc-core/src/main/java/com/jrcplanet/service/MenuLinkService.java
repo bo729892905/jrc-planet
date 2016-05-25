@@ -28,4 +28,14 @@ public interface MenuLinkService {
      * @return
      */
     List<MenuLink> getChildrenByParent(String parentId);
+
+    default List<MenuLink> getChildrenByParent() {
+        return getChildrenByParent(null);
+    }
+
+    List<MenuLink> getAllMenuLink(String parentId);
+
+    default List<MenuLink> getAllMenuLink() {
+        return getAllMenuLink(null);
+    }
 }

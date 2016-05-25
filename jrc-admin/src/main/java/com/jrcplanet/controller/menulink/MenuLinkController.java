@@ -31,4 +31,10 @@ public class MenuLinkController {
         return tree.getTreeNodeList();
     }
 
+    @RequestMapping(value = "treegrid", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<MenuLink> getMenuTreeGrid() {
+        return menuLinkService.getAllMenuLink();
+    }
+
 }
