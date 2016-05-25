@@ -29,6 +29,12 @@ public class JsonData<T> {
         return jsonData;
     }
 
+    public static JsonData createSuccessData() {
+        JsonData jsonData = new JsonData<>();
+        jsonData.setResult(true);
+        return jsonData;
+    }
+
     public String getCode() {
         return code;
     }

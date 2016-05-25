@@ -40,4 +40,6 @@ public interface UserMappser {
      * @return
      */
     int setRolesToUser(@Param("userId") String userId, @Param("roleIdList") List<String> roleIdList);
+
+    int deleteUser(@Param("ids") String[] ids);
 }

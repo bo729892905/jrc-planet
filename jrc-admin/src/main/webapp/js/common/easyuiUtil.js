@@ -23,6 +23,7 @@ var EasyuiUtil = {
             onBeforeLoad: opt.onOpen
         });
     },
+
     /**
      * 删除选中行
      * @param id
@@ -39,6 +40,7 @@ var EasyuiUtil = {
             obj.datagrid('deleteRow', rowIndex);
         }
     },
+
     /**
      * 动态添加新Tab
      * @param id
@@ -61,6 +63,7 @@ var EasyuiUtil = {
             });
         }
     },
+
     /**
      * 初始化对话框
      * @param id
@@ -88,6 +91,7 @@ var EasyuiUtil = {
             ]
         });
     },
+
     /**
      * 弹出框
      * @param obj
@@ -102,6 +106,7 @@ var EasyuiUtil = {
         var msgType = obj.msgType || "info";
         $.messager.alert(title, msgString, msgType);
     },
+
     /**
      * 提示信息
      * @param msg
@@ -110,11 +115,12 @@ var EasyuiUtil = {
     confirm: function (msg, fn) {
         $.messager.confirm("提示信息", msg, fn)
     },
-    msgshow:function(obj){
-        if(typeof obj =='string'){
-            obj = {w: 250, h: 100, msg: obj};
+
+    msgshow: function (obj) {
+        if (typeof obj == 'string') {
+            obj = {w: 250, h: 200, msg: obj};
         }
-        var w=obj.w||250,h=obj.h||100;
+        var w = obj.w || 250, h = obj.h || 200;
         $.messager.show({
             title: '提示',
             msg: obj.msg,
@@ -124,11 +130,12 @@ var EasyuiUtil = {
             showType: 'show'
         });
     },
-    msgslide:function(obj) {
-        if(typeof obj =='string'){
-            obj = {w: 250, h: 100, msg: obj};
+
+    msgslide: function (obj) {
+        if (typeof obj == 'string') {
+            obj = {w: 250, h: 200, msg: obj};
         }
-        var w=obj.w||250,h=obj.h||100;
+        var w = obj.w || 250, h = obj.h || 200;
         $.messager.show({
             title: '提示',
             msg: obj.msg,
@@ -138,11 +145,12 @@ var EasyuiUtil = {
             showType: 'slide'
         });
     },
-    msgfade:function(obj) {
-        if(typeof obj =='string'){
-            obj = {w: 250, h: 100, msg: obj};
+
+    msgfade: function (obj) {
+        if (typeof obj == 'string') {
+            obj = {w: 250, h: 200, msg: obj};
         }
-        var w=obj.w||250,h=obj.h|100,t=obj.t||3000;
+        var w = obj.w || 250, h = obj.h || 200, t = obj.t || 3000;
         $.messager.show({
             title: '提示',
             msg: obj.msg,

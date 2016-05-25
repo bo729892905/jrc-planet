@@ -76,6 +76,13 @@ public class UserController {
         return JsonData.createSuccessData(user);
     }
 
+    @RequestMapping(value = "deleteUser")
+    @ResponseBody
+    public JsonData deleteUser(@RequestParam("id") String[] id) {
+        userService.deleteUser(id);
+        return JsonData.createSuccessData();
+    }
+
     @RequestMapping(value = "list", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public DataGrid getUserList(User user) {

@@ -16,6 +16,14 @@
         (#{id},#{username},#{password},#{realName},#{gender},#{mobilePhone},#{email},#{salt},#{locked},now())
     </insert>
 
+    <delete id="deleteUser">
+      DELETE FROM <include refid="userTable"/>
+      WHERE id IN
+      <foreach collection="ids" open="(" close=")" separator="," item="id">
+          #{id}
+      </foreach>
+    </delete>
+
     <!-- 获取用户列表 -->
     <select id="getUserList" parameterType="com.jrcplanet.domain.User" resultType="com.jrcplanet.domain.User" useCache="true">
         select * from

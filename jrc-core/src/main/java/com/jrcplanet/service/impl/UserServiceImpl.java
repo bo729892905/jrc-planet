@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
     public int setRolesToUser(String userId, List<String> roleIdList) {
         return userMappser.setRolesToUser(userId, roleIdList);
     }
+
+    @Override
+    public int deleteUser(String[] ids) {
+        return userMappser.deleteUser(ids);
+    }
 }

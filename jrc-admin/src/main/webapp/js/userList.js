@@ -1,13 +1,20 @@
 var userListOpt = {
     userListId: "userList",
     createWinId: "createUserWin",
-    init:function() {
+    /**
+     * 初始化
+     */
+    init: function () {
         userListOpt.initUserTable();
-        $("#toCreateUser").unbind("click").bind("click",userListOpt.toCreateUserFn);
+        $("#toCreateUser").unbind("click").bind("click", userListOpt.toCreateUserFn);
         $("#toDeleteUser").unbind("click").bind("click", userListOpt.toDeleteUserFn);
-        $("#deleteUser").unbind("click").bind("click",userListOpt.deleteUserFn);
-        $("#cancelDelete").unbind("click").bind("click",userListOpt.cancelDeleteFn);
+        $("#deleteUser").unbind("click").bind("click", userListOpt.deleteUserFn);
+        $("#cancelDelete").unbind("click").bind("click", userListOpt.cancelDeleteFn);
     },
+
+    /**
+     * 初始化table
+     */
     initUserTable: function () {
         var columns = [[
             {field: 'username', title: '用户名', width: 100},
@@ -25,11 +32,14 @@ var userListOpt = {
         };
         EasyuiUtil.initDatagrid(this.userListId, opt)
     },
+
+    /**
+     * 初始化搜索框
+     */
     initSearchBox: function () {
-        if(!$("#userSearchMenu").is(":hidden")) {
+        if (!$("#userSearchMenu").is(":hidden")) {
             $('#userSearch').searchbox({
-                searcher: function(value,name){
-                    //alert(value + "," + name)
+                searcher: function (value, name) {
                     userListOpt.findUser(value, name);
                 },
                 menu: '#userSearchMenu',
@@ -38,11 +48,21 @@ var userListOpt = {
             });
         }
     },
-    findUser:function(value, name) {
-        var obj={};
+
+    /**
+     * 关键字查找用户
+     * @param value 属性值
+     * @param name 属性名
+     */
+    findUser: function (value, name) {
+        var obj = {};
         obj[name] = value;
         $("#" + this.userListId).datagrid('reload', obj);
     },
+
+    /**
+     * 开始新建用户
+     */
     toCreateUserFn: function () {
         var opt = {
             title: '新建用户',
@@ -50,6 +70,10 @@ var userListOpt = {
         };
         EasyuiUtil.initDialog(userListOpt.createWinId, opt);
     },
+
+    /**
+     * 保存用户
+     */
     saveUserFn: function () {
         $.messager.progress();	// 显示进度条
         $('#addUserForm').form('submit', {
@@ -63,13 +87,18 @@ var userListOpt = {
             },
             success: function (data) {
                 data = eval('(' + data + ')');
-                var userListId = "userList";
-                $.messager.progress('close');	// 如果提交成功则隐藏进度条
-                $("#" + userListOpt.userListId).datagrid("appendRow", data.data);
-                $('#' + userListOpt.createWinId).dialog('close');
+                if (data.result) {
+                    $.messager.progress('close');	// 如果提交成功则隐藏进度条
+                    $("#" + userListOpt.userListId).datagrid("appendRow", data.data);
+                    $('#' + userListOpt.createWinId).dialog('close');
+                }
             }
         });
     },
+
+    /**
+     * 开始删除用户
+     */
     toDeleteUserFn: function () {
         var obj = $("#" + userListOpt.userListId);
         //显示多选框
@@ -81,25 +110,53 @@ var userListOpt = {
         $('.tool-bar').removeClass('tool-bar').addClass('hidden-tool-bar');
         $('#deleteToolBar').removeClass('hidden-tool-bar').addClass('tool-bar');
     },
+
+    /**
+     * 删除用户
+     */
     deleteUserFn: function () {
         var obj = $("#" + userListOpt.userListId);
         var selections = obj.datagrid("getSelections");
-        if(selections.length>0) {
+        if (selections.length > 0) {
             EasyuiUtil.confirm("确定要删除选中用户吗？", function (rlt) {
-                if(rlt) {
-                    EasyuiUtil.deleteRow(userListOpt.userListId);
-                    userListOpt.deleteEndFn();
-                    EasyuiUtil.msgslide("删除成功！")
+                if (rlt) {
+                    var id = [];
+                    for (var i = 0; i < selections.length; i++) {
+                        id.push(selections[i].id);
+                    }
+
+                    $.ajax({
+                        url: ctx+"/user/deleteUser",
+                        type: "POST",
+                        dataType: "json",
+                        traditional: true,
+                        data: {id: id},
+                        success: function (data) {
+                            if (data.result) {
+                                EasyuiUtil.deleteRow(userListOpt.userListId);
+                                userListOpt.deleteEndFn();
+                                EasyuiUtil.msgslide("删除成功！");
+                            }
+                        }
+                    });
                 }
             });
-        }else {
+        } else {
             EasyuiUtil.alert("请选择用户！")
         }
     },
-    cancelDeleteFn:function() {
+
+    /**
+     * 取消删除用户
+     */
+    cancelDeleteFn: function () {
         userListOpt.deleteEndFn();
     },
-    deleteEndFn:function() {
+
+    /**
+     * 删除取消或结束
+     */
+    deleteEndFn: function () {
         var obj = $("#" + userListOpt.userListId);
         obj.datagrid('hideColumn', 'checkbox');
         obj.datagrid("unselectAll");
@@ -107,12 +164,16 @@ var userListOpt = {
         obj.datagrid("resize");
         userListOpt.reInitToolBar();
     },
-    reInitToolBar:function() {
+
+    /**
+     * 重新初始工具栏
+     */
+    reInitToolBar: function () {
         $('.tool-bar').removeClass('tool-bar').addClass('hidden-tool-bar');
         $('#initialToolBar').removeClass('hidden-tool-bar').addClass('tool-bar');
     }
-}
+};
 
-$(function() {
+/*$(function () {
     userListOpt.init();
-});
+});*/

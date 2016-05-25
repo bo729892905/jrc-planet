@@ -32,4 +32,6 @@ public interface UserService {
      * @return int
      */
 	int setRolesToUser(String userId, List<String> roleIdList);
+
+	int deleteUser(String[] ids);
 }
