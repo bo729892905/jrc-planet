@@ -7,9 +7,11 @@ import com.jrcplanet.service.MenuLinkService;
 import com.jrcplanet.util.TreeUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +35,19 @@ public class MenuLinkController {
 
     @RequestMapping(value = "treegrid", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public List<MenuLink> getMenuTreeGrid() {
-        return menuLinkService.getAllMenuLink();
+    public List<MenuLink> getMenuTreeGrid(@RequestParam(value = "id", required = false) String id) {
+        return menuLinkService.getAllMenuLink(id);
     }
 
+    @RequestMapping(value = "urllist", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String[] getUrlList() {
+        String basePath = getClass().getResource("/").getPath();
+        File file = new File(basePath);
+        File parentFile = file.getParentFile().getParentFile();
+        String webappPath = parentFile.getAbsolutePath();
+        String partialsFilePath = webappPath + File.separator + "partials";
+        File partialsFile = new File(partialsFilePath);
+        return partialsFile.list();
+    }
 }
