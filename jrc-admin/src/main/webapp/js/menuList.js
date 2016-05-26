@@ -73,7 +73,7 @@ var menuGridOpt = {
         var obj = $('#' + menuGridOpt.menuTreeListId);
         var node = obj.treegrid("getSelected");
         if (!node) {
-            EasyuiUtil.alert("请选择父菜单！");
+            MessageUtil.alert("请选择父菜单！");
         } else {
             /*新增行*/
             obj.treegrid('append', {
@@ -104,7 +104,7 @@ var menuGridOpt = {
                 tabObj.treegrid("endEdit", menuGridOpt.tempIds[i]);
             }
             var changes = tabObj.treegrid("getChanges");
-            $.messager.progress();
+            $.easyui.loading();
             for (var j = 0; j < changes.length; j++) {
                 var data = changes[j];
                 $.ajax({
@@ -115,7 +115,8 @@ var menuGridOpt = {
                     async: true
                 });
             }
-            $.messager.progress('close');
+            $.easyui.loaded();
+            MessageUtil.msgslide("保存成功!");
             tabObj.treegrid("acceptChanges");
             menuGridOpt.endAddMenuFn();
         } else {
@@ -146,9 +147,9 @@ var menuGridOpt = {
         var tabObj = $('#' + menuGridOpt.menuTreeListId);
         var selected = tabObj.treegrid("getSelected");
         if(selected) {
-            EasyuiUtil.confirm("确定要删除吗？", menuGridOpt.deleteMenuFn);
+            MessageUtil.confirm("确定要删除吗？", menuGridOpt.deleteMenuFn);
         }else {
-            EasyuiUtil.alert("请选择数据！");
+            MessageUtil.alert("请选择数据！");
         }
     },
 
@@ -156,20 +157,20 @@ var menuGridOpt = {
         if(rlt) {
             var tabObj = $('#' + menuGridOpt.menuTreeListId);
             var id = tabObj.treegrid("getSelected").id;
-            $.messager.progress();
-            $.ajax({
+            BaseUtil.ajax({
                 url: ctx + "/menu/deleteMenu",
                 data: {id:id},
-                type: "POST",
-                dataType: "json",
-                success:function(data) {
-                    if(data.result) {
-                        $.messager.progress('close');
-                        tabObj.treegrid("remove", id);
-                        EasyuiUtil.msgslide("删除成功!");
-                    }
-                }
+                callback:menuGridOpt.callbackDeleteMenuFn
             });
+        }
+    },
+
+    callbackDeleteMenuFn: function (data) {
+        if(data.result) {
+            var tabObj = $('#' + menuGridOpt.menuTreeListId);
+            var id = tabObj.treegrid("getSelected").id;
+            tabObj.treegrid("remove", id);
+            MessageUtil.msgslide("删除成功!");
         }
     }
 };

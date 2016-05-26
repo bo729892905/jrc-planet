@@ -75,7 +75,7 @@ var userListOpt = {
      * 保存用户
      */
     saveUserFn: function () {
-        $.messager.progress();	// 显示进度条
+        $.easyui.loading();
         $('#addUserForm').form('submit', {
             url: "user/addUser",
             onSubmit: function () {
@@ -98,10 +98,10 @@ var userListOpt = {
      */
     backSaveUserFn:function(data) {
         if (data.result) {
-            $.messager.progress('close');	// 如果提交成功则隐藏进度条
+            $.easyui.loaded();	// 如果提交成功则隐藏进度条
             $("#" + userListOpt.userListId).datagrid("appendRow", data.data);
             $('#' + userListOpt.createWinId).dialog('close');
-            EasyuiUtil.msgslide("保存成功！");
+            MessageUtil.msgslide("保存成功！");
         }
     },
 
@@ -127,25 +127,22 @@ var userListOpt = {
         var obj = $("#" + userListOpt.userListId);
         var selections = obj.datagrid("getSelections");
         if (selections.length > 0) {
-            EasyuiUtil.confirm("确定要删除选中用户吗？", function (rlt) {
+            MessageUtil.confirm("确定要删除选中用户吗？", function (rlt) {
                 if (rlt) {
                     var id = [];
                     for (var i = 0; i < selections.length; i++) {
                         id.push(selections[i].id);
                     }
-                    $.messager.progress();
-                    $.ajax({
+                    BaseUtil.ajax({
                         url: ctx+"/user/deleteUser",
                         type: "POST",
-                        dataType: "json",
-                        traditional: true,
                         data: {id: id},
-                        success: userListOpt.backDeleteUserFn
-                    });
+                        callback: userListOpt.backDeleteUserFn
+                    })
                 }
             });
         } else {
-            EasyuiUtil.alert("请选择用户！")
+            MessageUtil.alert("请选择用户！")
         }
     },
 
@@ -155,10 +152,9 @@ var userListOpt = {
      */
     backDeleteUserFn:function(data) {
         if (data.result) {
-            $.messager.progress('close');
             EasyuiUtil.deleteRow(userListOpt.userListId);
             userListOpt.deleteEndFn();
-            EasyuiUtil.msgslide("删除成功！");
+            MessageUtil.msgslide("删除成功！");
         }
     },
 
