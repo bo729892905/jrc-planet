@@ -38,4 +38,6 @@ public interface MenuLinkService {
     default List<MenuLink> getAllMenuLink() {
         return getAllMenuLink(null);
     }
+
+    int deleteById(String id);
 }

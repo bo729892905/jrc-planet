@@ -14,6 +14,7 @@ var menuGridOpt = {
         $("#toAddMenu").unbind("click").bind("click", menuGridOpt.toAddMenuFn);
         $("#addMenu").unbind("click").bind("click", menuGridOpt.addMenuFn);
         $("#cancelAddMenu").unbind("click").bind("click", menuGridOpt.cancelAddMenuFn);
+        $("#toDeleteMenu").unbind("click").bind("click", menuGridOpt.toDeleteMenuFn);
     },
 
     /**
@@ -114,12 +115,13 @@ var menuGridOpt = {
                 });
             }
             tabObj.treegrid("acceptChanges");
+            menuGridOpt.endAddMenuFn();
         } else {
             //ignore
         }
     },
 
-    cancelAddMenuFn:function() {
+    cancelAddMenuFn: function () {
         var tabObj = $('#' + menuGridOpt.menuTreeListId);
         for (var i = 0; i < menuGridOpt.tempIds.length; i++) {
             tabObj.treegrid("cancelEdit", menuGridOpt.tempIds[i]);
@@ -128,7 +130,7 @@ var menuGridOpt = {
         menuGridOpt.endAddMenuFn();
     },
 
-    endAddMenuFn:function() {
+    endAddMenuFn: function () {
         menuGridOpt.tempIds = [];
         menuGridOpt.reInitToolBar();
     },
@@ -140,18 +142,31 @@ var menuGridOpt = {
 
     toDeleteMenuFn:function() {
         var tabObj = $('#' + menuGridOpt.menuTreeListId);
-        var id = tabObj.treegrid("getSelected").id;
-        $.ajax({
-            url: ctx + "/menu/deleteMenu",
-            data: {id:id},
-            type: "POST",
-            dataType: "json",
-            success:function(data) {
-                if(data.result) {
-                    tabObj.treegrid("remove", id);
+        var selected = tabObj.treegrid("getSelected");
+        if(selected) {
+            EasyuiUtil.confirm("确定要删除吗？", menuGridOpt.deleteMenuFn);
+        }else {
+            EasyuiUtil.alert("请选择数据！");
+        }
+    },
+
+    deleteMenuFn:function(rlt) {
+        if(rlt) {
+            var tabObj = $('#' + menuGridOpt.menuTreeListId);
+            var id = tabObj.treegrid("getSelected").id;
+            $.ajax({
+                url: ctx + "/menu/deleteMenu",
+                data: {id:id},
+                type: "POST",
+                dataType: "json",
+                success:function(data) {
+                    if(data.result) {
+                        tabObj.treegrid("remove", id);
+                        EasyuiUtil.msgslide("删除成功!");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 };
 

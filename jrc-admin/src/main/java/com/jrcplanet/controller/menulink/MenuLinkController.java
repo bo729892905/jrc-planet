@@ -59,4 +59,11 @@ public class MenuLinkController {
         menuLinkService.insert(menu);
         return JsonData.createSuccessData(menu);
     }
+
+    @RequestMapping(value = "deleteMenu", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public JsonData deleteMenu(String id) {
+        menuLinkService.deleteById(id);
+        return JsonData.createSuccessData();
+    }
 }

@@ -41,4 +41,9 @@ public class MenuLinkServiceImpl implements MenuLinkService {
         });
         return menuLinkList;
     }
+
+    @Override
+    public int deleteById(String id) {
+        return menuLinkMapper.deleteById(id);
+    }
 }
