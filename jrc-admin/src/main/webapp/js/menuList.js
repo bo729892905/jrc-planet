@@ -136,6 +136,22 @@ var menuGridOpt = {
     reInitToolBar: function () {
         $('.panel:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
         $('#initialMenuToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
+    },
+
+    toDeleteMenuFn:function() {
+        var tabObj = $('#' + menuGridOpt.menuTreeListId);
+        var id = tabObj.treegrid("getSelected").id;
+        $.ajax({
+            url: ctx + "/menu/deleteMenu",
+            data: {id:id},
+            type: "POST",
+            dataType: "json",
+            success:function(data) {
+                if(data.result) {
+                    tabObj.treegrid("remove", id);
+                }
+            }
+        });
     }
 };
 
