@@ -33,7 +33,7 @@
 <!--<script src="js/userList.js"></script>-->
 <script type="text/javascript">
     $(function () {
-        easyloader.load("../../js/userList.js", function () {
+        LazyLoad.js(['js/userList.js'], function() {
             userListOpt.init();
         });
     });

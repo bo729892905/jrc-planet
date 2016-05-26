@@ -91,7 +91,7 @@ var menuGridOpt = {
             obj.treegrid("beginEdit", uuid);
             menuGridOpt.tempIds.push(uuid);
 
-            $('.visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
+            $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
             $('#addMenuToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
         }
     },
@@ -104,6 +104,7 @@ var menuGridOpt = {
                 tabObj.treegrid("endEdit", menuGridOpt.tempIds[i]);
             }
             var changes = tabObj.treegrid("getChanges");
+            $.messager.progress();
             for (var j = 0; j < changes.length; j++) {
                 var data = changes[j];
                 $.ajax({
@@ -114,6 +115,7 @@ var menuGridOpt = {
                     async: true
                 });
             }
+            $.messager.progress('close');
             tabObj.treegrid("acceptChanges");
             menuGridOpt.endAddMenuFn();
         } else {
@@ -136,7 +138,7 @@ var menuGridOpt = {
     },
 
     reInitToolBar: function () {
-        $('.panel:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
+        $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
         $('#initialMenuToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
     },
 
@@ -154,6 +156,7 @@ var menuGridOpt = {
         if(rlt) {
             var tabObj = $('#' + menuGridOpt.menuTreeListId);
             var id = tabObj.treegrid("getSelected").id;
+            $.messager.progress();
             $.ajax({
                 url: ctx + "/menu/deleteMenu",
                 data: {id:id},
@@ -161,6 +164,7 @@ var menuGridOpt = {
                 dataType: "json",
                 success:function(data) {
                     if(data.result) {
+                        $.messager.progress('close');
                         tabObj.treegrid("remove", id);
                         EasyuiUtil.msgslide("删除成功!");
                     }

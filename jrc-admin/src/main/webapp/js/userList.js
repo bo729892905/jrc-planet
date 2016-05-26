@@ -116,7 +116,7 @@ var userListOpt = {
         obj.datagrid("options").singleSelect = false;
         //调整由于显示多选框导致的滚动条
         obj.datagrid("resize");
-        $('.visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
+        $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
         $('#deleteUserToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
     },
 
@@ -133,7 +133,7 @@ var userListOpt = {
                     for (var i = 0; i < selections.length; i++) {
                         id.push(selections[i].id);
                     }
-
+                    $.messager.progress();
                     $.ajax({
                         url: ctx+"/user/deleteUser",
                         type: "POST",
@@ -155,6 +155,7 @@ var userListOpt = {
      */
     backDeleteUserFn:function(data) {
         if (data.result) {
+            $.messager.progress('close');
             EasyuiUtil.deleteRow(userListOpt.userListId);
             userListOpt.deleteEndFn();
             EasyuiUtil.msgslide("删除成功！");
@@ -184,7 +185,7 @@ var userListOpt = {
      * 重新初始工具栏
      */
     reInitToolBar: function () {
-        $('.visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
+        $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
         $('#initialUserToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
     }
 };

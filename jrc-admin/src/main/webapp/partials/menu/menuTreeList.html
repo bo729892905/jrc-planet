@@ -30,8 +30,8 @@
 <!--<script src="js/menuList.js"></script>-->
 <script type="text/javascript">
     $(function () {
-        easyloader.load("../../js/menuList.js", function () {
-            menuGridOpt.init();
+        LazyLoad.js(['js/menuList.js'], function() {
+            userListOpt.init();
         });
     });
 </script>
