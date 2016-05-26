@@ -197,6 +197,13 @@ html.panel-fit {
     background: #d9dee4;
 }
 
+.visible-tool-bar {
+    display: inline;
+}
+.hidden-tool-bar {
+    display: none;
+}
+
 .window-proxy-mask, .window-mask {
     background: #333;
 }
@@ -222,17 +229,21 @@ html.panel-fit {
     border-style: solid;
 }
 
-.datagrid-header tr td {
-    padding: 12px 8px;
+.datagrid-header tr>td {
+    padding: 12px 1px;
     font-weight: normal;
     color: #999;
     border-bottom: 1px solid #e1e6eb;
     background-color: #F5F6FA;
 }
 
-.datagrid-body tr.datagrid-row td {
-    padding: 12px 8px;
-    border-top: 0px;
+.datagrid-body tr.datagrid-row>td {
+    padding: 12px 1px;
+    border-top: 0;
     border-bottom: 1px solid #e1e6eb;
     vertical-align: middle;
+}
+
+.datagrid-body tr.datagrid-row-editing>td{
+    padding: 1px 1px;
 }

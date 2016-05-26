@@ -9,7 +9,7 @@ var userListOpt = {
         $("#toCreateUser").unbind("click").bind("click", userListOpt.toCreateUserFn);
         $("#toDeleteUser").unbind("click").bind("click", userListOpt.toDeleteUserFn);
         $("#deleteUser").unbind("click").bind("click", userListOpt.deleteUserFn);
-        $("#cancelDelete").unbind("click").bind("click", userListOpt.cancelDeleteFn);
+        $("#cancelDeleteUser").unbind("click").bind("click", userListOpt.cancelDeleteFn);
     },
 
     /**
@@ -87,13 +87,22 @@ var userListOpt = {
             },
             success: function (data) {
                 data = eval('(' + data + ')');
-                if (data.result) {
-                    $.messager.progress('close');	// 如果提交成功则隐藏进度条
-                    $("#" + userListOpt.userListId).datagrid("appendRow", data.data);
-                    $('#' + userListOpt.createWinId).dialog('close');
-                }
+                userListOpt.backSaveUserFn(data);
             }
         });
+    },
+
+    /**
+     * 保存用户回调函数
+     * @param data
+     */
+    backSaveUserFn:function(data) {
+        if (data.result) {
+            $.messager.progress('close');	// 如果提交成功则隐藏进度条
+            $("#" + userListOpt.userListId).datagrid("appendRow", data.data);
+            $('#' + userListOpt.createWinId).dialog('close');
+            EasyuiUtil.msgslide("保存成功！");
+        }
     },
 
     /**
@@ -107,8 +116,8 @@ var userListOpt = {
         obj.datagrid("options").singleSelect = false;
         //调整由于显示多选框导致的滚动条
         obj.datagrid("resize");
-        $('.tool-bar').removeClass('tool-bar').addClass('hidden-tool-bar');
-        $('#deleteToolBar').removeClass('hidden-tool-bar').addClass('tool-bar');
+        $('.visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
+        $('#deleteUserToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
     },
 
     /**
@@ -131,18 +140,24 @@ var userListOpt = {
                         dataType: "json",
                         traditional: true,
                         data: {id: id},
-                        success: function (data) {
-                            if (data.result) {
-                                EasyuiUtil.deleteRow(userListOpt.userListId);
-                                userListOpt.deleteEndFn();
-                                EasyuiUtil.msgslide("删除成功！");
-                            }
-                        }
+                        success: userListOpt.backDeleteUserFn
                     });
                 }
             });
         } else {
             EasyuiUtil.alert("请选择用户！")
+        }
+    },
+
+    /**
+     * 删除用户回调函数
+     * @param data
+     */
+    backDeleteUserFn:function(data) {
+        if (data.result) {
+            EasyuiUtil.deleteRow(userListOpt.userListId);
+            userListOpt.deleteEndFn();
+            EasyuiUtil.msgslide("删除成功！");
         }
     },
 
@@ -169,8 +184,8 @@ var userListOpt = {
      * 重新初始工具栏
      */
     reInitToolBar: function () {
-        $('.tool-bar').removeClass('tool-bar').addClass('hidden-tool-bar');
-        $('#initialToolBar').removeClass('hidden-tool-bar').addClass('tool-bar');
+        $('.visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
+        $('#initialUserToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
     }
 };
 

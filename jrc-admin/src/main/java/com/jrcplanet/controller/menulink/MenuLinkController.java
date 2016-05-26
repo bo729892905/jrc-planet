@@ -1,6 +1,7 @@
 package com.jrcplanet.controller.menulink;
 
 import com.jrcplanet.domain.MenuLink;
+import com.jrcplanet.model.easyui.JsonData;
 import com.jrcplanet.model.easyui.Tree;
 import com.jrcplanet.model.easyui.TreeNode;
 import com.jrcplanet.service.MenuLinkService;
@@ -12,10 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
+ * 菜单Controller
  * Created by rxb on 2016/4/23.
  */
 @Controller
@@ -49,5 +51,12 @@ public class MenuLinkController {
         String partialsFilePath = webappPath + File.separator + "partials";
         File partialsFile = new File(partialsFilePath);
         return partialsFile.list();
+    }
+
+    @RequestMapping(value = "addMenu", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public JsonData addMenu(MenuLink menu) {
+        menuLinkService.insert(menu);
+        return JsonData.createSuccessData(menu);
     }
 }
