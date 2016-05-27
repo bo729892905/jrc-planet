@@ -2,6 +2,7 @@ package com.jrcplanet.domain;
 
 import com.jrcplanet.model.easyui.annotation.TreeId;
 import com.jrcplanet.model.easyui.annotation.TreeText;
+import com.jrcplanet.util.ValidateUtil;
 
 import java.util.List;
 import java.util.UUID;
@@ -74,7 +75,7 @@ public class MenuLink extends BaseEntity {
 
     @Override
     public void setId(String id) {
-        this.id = id;
+        this.id = ValidateUtil.isEmpty(id) ? null : id;
     }
 
     public String getName() {
@@ -82,7 +83,7 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = ValidateUtil.isEmpty(name) ? null : name;
     }
 
     public String getEnName() {
@@ -90,7 +91,7 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setEnName(String enName) {
-        this.enName = enName;
+        this.enName = ValidateUtil.isEmpty(enName) ? null : enName;
     }
 
     public String getUrl() {
@@ -98,7 +99,7 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        this.url = ValidateUtil.isEmpty(url) ? null : url;
     }
 
     public boolean isHome() {
@@ -106,7 +107,7 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setHome(boolean home) {
-        isHome = home;
+        isHome = ValidateUtil.isEmpty(home);
     }
 
     public String getIconCls() {
@@ -114,7 +115,7 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setIconCls(String iconCls) {
-        this.iconCls = iconCls;
+        this.iconCls = ValidateUtil.isEmpty(iconCls) ? null : iconCls;
     }
 
     public String getTarget() {
@@ -122,7 +123,7 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setTarget(String target) {
-        this.target = target;
+        this.target = ValidateUtil.isEmpty(target) ? null : target;
     }
 
     public Boolean getVisible() {
@@ -130,7 +131,7 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setVisible(Boolean visible) {
-        this.visible = visible;
+        this.visible = ValidateUtil.isEmpty(visible) ? null : visible;
     }
 
     public String getParentId() {
@@ -138,7 +139,7 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setParentId(String parentId) {
-        this.parentId = parentId;
+        this.parentId = ValidateUtil.isEmpty(parentId) ? null : parentId;
     }
 
     public Integer getSeqNo() {
@@ -146,7 +147,7 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setSeqNo(Integer seqNo) {
-        this.seqNo = seqNo;
+        this.seqNo = ValidateUtil.isEmpty(seqNo) ? null : seqNo;
     }
 
     public List<MenuLink> getChildren() {
@@ -154,6 +155,6 @@ public class MenuLink extends BaseEntity {
     }
 
     public void setChildren(List<MenuLink> children) {
-        this.children = children;
+        this.children = ValidateUtil.isEmpty(children) ? null : children;
     }
 }

@@ -4,8 +4,12 @@
 
 <div id="menuToolBar">
     <div id="initialMenuToolBar" class="visible-tool-bar">
-        <a id="toAddMenu" href="javascript:void(0)" class="easyui-linkbutton"
-           data-options="iconCls:'icon-add',plain:true">新建</a>
+        <a href="javascript:void(0)" id="mb" class="easyui-menubutton"
+           data-options="menu:'#addMenuChild',iconCls:'icon-add'">新建</a>
+        <div id="addMenuChild">
+            <div id="toAddRootMenu">根节点</div>
+            <div id="toAddChildMenu">子节点</div>
+        </div>
         <a id="toEditMemu" href="javascript:void(0)" class="easyui-linkbutton"
            data-options="iconCls:'icon-edit',plain:true">编辑</a>
         <a id="toDeleteMenu" href="javascript:void(0)" class="easyui-linkbutton"
@@ -24,7 +28,13 @@
 </div>
 
 <div id="menuTreeListMenu" style="width:120px;display: none">
-    <div onclick="menuGridOpt.toAddMenuFn()" data-options="iconCls:'icon-add'">新增</div>
+    <div data-options="iconCls:'icon-add'">
+        <span>新增</span>
+        <div>
+            <div onclick="menuGridOpt.toAddRootMenuFn()">根节点</div>
+            <div onclick="menuGridOpt.toAddChildMenuFn()">子节点</div>
+        </div>
+    </div>
     <div onclick="menuGridOpt.toEditMenuFn()" data-options="iconCls:'icon-remove'">编辑</div>
     <div onclick="menuGridOpt.toDeleteMenuFn()" data-options="iconCls:'icon-remove'">删除</div>
     <div class="menu-sep"></div>

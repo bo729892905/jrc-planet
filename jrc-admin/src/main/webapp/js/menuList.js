@@ -11,7 +11,8 @@ var menuGridOpt = {
     init: function () {
         menuGridOpt.initTreeGrid();
         menuGridOpt.initMenu();
-        $("#toAddMenu").unbind("click").bind("click", menuGridOpt.toAddMenuFn);
+        $("#toAddChildMenu").unbind("click").bind("click", menuGridOpt.toAddChildMenuFn);
+        $("#toAddRootMenu").unbind("click").bind("click", menuGridOpt.toAddRootMenuFn);
         $("#addMenu").unbind("click").bind("click", menuGridOpt.addMenuFn);
         $("#cancelAddMenu").unbind("click").bind("click", menuGridOpt.cancelAddMenuFn);
         $("#toDeleteMenu").unbind("click").bind("click", menuGridOpt.toDeleteMenuFn);
@@ -74,9 +75,9 @@ var menuGridOpt = {
     },
 
     /**
-     * 开始新增菜单
+     * 开始新增子菜单
      */
-    toAddMenuFn: function () {
+    toAddChildMenuFn: function () {
         var uuid = BaseUtil.uuid();
         uuid = uuid.replace(/\-/g, "");
         var obj = $('#' + menuGridOpt.menuTreeListId);
@@ -103,6 +104,36 @@ var menuGridOpt = {
             $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
             $('#addMenuToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
         }
+    },
+
+    /**
+     * 开始新增跟节点
+     */
+    toAddRootMenuFn: function () {
+        var uuid = BaseUtil.uuid();
+        uuid = uuid.replace(/\-/g, "");
+        var obj = $('#' + menuGridOpt.menuTreeListId);
+
+        var roots = obj.treegrid("getRoots");
+        var rootNode = roots[roots.length - 1];
+
+        /*新增行*/
+        obj.treegrid('append', {
+            after: rootNode.id,
+            data: [{
+                id: uuid,
+                name: '新建菜单',
+                url: null,
+                iconCls: null
+            }]
+        });
+
+        obj.treegrid('select', uuid);
+        obj.treegrid("beginEdit", uuid);
+        menuGridOpt.tempIds.push(uuid);
+
+        $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
+        $('#addMenuToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
     },
 
     /**
@@ -224,7 +255,9 @@ var menuGridOpt = {
      * 确认更新用户
      */
     confirmUpdateMenuFn: function () {
-        MessageUtil.confirm("确定要保存修改吗？", menuGridOpt.updateMenuFn);
+        if($('#' + menuGridOpt.menuTreeFormId).form("validate")) {
+            MessageUtil.confirm("确定要保存修改吗？", menuGridOpt.updateMenuFn);
+        }
     },
 
     /**
@@ -245,7 +278,7 @@ var menuGridOpt = {
                     data: data,
                     callback: menuGridOpt.callbackUpdateMenu
                 });
-            }else{
+            } else {
                 menuGridOpt.reInitToolBar();
             }
 
@@ -262,7 +295,7 @@ var menuGridOpt = {
         MessageUtil.msgslide("修改成功！")
     },
 
-    cancelEditMenuFn:function() {
+    cancelEditMenuFn: function () {
         var obj = $('#' + menuGridOpt.menuTreeListId);
         var selected = obj.treegrid("getSelected");
         obj.treegrid("cancelEdit", selected.id);
