@@ -16,7 +16,7 @@
     </insert>
 
     <!-- 根据用户查询角色 -->
-    <select id="getRoleByUserId" parameterType="String" resultType="Role" useCache="true">
+    <select id="getRoleByUserId" parameterType="String" resultType="com.jrcplanet.domain.Role" useCache="true">
         SELECT
           r.*
         FROM

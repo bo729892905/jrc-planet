@@ -271,7 +271,14 @@ var menuGridOpt = {
 
             var changes = obj.treegrid("getChanges");
             if (changes.length == 1) {//当且仅当有一条数据改变时保存
-                var data = changes[0];
+                var change = changes[0];
+                var data = {
+                    id: change.id,
+                    name:change.name,
+                    enName:change.enName,
+                    url:change.url,
+                    iconCls:change.iconCls
+                };
                 BaseUtil.ajax({
                     url: ctx + "/menu/updateMenu",
                     type: "POST",
