@@ -16,11 +16,16 @@
         <a id="cancelAddMenu" href="javascript:void(0)" class="easyui-linkbutton"
            data-options="iconCls:'icon-undo',plain:true">取消</a>
     </div>
+    <div id="editMenuToolBar" class="hidden-tool-bar">
+        <a id="editMenu" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true">确定</a>
+        <a id="cancelEditMenu" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="iconCls:'icon-undo',plain:true">取消</a>
+    </div>
 </div>
 
 <div id="menuTreeListMenu" style="width:120px;display: none">
     <div onclick="menuGridOpt.toAddMenuFn()" data-options="iconCls:'icon-add'">新增</div>
-    <div onclick="menuGridOpt.toEditMemuFn()" data-options="iconCls:'icon-remove'">修改</div>
+    <div onclick="menuGridOpt.toEditMenuFn()" data-options="iconCls:'icon-remove'">编辑</div>
     <div onclick="menuGridOpt.toDeleteMenuFn()" data-options="iconCls:'icon-remove'">删除</div>
     <div class="menu-sep"></div>
     <div onclick="collapse()">收起</div>

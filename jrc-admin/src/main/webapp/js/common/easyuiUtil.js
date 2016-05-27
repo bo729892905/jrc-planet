@@ -64,34 +64,59 @@ var EasyuiUtil = {
         }
     },
 
-    refreshTab:function(id,index) {
+    /**
+     * 刷新标签页
+     * @param id
+     * @param index
+     */
+    refreshTab: function (id, index) {
         var obj = $("#" + id);
         obj.tabs('getTab', index).panel('refresh');
     },
 
+    /**
+     * 关闭标签页
+     * @param id
+     * @param index
+     */
     closeTab: function (id, index) {
         var obj = $("#" + id);
         obj.tabs('close', index);
     },
 
-    closeOtherTab:function(id,index) {
+    /**
+     * 关闭其他标签页
+     * @param id
+     * @param index
+     */
+    closeOtherTab: function (id, index) {
         EasyuiUtil.closeRightTab(id, index);
         EasyuiUtil.closeLeftTab(id, index);
     },
 
-    closeLeftTab:function(id,index) {
+    /**
+     * 关闭左侧标签页
+     * @param id
+     * @param index
+     */
+    closeLeftTab: function (id, index) {
         var obj = $("#" + id);
-        for(var i=index-1;i>0;i--) {
-            if(i!=index) {
+        for (var i = index - 1; i > 0; i--) {
+            if (i != index) {
                 obj.tabs('close', i);
             }
         }
     },
 
-    closeRightTab:function(id,index) {
+    /**
+     * 关闭右侧标签页
+     * @param id
+     * @param index
+     */
+    closeRightTab: function (id, index) {
         var obj = $("#" + id);
         var tabs = obj.tabs("tabs");
-        for(var i=tabs.length-1;i>index;i--) {
+        for (var i = tabs.length - 1; i > index; i--) {
             obj.tabs('close', i);
         }
     },
@@ -107,9 +132,10 @@ var EasyuiUtil = {
             title: opt.title,
             width: opt.width || 600,
             height: opt.height || 400,
-            href:opt.href||"",
+            href: opt.href || "",
             closable: true,
             modal: true,
+            closed: true,
             buttons: [{
                 id: 'ok',
                 text: '确定',

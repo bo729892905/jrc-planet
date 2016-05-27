@@ -66,4 +66,11 @@ public class MenuLinkController {
         menuLinkService.deleteById(id);
         return JsonData.createSuccessData();
     }
+
+    @RequestMapping(value = "updateMenu", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public JsonData updateMenu(MenuLink menuLink) {
+        menuLinkService.updateByIdSelective(menuLink);
+        return JsonData.createSuccessData();
+    }
 }

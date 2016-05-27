@@ -74,10 +74,12 @@ var userListOpt = {
             var opt = {
                 title: '新建用户',
                 href: ctx + '/partials/user/create-user.html',
-                height: 500,
+                width: 500,
+                height: 475,
                 okFn: userListOpt.saveUserFn
             };
             EasyuiUtil.initDialog(userListOpt.createWinId, opt);
+            win.dialog("open");
         }
     },
 

@@ -40,4 +40,6 @@ public interface MenuLinkService {
     }
 
     int deleteById(String id);
+
+    int updateByIdSelective(MenuLink record);
 }

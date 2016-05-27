@@ -46,4 +46,9 @@ public class MenuLinkServiceImpl implements MenuLinkService {
     public int deleteById(String id) {
         return menuLinkMapper.deleteById(id);
     }
+
+    @Override
+    public int updateByIdSelective(MenuLink record) {
+        return menuLinkMapper.updateByIdSelective(record);
+    }
 }
