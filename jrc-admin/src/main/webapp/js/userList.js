@@ -1,6 +1,7 @@
 var userListOpt = {
     userListId: "userList",
     createWinId: "createUserWin",
+    createFormId: "addUserForm",
     /**
      * 初始化
      */
@@ -64,11 +65,20 @@ var userListOpt = {
      * 开始新建用户
      */
     toCreateUserFn: function () {
-        var opt = {
-            title: '新建用户',
-            okFn: userListOpt.saveUserFn
-        };
-        EasyuiUtil.initDialog(userListOpt.createWinId, opt);
+        var win = $('#' + userListOpt.createWinId)
+        var content = win.text();
+        if (content) {//若已初始化直接打开
+            win.dialog("open");
+            $('#' + userListOpt.createFormId).form('reset');
+        } else {//初始化对话框
+            var opt = {
+                title: '新建用户',
+                href: ctx + '/partials/user/create-user.html',
+                height: 500,
+                okFn: userListOpt.saveUserFn
+            };
+            EasyuiUtil.initDialog(userListOpt.createWinId, opt);
+        }
     },
 
     /**
@@ -76,12 +86,12 @@ var userListOpt = {
      */
     saveUserFn: function () {
         $.easyui.loading();
-        $('#addUserForm').form('submit', {
+        $('#' + userListOpt.createFormId).form('submit', {
             url: "user/addUser",
             onSubmit: function () {
                 var isValid = $(this).form('validate');
                 if (!isValid) {
-                    $.messager.progress('close');
+                    $.easyui.loaded();
                 }
                 return isValid;	// 返回false终止表单提交
             },
@@ -96,7 +106,7 @@ var userListOpt = {
      * 保存用户回调函数
      * @param data
      */
-    backSaveUserFn:function(data) {
+    backSaveUserFn: function (data) {
         if (data.result) {
             $.easyui.loaded();	// 如果提交成功则隐藏进度条
             $("#" + userListOpt.userListId).datagrid("appendRow", data.data);
@@ -134,7 +144,7 @@ var userListOpt = {
                         id.push(selections[i].id);
                     }
                     BaseUtil.ajax({
-                        url: ctx+"/user/deleteUser",
+                        url: ctx + "/user/deleteUser",
                         type: "POST",
                         data: {id: id},
                         callback: userListOpt.backDeleteUserFn
@@ -150,7 +160,7 @@ var userListOpt = {
      * 删除用户回调函数
      * @param data
      */
-    backDeleteUserFn:function(data) {
+    backDeleteUserFn: function (data) {
         if (data.result) {
             EasyuiUtil.deleteRow(userListOpt.userListId);
             userListOpt.deleteEndFn();
@@ -187,5 +197,5 @@ var userListOpt = {
 };
 
 /*$(function () {
-    userListOpt.init();
-});*/
+ userListOpt.init();
+ });*/

@@ -107,6 +107,7 @@ var EasyuiUtil = {
             title: opt.title,
             width: opt.width || 600,
             height: opt.height || 400,
+            href:opt.href||"",
             closable: true,
             modal: true,
             buttons: [{
