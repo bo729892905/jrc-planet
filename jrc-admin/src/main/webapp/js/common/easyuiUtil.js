@@ -35,10 +35,10 @@ var EasyuiUtil = {
             dialogUtil.alert("请选择要删除的数据！");
             return;
         }
-        for (var i = 0, j = row.length; i < j; i++) {
-            var rowIndex = obj.datagrid('getRowIndex', row[i]);
+        row.forEach(function(e) {
+            var rowIndex = obj.datagrid('getRowIndex', e);
             obj.datagrid('deleteRow', rowIndex);
-        }
+        });
     },
 
     /**
