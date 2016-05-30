@@ -21,6 +21,6 @@ public class DefaultExceptionHandler {
     @ExceptionHandler({UnauthorizedException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ModelAndView processUnauthorizedException(NativeWebRequest request, UnauthorizedException e) {
-        return new ModelAndView("redirect:errors/403.jsp");
+        return new ModelAndView("redirect:/errors/403.jsp");
     }
 }

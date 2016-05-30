@@ -22,4 +22,8 @@
          WHERE rp.role_id=#{roleId}
     </select>
 
+    <select id="getPermUrls" resultType="String">
+        SELECT p.url FROM <include refid="permissionTable"/> p
+    </select>
+
 </mapper>

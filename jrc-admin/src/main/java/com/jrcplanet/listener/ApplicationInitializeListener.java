@@ -1,5 +1,8 @@
 package com.jrcplanet.listener;
 
+import com.jrcplanet.mapper.PermissionMapper;
+import com.jrcplanet.service.PermissionService;
+import com.jrcplanet.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
@@ -44,9 +47,10 @@ public class ApplicationInitializeListener implements ServletContextListener {
             logger.warn("ServletContext is null!");
         }
 
-        /*UserService userService = applicationContext.getBean(UserService.class);
-        int userTotal = userService.getUserList().size();
-        logger.info("用户总数：" + userTotal);*/
+        /*获取权限注解并自动导入数据库*/
+        logger.debug("==> 检验权限中...");
+        PermissionService permissionService = applicationContext.getBean(PermissionService.class);
+        permissionService.autoSavePerm();
     }
 
 }

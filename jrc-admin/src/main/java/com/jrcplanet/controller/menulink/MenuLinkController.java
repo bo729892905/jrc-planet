@@ -6,6 +6,7 @@ import com.jrcplanet.model.easyui.Tree;
 import com.jrcplanet.model.easyui.TreeNode;
 import com.jrcplanet.service.MenuLinkService;
 import com.jrcplanet.util.TreeUtil;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +54,7 @@ public class MenuLinkController {
         return partialsFile.list();
     }
 
+    @RequiresPermissions("menu:add")
     @RequestMapping(value = "addMenu", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public JsonData addMenu(MenuLink menu) {
@@ -60,6 +62,7 @@ public class MenuLinkController {
         return JsonData.createSuccessData(menu);
     }
 
+    @RequiresPermissions("menu:delete")
     @RequestMapping(value = "deleteMenu", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public JsonData deleteMenu(String id) {
@@ -67,6 +70,7 @@ public class MenuLinkController {
         return JsonData.createSuccessData();
     }
 
+    @RequiresPermissions("menu:update")
     @RequestMapping(value = "updateMenu", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public JsonData updateMenu(MenuLink menuLink) {

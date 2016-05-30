@@ -43,32 +43,7 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    /**
-     * 登录
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @return ModelAndView
-     */
-    @RequestMapping(value = "login")
-    public ModelAndView login(String username, String password) {
-        SecurityUtils.getSecurityManager().logout(SecurityUtils.getSubject());
-
-        UsernamePasswordToken token = new UsernamePasswordToken(username, EncryptUtil.encryptMD5(password));
-        Subject subject = SecurityUtils.getSubject();
-        try {
-            subject.login(token);
-        } catch (AuthenticationException e) {
-            logger.debug("用户名或密码错误！");
-            return new ModelAndView("login");
-        }
-        User user = userService.getUserByUsername(username);
-        subject.getSession().setAttribute(SESSION_USER, user);
-
-        logger.debug("登录成功！");
-        return new ModelAndView("redirect:test.do");
-    }
-
+    @RequiresPermissions(value="user:add")
     @RequestMapping(value = "addUser")
     @ResponseBody
     public JsonData<User> createUser(User user) {
@@ -76,6 +51,7 @@ public class UserController {
         return JsonData.createSuccessData(user);
     }
 
+    @RequiresPermissions(value="user:delete")
     @RequestMapping(value = "deleteUser")
     @ResponseBody
     public JsonData deleteUser(@RequestParam("id") String[] id) {

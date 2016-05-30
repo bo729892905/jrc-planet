@@ -24,4 +24,10 @@ public interface PermissionMapper {
      * @return List<Permission>
      */
     List<Permission> getPermissionByRole(String roleId);
+
+    /**
+     * 获取权限地址列表
+     * @return
+     */
+    List<String> getPermUrls();
 }
