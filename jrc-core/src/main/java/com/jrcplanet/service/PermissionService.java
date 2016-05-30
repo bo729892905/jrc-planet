@@ -30,4 +30,12 @@ public interface PermissionService {
     List<String> getPermUrls();
 
     void autoSavePerm();
+
+    List<Permission> getPermissions(String id);
+
+    default List<Permission> getPermissions(){
+        return getPermissions(null);
+    };
+
+    List<Permission> getChildrenByParent(String parentId);
 }

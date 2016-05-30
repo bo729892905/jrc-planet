@@ -68,4 +68,18 @@ public class PermissionServiceImpl implements PermissionService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Permission> getPermissions(String id) {
+        List<Permission> permissionList = getChildrenByParent(id);
+        permissionList.forEach(permission -> {
+            permission.setChildren(getPermissions(permission.getId()));
+        });
+        return permissionList;
+    }
+
+    @Override
+    public List<Permission> getChildrenByParent(String parentId) {
+        return permissionMapper.getChildrenByParent(parentId);
+    }
 }

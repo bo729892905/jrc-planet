@@ -22,8 +22,20 @@
          WHERE rp.role_id=#{roleId}
     </select>
 
-    <select id="getPermUrls" resultType="String">
+    <select id="getPermUrls" resultType="String" useCache="true">
         SELECT p.url FROM <include refid="permissionTable"/> p
+    </select>
+    <select id="getChildrenByParent" resultType="com.jrcplanet.domain.Permission">
+        SELECT p.* from t_res_permission p
+        <where>
+            AND p.visible=true
+            <if test="parentId == null">
+               AND p.parent_id is NULL
+            </if>
+            <if test="parentId != null">
+               AND p.parent_id = #{parentId}
+            </if>
+        </where>
     </select>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.jrcplanet.mapper;
 
 import com.jrcplanet.BaseTest;
+import com.jrcplanet.domain.Permission;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -19,5 +20,13 @@ public class PermissionMapperTest extends BaseTest {
         for (String permission : permissions) {
             System.out.println(permission);
         }
+    }
+
+    @Test
+    public void testGetChildrenByParent() throws Exception {
+        List<Permission> permissions = permissionMapper.getChildrenByParent(null);
+        permissions.forEach(permission -> {
+            System.out.println(permission.getUrl());
+        });
     }
 }

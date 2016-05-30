@@ -1,5 +1,7 @@
 package com.jrcplanet.domain;
 
+import java.util.List;
+
 /**
  * 权限
  * Created by rxb on 2016/1/28.
@@ -29,6 +31,8 @@ public class Permission extends BaseEntity {
      * 描述
      */
     private String remark;
+
+    private List<Permission> children;
 
     public String getName() {
         return name;
@@ -76,5 +80,13 @@ public class Permission extends BaseEntity {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public List<Permission> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Permission> children) {
+        this.children = children;
     }
 }

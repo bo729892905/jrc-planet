@@ -1,6 +1,7 @@
 package com.jrcplanet.mapper;
 
 import com.jrcplanet.domain.Permission;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,4 +31,6 @@ public interface PermissionMapper {
      * @return
      */
     List<String> getPermUrls();
+
+    List<Permission> getChildrenByParent(@Param("parentId") String parentId);
 }
