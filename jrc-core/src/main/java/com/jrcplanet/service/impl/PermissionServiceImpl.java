@@ -54,7 +54,7 @@ public class PermissionServiceImpl implements PermissionService {
                     mappings.forEach(mapping -> {
                         String permVal = mapping.value()[0];
                         if (!urls.contains(permVal)) {
-                            logger.info("==> 保存权限 ur : "+permVal+"...");
+                            logger.info("==> 保存权限 ur : " + permVal + "...");
                             Permission permission = new Permission();
                             permission.setUrl(permVal);
                             permission.setName("");
@@ -72,9 +72,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public List<Permission> getPermissions(String id) {
         List<Permission> permissionList = getChildrenByParent(id);
-        permissionList.forEach(permission -> {
-            permission.setChildren(getPermissions(permission.getId()));
-        });
+        permissionList.forEach(permission -> permission.setChildren(getPermissions(permission.getId())));
         return permissionList;
     }
 

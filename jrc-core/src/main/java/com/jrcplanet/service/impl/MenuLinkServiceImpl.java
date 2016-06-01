@@ -36,9 +36,7 @@ public class MenuLinkServiceImpl implements MenuLinkService {
     @Override
     public List<MenuLink> getAllMenuLink(String parentId) {
         List<MenuLink> menuLinkList = getChildrenByParent(parentId);
-        menuLinkList.forEach(menuLink -> {
-            menuLink.setChildren(getAllMenuLink(menuLink.getId()));
-        });
+        menuLinkList.forEach(menuLink -> menuLink.setChildren(getAllMenuLink(menuLink.getId())));
         return menuLinkList;
     }
 
