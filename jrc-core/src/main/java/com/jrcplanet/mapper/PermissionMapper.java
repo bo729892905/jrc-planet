@@ -2,23 +2,10 @@ package com.jrcplanet.mapper;
 
 import com.jrcplanet.domain.Permission;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * 权限持久层接口
- * Created by rxb on 2016/1/28.
- */
-@Repository
 public interface PermissionMapper {
-    /**
-     * 新建权限
-     * @param permission Permission
-     * @return int
-     */
-    int insertPermission(Permission permission);
-
     /**
      * 根据角色id获取权限
      * @param roleId 角色id
@@ -33,4 +20,16 @@ public interface PermissionMapper {
     List<String> getPermUrls();
 
     List<Permission> getChildrenByParent(@Param("parentId") String parentId);
+
+    int deleteById(String id);
+
+    int insert(Permission record);
+
+    int insertSelective(Permission record);
+
+    Permission selectById(String id);
+
+    int updateByIdSelective(Permission record);
+
+    int updateById(Permission record);
 }

@@ -4,38 +4,158 @@
     <!-- 配置缓存 -->
     <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 
+    <resultMap id="BaseResultMap" type="com.jrcplanet.domain.Permission">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="per_type" property="perType" jdbcType="INTEGER"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <result column="visible" property="visible" jdbcType="BIT"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, url, name, per_type, parent_id, visible, remark
+    </sql>
+
     <sql id="permissionTable">t_res_permission</sql>
     <sql id="rolePermissionTable">t_res_role_permission</sql>
 
-    <!-- 保存权限 -->
-    <insert id="insertPermission" parameterType="com.jrcplanet.domain.Permission">
-        INSERT INTO <include refid="permissionTable"/>
-        (id, url, name, per_type, parent_id, visible, remark)
-        VALUES
-        (#{id},#{url},#{name},#{perType},#{parentId},#{visible},#{remark})
-    </insert>
-
     <!-- 根据角色获取权限列表 -->
-    <select id="getPermissionByRole" parameterType="String" resultType="com.jrcplanet.domain.Permission" useCache="true">
-        SELECT p.* FROM <include refid="permissionTable"/> p
-         INNER JOIN <include refid="rolePermissionTable"/> rp ON p.id = rp.permission_id
-         WHERE rp.role_id=#{roleId}
+    <select id="getPermissionByRole" parameterType="String" resultType="com.jrcplanet.domain.Permission"
+            useCache="true">
+        SELECT p.* FROM
+        <include refid="permissionTable"/>
+        p
+        INNER JOIN
+        <include refid="rolePermissionTable"/>
+        rp ON p.id = rp.permission_id
+        WHERE rp.role_id=#{roleId}
     </select>
 
     <select id="getPermUrls" resultType="String" useCache="true">
-        SELECT p.url FROM <include refid="permissionTable"/> p
+        SELECT p.url FROM
+        <include refid="permissionTable"/>
+        p
     </select>
+
     <select id="getChildrenByParent" resultType="com.jrcplanet.domain.Permission">
         SELECT p.* from t_res_permission p
         <where>
             AND p.visible=true
             <if test="parentId == null">
-               AND p.parent_id is NULL
+                AND p.parent_id is NULL
             </if>
             <if test="parentId != null">
-               AND p.parent_id = #{parentId}
+                AND p.parent_id = #{parentId}
             </if>
         </where>
     </select>
 
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_res_permission
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from t_res_permission
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.jrcplanet.domain.Permission">
+        insert into t_res_permission (id, url, name,
+          per_type, parent_id, visible,
+          remark)
+        values (#{id,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+          #{perType,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}, #{visible,jdbcType=BIT},
+          #{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.jrcplanet.domain.Permission">
+        insert into t_res_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="perType != null">
+                per_type,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="visible != null">
+                visible,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="perType != null">
+                #{perType,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="visible != null">
+                #{visible,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByIdSelective" parameterType="com.jrcplanet.domain.Permission">
+        update t_res_permission
+        <set>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="perType != null">
+                per_type = #{perType,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="visible != null">
+                visible = #{visible,jdbcType=BIT},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateById" parameterType="com.jrcplanet.domain.Permission">
+        update t_res_permission
+        set url = #{url,jdbcType=VARCHAR},
+          name = #{name,jdbcType=VARCHAR},
+          per_type = #{perType,jdbcType=INTEGER},
+          parent_id = #{parentId,jdbcType=VARCHAR},
+          visible = #{visible,jdbcType=BIT},
+          remark = #{remark,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 </mapper>

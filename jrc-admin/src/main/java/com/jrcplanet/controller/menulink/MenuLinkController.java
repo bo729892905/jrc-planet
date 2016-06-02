@@ -53,7 +53,7 @@ public class MenuLinkController {
         return partialsFile.list();
     }
 
-    @RequiresPermissions("menu:add")
+    /*@RequiresPermissions("menu:add")*/
     @RequestMapping(value = "addMenu", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public JsonData addMenu(MenuLink menu) {
@@ -61,7 +61,7 @@ public class MenuLinkController {
         return JsonData.createSuccessData(menu);
     }
 
-    @RequiresPermissions("menu:delete")
+    /*@RequiresPermissions("menu:delete")*/
     @RequestMapping(value = "deleteMenu", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public JsonData deleteMenu(String id) {
@@ -69,7 +69,7 @@ public class MenuLinkController {
         return JsonData.createSuccessData();
     }
 
-    @RequiresPermissions("menu:update")
+    /*@RequiresPermissions("menu:update")*/
     @RequestMapping(value = "updateMenu", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public JsonData updateMenu(MenuLink menuLink) {

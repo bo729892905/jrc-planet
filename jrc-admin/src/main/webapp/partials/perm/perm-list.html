@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<form id="permTreeForm" style="width: 100%;height: 100%">
+    <table id="permTreeList"></table>
+</form>
+
+<div id="permToolBar">
+    <div id="initialPermToolBar" class="visible-tool-bar">
+        <a href="javascript:void(0)" id="mb" class="easyui-menubutton"
+           data-options="menu:'#addPermChild',iconCls:'icon-add'">新建</a>
+        <div id="addPermChild">
+            <div id="toAddRootPerm">根节点</div>
+            <div id="toAddChildPerm">子节点</div>
+        </div>
+        <a id="toEditPerm" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="iconCls:'icon-edit',plain:true">编辑</a>
+        <a id="toDeletePerm" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="iconCls:'icon-remove',plain:true">删除</a>
+    </div>
+    <div id="addPermToolBar" class="hidden-tool-bar">
+        <a id="addPerm" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true">确定</a>
+        <a id="cancelAddPerm" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="iconCls:'icon-undo',plain:true">取消</a>
+    </div>
+    <div id="editPermToolBar" class="hidden-tool-bar">
+        <a id="editPerm" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true">确定</a>
+        <a id="cancelEditPerm" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="iconCls:'icon-undo',plain:true">取消</a>
+    </div>
+</div>
+
+<div id="permTreeListMenu" style="width:120px;display: none">
+    <div data-options="iconCls:'icon-add'">
+        <span>新增</span>
+        <div>
+            <div onclick="PermGridOpt.toAddRootFn()">根节点</div>
+            <div onclick="PermGridOpt.toAddChildPermFn()">子节点</div>
+        </div>
+    </div>
+    <div onclick="PermGridOpt.toEditFn()" data-options="iconCls:'icon-remove'">编辑</div>
+    <div onclick="PermGridOpt.toDeletePermFn()" data-options="iconCls:'icon-remove'">删除</div>
+    <div class="menu-sep"></div>
+    <div onclick="collapse()">收起</div>
+    <div onclick="expand()">展开</div>
+</div>
+
+<!--<script src="js/permList.js"></script>-->
+<script src="js/common/treegrid-dnd.js"></script>
+<script type="text/javascript">
+    $(function () {
+        LazyLoad.js(['js/permList.js'], function() {
+            PermGridOpt.init();
+        });
+    });
+</script>

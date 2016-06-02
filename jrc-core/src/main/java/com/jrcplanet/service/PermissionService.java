@@ -29,6 +29,13 @@ public interface PermissionService {
      */
     List<String> getPermUrls();
 
+    /**
+     * 更新权限
+     * @param record
+     * @return
+     */
+    int updateByIdSelective(Permission record);
+
     void autoSavePerm();
 
     List<Permission> getPermissions(String id);

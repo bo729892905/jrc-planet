@@ -27,7 +27,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     @Transactional
     public int insertPermission(Permission permission) {
-        return permissionMapper.insertPermission(permission);
+        return permissionMapper.insert(permission);
     }
 
     @Override
@@ -79,5 +79,10 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public List<Permission> getChildrenByParent(String parentId) {
         return permissionMapper.getChildrenByParent(parentId);
+    }
+
+    @Override
+    public int updateByIdSelective(Permission perm) {
+        return permissionMapper.updateByIdSelective(perm);
     }
 }

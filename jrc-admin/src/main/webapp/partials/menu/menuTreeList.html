@@ -10,7 +10,7 @@
             <div id="toAddRootMenu">根节点</div>
             <div id="toAddChildMenu">子节点</div>
         </div>
-        <a id="toEditMemu" href="javascript:void(0)" class="easyui-linkbutton"
+        <a id="toEditMenu" href="javascript:void(0)" class="easyui-linkbutton"
            data-options="iconCls:'icon-edit',plain:true">编辑</a>
         <a id="toDeleteMenu" href="javascript:void(0)" class="easyui-linkbutton"
            data-options="iconCls:'icon-remove',plain:true">删除</a>
@@ -31,12 +31,12 @@
     <div data-options="iconCls:'icon-add'">
         <span>新增</span>
         <div>
-            <div onclick="MenuGridOpt.toAddRootMenuFn()">根节点</div>
-            <div onclick="MenuGridOpt.toAddChildMenuFn()">子节点</div>
+            <div onclick="MenuGridOpt.toAddRootFn()">根节点</div>
+            <div onclick="MenuGridOpt.toAddChildFn()">子节点</div>
         </div>
     </div>
-    <div onclick="MenuGridOpt.toEditMenuFn()" data-options="iconCls:'icon-remove'">编辑</div>
-    <div onclick="MenuGridOpt.toDeleteMenuFn()" data-options="iconCls:'icon-remove'">删除</div>
+    <div onclick="MenuGridOpt.toEditFn()" data-options="iconCls:'icon-remove'">编辑</div>
+    <div onclick="MenuGridOpt.toDeleteFn()" data-options="iconCls:'icon-remove'">删除</div>
     <div class="menu-sep"></div>
     <div onclick="collapse()">收起</div>
     <div onclick="expand()">展开</div>

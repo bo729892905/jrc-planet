@@ -3,29 +3,28 @@
  * Created by rxb on 2016/5/26.
  */
 var MenuGridOpt = {
-    menuTreeFormId: "menuTreeForm",
-    menuTreeListId: "menuTreeList",
+    treeFormId: "menuTreeForm",
+    treeListId: "menuTreeList",
     treeMenuId: "menuTreeListMenu",
-    tempId: 100,
     tempIds: [],
     init: function () {
         MenuGridOpt.initTreeGrid();
         MenuGridOpt.initMenu();
-        $("#toAddChildMenu").unbind("click").bind("click", MenuGridOpt.toAddChildMenuFn);
-        $("#toAddRootMenu").unbind("click").bind("click", MenuGridOpt.toAddRootMenuFn);
-        $("#addMenu").unbind("click").bind("click", MenuGridOpt.addMenuFn);
-        $("#cancelAddMenu").unbind("click").bind("click", MenuGridOpt.cancelAddMenuFn);
-        $("#toDeleteMenu").unbind("click").bind("click", MenuGridOpt.toDeleteMenuFn);
-        $("#toEditMemu").unbind("click").bind("click", MenuGridOpt.toEditMenuFn);
-        $("#editMenu").unbind("click").bind("click", MenuGridOpt.confirmUpdateMenuFn);
-        $("#cancelEditMenu").unbind("click").bind("click", MenuGridOpt.cancelEditMenuFn);
+        $("#toAddChildMenu").unbind("click").bind("click", MenuGridOpt.toAddChildFn);
+        $("#toAddRootMenu").unbind("click").bind("click", MenuGridOpt.toAddRootFn);
+        $("#addMenu").unbind("click").bind("click", MenuGridOpt.addFn);
+        $("#cancelAddMenu").unbind("click").bind("click", MenuGridOpt.cancelAddFn);
+        $("#toDeleteMenu").unbind("click").bind("click", MenuGridOpt.toDeleteFn);
+        $("#toEditMenu").unbind("click").bind("click", MenuGridOpt.toEditFn);
+        $("#editMenu").unbind("click").bind("click", MenuGridOpt.confirmUpdateFn);
+        $("#cancelEditMenu").unbind("click").bind("click", MenuGridOpt.cancelEditFn);
     },
 
     /**
      * 初始化表格树
      */
     initTreeGrid: function () {
-        $('#' + MenuGridOpt.menuTreeListId).treegrid({
+        $('#' + MenuGridOpt.treeListId).treegrid({
             rownumbers: true,
             animate: true,
             collapsible: true,
@@ -67,7 +66,7 @@ var MenuGridOpt = {
      */
     showMenu: function (e, row) {
         e.preventDefault();
-        $('#' + MenuGridOpt.menuTreeListId).treegrid('select', row.id);
+        $('#' + MenuGridOpt.treeListId).treegrid('select', row.id);
         $('#' + MenuGridOpt.treeMenuId).menu('show', {
             left: e.pageX,
             top: e.pageY
@@ -77,10 +76,10 @@ var MenuGridOpt = {
     /**
      * 开始新增子菜单
      */
-    toAddChildMenuFn: function () {
+    toAddChildFn: function () {
         var uuid = BaseUtil.uuid();
         uuid = uuid.replace(/\-/g, "");
-        var obj = $('#' + MenuGridOpt.menuTreeListId);
+        var obj = $('#' + MenuGridOpt.treeListId);
         var node = obj.treegrid("getSelected");
         if (!node) {
             MessageUtil.alert("请选择父菜单！");
@@ -107,12 +106,12 @@ var MenuGridOpt = {
     },
 
     /**
-     * 开始新增跟节点
+     * 开始新增根节点
      */
-    toAddRootMenuFn: function () {
+    toAddRootFn: function () {
         var uuid = BaseUtil.uuid();
         uuid = uuid.replace(/\-/g, "");
-        var obj = $('#' + MenuGridOpt.menuTreeListId);
+        var obj = $('#' + MenuGridOpt.treeListId);
 
         var roots = obj.treegrid("getRoots");
         var rootNode = roots[roots.length - 1];
@@ -139,16 +138,16 @@ var MenuGridOpt = {
     /**
      * 保存添加
      */
-    addMenuFn: function () {
-        var formObj = $('#' + MenuGridOpt.menuTreeFormId);
-        var tabObj = $('#' + MenuGridOpt.menuTreeListId);
+    addFn: function () {
+        var formObj = $('#' + MenuGridOpt.treeFormId);
+        var tabObj = $('#' + MenuGridOpt.treeListId);
         if (formObj.form("validate")) {
-            MenuGridOpt.tempIds.forEach(function (e){
+            MenuGridOpt.tempIds.forEach(function (e) {
                 tabObj.treegrid("endEdit", e);
             });
             var changes = tabObj.treegrid("getChanges");
             $.easyui.loading();
-            changes.forEach(function(data){
+            changes.forEach(function (data) {
                 $.ajax({
                     url: ctx + "/menu/addMenu",
                     data: data,
@@ -160,7 +159,7 @@ var MenuGridOpt = {
             $.easyui.loaded();
             MessageUtil.msgslide("保存成功!");
             tabObj.treegrid("acceptChanges");
-            MenuGridOpt.endAddMenuFn();
+            MenuGridOpt.endAddFn();
         } else {
             //ignore
         }
@@ -169,19 +168,19 @@ var MenuGridOpt = {
     /**
      * 取消添加
      */
-    cancelAddMenuFn: function () {
-        var tabObj = $('#' + MenuGridOpt.menuTreeListId);
+    cancelAddFn: function () {
+        var tabObj = $('#' + MenuGridOpt.treeListId);
         MenuGridOpt.tempIds.forEach(function (e) {
             tabObj.treegrid("cancelEdit", e);
             tabObj.treegrid("remove", e);
         });
-        MenuGridOpt.endAddMenuFn();
+        MenuGridOpt.endAddFn();
     },
 
     /**
      * 结束添加
      */
-    endAddMenuFn: function () {
+    endAddFn: function () {
         MenuGridOpt.tempIds = [];
         MenuGridOpt.reInitToolBar();
     },
@@ -194,11 +193,11 @@ var MenuGridOpt = {
     /**
      * 开始删除
      */
-    toDeleteMenuFn: function () {
-        var tabObj = $('#' + MenuGridOpt.menuTreeListId);
+    toDeleteFn: function () {
+        var tabObj = $('#' + MenuGridOpt.treeListId);
         var selected = tabObj.treegrid("getSelected");
         if (selected) {
-            MessageUtil.confirm("确定要删除吗？", MenuGridOpt.deleteMenuFn);
+            MessageUtil.confirm("确定要删除吗？", MenuGridOpt.deleteFn);
         } else {
             MessageUtil.alert("请选择数据！");
         }
@@ -208,14 +207,14 @@ var MenuGridOpt = {
      * 确定删除
      * @param rlt
      */
-    deleteMenuFn: function (rlt) {
+    deleteFn: function (rlt) {
         if (rlt) {
-            var tabObj = $('#' + MenuGridOpt.menuTreeListId);
+            var tabObj = $('#' + MenuGridOpt.treeListId);
             var id = tabObj.treegrid("getSelected").id;
             BaseUtil.ajax({
                 url: ctx + "/menu/deleteMenu",
                 data: {id: id},
-                callback: MenuGridOpt.callbackDeleteMenuFn
+                callback: MenuGridOpt.callbackDeleteFn
             });
         }
     },
@@ -224,9 +223,9 @@ var MenuGridOpt = {
      * 取消删除
      * @param data
      */
-    callbackDeleteMenuFn: function (data) {
+    callbackDeleteFn: function (data) {
         if (data.result) {
-            var tabObj = $('#' + MenuGridOpt.menuTreeListId);
+            var tabObj = $('#' + MenuGridOpt.treeListId);
             var id = tabObj.treegrid("getSelected").id;
             tabObj.treegrid("remove", id);
             MessageUtil.msgslide("删除成功!");
@@ -236,8 +235,8 @@ var MenuGridOpt = {
     /**
      * 开始编辑
      */
-    toEditMenuFn: function () {
-        var obj = $('#' + MenuGridOpt.menuTreeListId);
+    toEditFn: function () {
+        var obj = $('#' + MenuGridOpt.treeListId);
         var selected = obj.treegrid("getSelected");
         if (selected) {
             var id = selected.id;
@@ -253,18 +252,18 @@ var MenuGridOpt = {
     /**
      * 确认更新用户
      */
-    confirmUpdateMenuFn: function () {
-        if($('#' + MenuGridOpt.menuTreeFormId).form("validate")) {
-            MessageUtil.confirm("确定要保存修改吗？", MenuGridOpt.updateMenuFn);
+    confirmUpdateFn: function () {
+        if ($('#' + MenuGridOpt.treeFormId).form("validate")) {
+            MessageUtil.confirm("确定要保存修改吗？", MenuGridOpt.updateFn);
         }
     },
 
     /**
      * 更新用户
      */
-    updateMenuFn: function (rlt) {
+    updateFn: function (rlt) {
         if (rlt) {
-            var obj = $('#' + MenuGridOpt.menuTreeListId);
+            var obj = $('#' + MenuGridOpt.treeListId);
             var selected = obj.treegrid("getSelected");
             obj.treegrid("endEdit", selected.id);
 
@@ -273,21 +272,20 @@ var MenuGridOpt = {
                 var change = changes[0];
                 var data = {
                     id: change.id,
-                    name:change.name,
-                    enName:change.enName,
-                    url:change.url,
-                    iconCls:change.iconCls
+                    name: change.name,
+                    enName: change.enName,
+                    url: change.url,
+                    iconCls: change.iconCls
                 };
                 BaseUtil.ajax({
                     url: ctx + "/menu/updateMenu",
                     type: "POST",
                     data: data,
-                    callback: MenuGridOpt.callbackUpdateMenu
+                    callback: MenuGridOpt.callbackUpdate
                 });
             } else {
                 MenuGridOpt.reInitToolBar();
             }
-
         }
     },
 
@@ -295,14 +293,14 @@ var MenuGridOpt = {
      * 更新用户回调函数
      * @param data
      */
-    callbackUpdateMenu: function (data) {
-        $('#' + MenuGridOpt.menuTreeListId).treegrid("acceptChanges");
+    callbackUpdate: function (data) {
+        $('#' + MenuGridOpt.treeListId).treegrid("acceptChanges");
         MenuGridOpt.reInitToolBar();
         MessageUtil.msgslide("修改成功！")
     },
 
-    cancelEditMenuFn: function () {
-        var obj = $('#' + MenuGridOpt.menuTreeListId);
+    cancelEditFn: function () {
+        var obj = $('#' + MenuGridOpt.treeListId);
         var selected = obj.treegrid("getSelected");
         obj.treegrid("cancelEdit", selected.id);
         MenuGridOpt.reInitToolBar();
