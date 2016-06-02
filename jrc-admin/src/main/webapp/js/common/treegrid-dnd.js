@@ -201,6 +201,26 @@
 					opts.onDrop.call(target, dRow, data, point);
 				}
 			});
+		},disableDnd: function(jq, id){
+			return jq.each(function () {
+				var target = this;
+				var state = $.data(this, 'treegrid');
+				state.disabledNodes = [];
+				var t = $(this);
+				var opts = state.options;
+				if (id) {
+					var nodes = opts.finder.getTr(target, id);
+					var rows = t.treegrid('getChildren', id);
+					for (var i = 0; i < rows.length; i++) {
+						nodes = nodes.add(opts.finder.getTr(target, rows[i][opts.idField]));
+					}
+				} else {
+					var nodes = t.treegrid('getPanel').find('tr[node-id]');
+				}
+				nodes.draggable({
+					disabled:true
+				});
+			});
 		}
 	});
 })(jQuery);

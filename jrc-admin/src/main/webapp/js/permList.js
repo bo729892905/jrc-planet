@@ -163,6 +163,7 @@ PermGridOpt.toEditFn = function () {
     var selected = obj.treegrid("getSelected");
     if (selected) {
         var id = selected.id;
+        obj.treegrid("disableDnd",id)
         obj.treegrid("beginEdit", id);
 
         $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
