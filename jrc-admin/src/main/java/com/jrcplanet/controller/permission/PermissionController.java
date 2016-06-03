@@ -3,7 +3,10 @@ package com.jrcplanet.controller.permission;
 import com.jrcplanet.domain.MenuLink;
 import com.jrcplanet.domain.Permission;
 import com.jrcplanet.model.easyui.JsonData;
+import com.jrcplanet.model.easyui.Tree;
+import com.jrcplanet.model.easyui.TreeNode;
 import com.jrcplanet.service.PermissionService;
+import com.jrcplanet.util.TreeUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +28,15 @@ public class PermissionController {
     @ResponseBody
     public List<Permission> getPermTreeGrid(@RequestParam(value = "id", required = false) String id) {
         return permissionService.getPermissions(id,false);
+    }
+
+    @RequestMapping(value = "tree", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<TreeNode> getPermGrid(@RequestParam(value = "id", required = false) String id) {
+        List<Permission> root = permissionService.getChildrenByParent(null);
+
+        Tree tree = TreeUtil.getInstance().formatTree(root, treeNode -> permissionService.getChildrenByParent(treeNode.getId()), null, true);
+        return tree.getTreeNodeList();
     }
 
     @RequestMapping(value = "addPerm", produces = "application/json;charset=UTF-8")

@@ -1,17 +1,23 @@
 package com.jrcplanet.domain;
 
+import com.jrcplanet.model.easyui.annotation.TreeId;
+import com.jrcplanet.model.easyui.annotation.TreeText;
 import com.jrcplanet.util.ValidateUtil;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 权限
  * Created by rxb on 2016/1/28.
  */
 public class Permission extends BaseEntity {
+    @TreeId
+    private String id= UUID.randomUUID().toString().replace("-","");
     /**
      * 权限名称
      */
+    @TreeText
     private String name;
     /**
      * 权限地址
@@ -39,6 +45,16 @@ public class Permission extends BaseEntity {
     private String state;
 
     private List<Permission> children;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
