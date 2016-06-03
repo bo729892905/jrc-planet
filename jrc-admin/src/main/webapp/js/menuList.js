@@ -250,7 +250,7 @@ var MenuGridOpt = {
     },
 
     /**
-     * 确认更新用户
+     * 确认更新菜单
      */
     confirmUpdateFn: function () {
         if ($('#' + MenuGridOpt.treeFormId).form("validate")) {
@@ -259,7 +259,7 @@ var MenuGridOpt = {
     },
 
     /**
-     * 更新用户
+     * 更新菜单
      */
     updateFn: function (rlt) {
         if (rlt) {
@@ -290,7 +290,7 @@ var MenuGridOpt = {
     },
 
     /**
-     * 更新用户回调函数
+     * 更新菜单回调函数
      * @param data
      */
     callbackUpdateMenu: function (data) {

@@ -34,7 +34,7 @@ PermGridOpt.initTreeGrid = function () {
         treeField: 'name',
         columns: [[
             {field: 'name', title: '权限名称', width: 100, editor: {type: 'validatebox', options: {required: true}}},
-            {field: 'url', title: '权限地址', width: 80},
+            {field: 'url', title: '权限地址', width: 80,editor: {type: 'validatebox', options: {required: true}}},
             {field: 'visible', title: '是否可见', width: 80, editor: {type: 'validatebox'}},
             {field: 'remark', title: '描述', width: 80, editor: {type: 'validatebox'}}
         ]],
@@ -113,6 +113,35 @@ PermGridOpt.toAddRootFn = function () {
     $('#addPermToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
 };
 
+PermGridOpt.toAddChildPermFn=function() {
+    var uuid = BaseUtil.uuid();
+    uuid = uuid.replace(/\-/g, "");
+    var obj = $('#' + PermGridOpt.treeListId);
+    var node = obj.treegrid("getSelected");
+    if (!node) {
+        MessageUtil.alert("请选择父节点！");
+    } else {
+        /*新增行*/
+        obj.treegrid('append', {
+            parent: node.id,
+            data: [{
+                id: uuid,
+                name: '新建权限',
+                url: null,
+                visible: true,
+                parentId: node.id
+            }]
+        });
+
+        obj.treegrid('select', uuid);
+        obj.treegrid("beginEdit", uuid);
+        PermGridOpt.tempIds.push(uuid);
+
+        $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
+        $('#addPermToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
+    }
+};
+
 /**
  * 保存添加
  */
@@ -188,7 +217,7 @@ PermGridOpt.toEditFn = function () {
 };
 
 /**
- * 确认更新用户
+ * 确认更新权限
  */
 PermGridOpt.confirmUpdateFn = function () {
     if ($('#' + PermGridOpt.treeFormId).form("validate")) {
@@ -197,7 +226,7 @@ PermGridOpt.confirmUpdateFn = function () {
 };
 
 /**
- * 更新用户
+ * 更新权限
  */
 PermGridOpt.updateFn = function (rlt) {
     if (rlt) {
@@ -228,7 +257,7 @@ PermGridOpt.updateFn = function (rlt) {
 };
 
 /**
- * 更新用户回调函数
+ * 更新权限回调函数
  * @param data
  */
 PermGridOpt.callbackUpdate = function (data) {

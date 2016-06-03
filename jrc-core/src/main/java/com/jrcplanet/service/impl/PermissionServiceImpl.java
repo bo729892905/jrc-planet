@@ -70,9 +70,11 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<Permission> getPermissions(String id) {
+    public List<Permission> getPermissions(String id,boolean containChild) {
         List<Permission> permissionList = getChildrenByParent(id);
-        permissionList.forEach(permission -> permission.setChildren(getPermissions(permission.getId())));
+        if (containChild) {
+            permissionList.forEach(permission -> permission.setChildren(getPermissions(permission.getId(), true)));
+        }
         return permissionList;
     }
 

@@ -1,16 +1,19 @@
-var UserListOpt = {
-    listId: "userList",
-    createWinId: "createUserWin",
-    createFormId: "addUserForm",
+/**
+ * Created by rxb on 2016/6/3.
+ */
+var RoleListOpt = {
+    listId: "roleList",
+    createWinId: "createRoleWin",
+    createFormId: "addRoleForm",
     /**
      * 初始化
      */
     init: function () {
-        UserListOpt.initTable();
-        $("#toCreateUser").unbind("click").bind("click", UserListOpt.toCreateFn);
-        $("#toDeleteUser").unbind("click").bind("click", UserListOpt.toDeleteFn);
-        $("#deleteUser").unbind("click").bind("click", UserListOpt.deleteFn);
-        $("#cancelDeleteUser").unbind("click").bind("click", UserListOpt.cancelDeleteFn);
+        RoleListOpt.initTable();
+        $("#toCreateRole").unbind("click").bind("click", RoleListOpt.toCreateFn);
+        $("#toDeleteRole").unbind("click").bind("click", RoleListOpt.toDeleteFn);
+        $("#deleteRole").unbind("click").bind("click", RoleListOpt.deleteFn);
+        $("#cancelDeleteRole").unbind("click").bind("click", RoleListOpt.cancelDeleteFn);
     },
 
     /**
@@ -18,18 +21,16 @@ var UserListOpt = {
      */
     initTable: function () {
         var columns = [[
-            {field: 'username', title: '用户名', width: 100},
-            {field: 'realName', title: '姓名', width: 100},
-            {field: 'gender', title: '性别', width: 100, align: 'right'},
-            {field: 'mobilePhone', title: '手机号', width: 100, align: 'right'},
-            {field: 'email', title: '邮箱', width: 100, align: 'right'}
+            {field: 'name', title: '名称', width: 100},
+            {field: 'code', title: '编码', width: 100},
+            {field: 'gender', title: '描述', width: 200}
         ]];
         var opt = {
-            url: ctx + "/user/list",
+            url: ctx + "/role/list",
             columns: columns,
             showCheckBox: false,
-            toolbar: '#userToolBar',
-            onOpen: UserListOpt.initSearchBox
+            toolbar: '#roleToolBar',
+            onOpen: RoleListOpt.initSearchBox
         };
         EasyuiUtil.initDatagrid(this.listId, opt)
     },
@@ -38,12 +39,12 @@ var UserListOpt = {
      * 初始化搜索框
      */
     initSearchBox: function () {
-        if (!$("#userSearchMenu").is(":hidden")) {
-            $('#userSearch').searchbox({
+        if (!$("#roleSearchMenu").is(":hidden")) {
+            $('#roleSearch').searchbox({
                 searcher: function (value, name) {
-                    UserListOpt.find(value, name);
+                    RoleListOpt.find(value, name);
                 },
-                menu: '#userSearchMenu',
+                menu: '#roleSearchMenu',
                 prompt: '请输入值',
                 height: 32
             });
@@ -51,7 +52,7 @@ var UserListOpt = {
     },
 
     /**
-     * 关键字查找用户
+     * 关键字查找角色
      * @param value 属性值
      * @param name 属性名
      */
@@ -62,33 +63,33 @@ var UserListOpt = {
     },
 
     /**
-     * 开始新建用户
+     * 开始新建角色
      */
     toCreateFn: function () {
-        var win = $('#' + UserListOpt.createWinId)
+        var win = $('#' + RoleListOpt.createWinId)
         var content = win.text();
         if (content) {//若已初始化直接打开
             win.dialog("open");
-            $('#' + UserListOpt.createFormId).form('reset');
+            $('#' + RoleListOpt.createFormId).form('reset');
         } else {//初始化对话框
             var opt = {
-                title: '新建用户',
-                href: ctx + '/partials/user/create-user.html',
-                width: 500,
-                height: 475,
-                okFn: UserListOpt.saveFn
+                title: '新建角色',
+                href: ctx + '/partials/role/create-role.html',
+                width: 800,
+                height: 675,
+                okFn: RoleListOpt.saveFn
             };
-            EasyuiUtil.initDialog(UserListOpt.createWinId, opt);
+            EasyuiUtil.initDialog(RoleListOpt.createWinId, opt);
             win.dialog("open");
         }
     },
 
     /**
-     * 保存用户
+     * 保存角色
      */
     saveFn: function () {
         $.easyui.loading();
-        $('#' + UserListOpt.createFormId).form('submit', {
+        $('#' + RoleListOpt.createFormId).form('submit', {
             url: "user/addUser",
             onSubmit: function () {
                 var isValid = $(this).form('validate');
@@ -99,29 +100,29 @@ var UserListOpt = {
             },
             success: function (data) {
                 data = JSON.parse(data);
-                UserListOpt.callbackSaveFn(data);
+                RoleListOpt.callbackSaveFn(data);
             }
         });
     },
 
     /**
-     * 保存用户回调函数
+     * 保存角色回调函数
      * @param data
      */
     callbackSaveFn: function (data) {
         if (data.result) {
             $.easyui.loaded();	// 如果提交成功则隐藏进度条
-            $("#" + UserListOpt.listId).datagrid("appendRow", data.data);
-            $('#' + UserListOpt.createWinId).dialog('close');
+            $("#" + RoleListOpt.listId).datagrid("appendRow", data.data);
+            $('#' + RoleListOpt.createWinId).dialog('close');
             MessageUtil.msgslide("保存成功！");
         }
     },
 
     /**
-     * 开始删除用户
+     * 开始删除角色
      */
     toDeleteFn: function () {
-        var obj = $("#" + UserListOpt.listId);
+        var obj = $("#" + RoleListOpt.listId);
         //显示多选框
         obj.datagrid('showColumn', 'checkbox');
         //设置可多选
@@ -133,13 +134,13 @@ var UserListOpt = {
     },
 
     /**
-     * 删除用户
+     * 删除角色
      */
     deleteFn: function () {
-        var obj = $("#" + UserListOpt.listId);
+        var obj = $("#" + RoleListOpt.listId);
         var selections = obj.datagrid("getSelections");
         if (selections.length > 0) {
-            MessageUtil.confirm("确定要删除选中用户吗？", function (rlt) {
+            MessageUtil.confirm("确定要删除选中角色吗？", function (rlt) {
                 if (rlt) {
                     var id = [];
                     for (var i = 0; i < selections.length; i++) {
@@ -149,44 +150,44 @@ var UserListOpt = {
                         url: ctx + "/user/deleteUser",
                         type: "POST",
                         data: {id: id},
-                        callback: UserListOpt.callbackDeleteFn
+                        callback: RoleListOpt.callbackDeleteFn
                     })
                 }
             });
         } else {
-            MessageUtil.alert("请选择用户！")
+            MessageUtil.alert("请选择角色！")
         }
     },
 
     /**
-     * 删除用户回调函数
+     * 删除角色回调函数
      * @param data
      */
     callbackDeleteFn: function (data) {
         if (data.result) {
-            EasyuiUtil.deleteRow(UserListOpt.listId);
-            UserListOpt.deleteEndFn();
+            EasyuiUtil.deleteRow(RoleListOpt.listId);
+            RoleListOpt.deleteEndFn();
             MessageUtil.msgslide("删除成功！");
         }
     },
 
     /**
-     * 取消删除用户
+     * 取消删除角色
      */
     cancelDeleteFn: function () {
-        UserListOpt.deleteEndFn();
+        RoleListOpt.deleteEndFn();
     },
 
     /**
      * 删除取消或结束
      */
     deleteEndFn: function () {
-        var obj = $("#" + UserListOpt.listId);
+        var obj = $("#" + RoleListOpt.listId);
         obj.datagrid('hideColumn', 'checkbox');
         obj.datagrid("unselectAll");
         obj.datagrid("options").singleSelect = true;
         obj.datagrid("resize");
-        UserListOpt.reInitToolBar();
+        RoleListOpt.reInitToolBar();
     },
 
     /**
@@ -199,5 +200,5 @@ var UserListOpt = {
 };
 
 /*$(function () {
- UserListOpt.init();
+ RoleListOpt.init();
  });*/

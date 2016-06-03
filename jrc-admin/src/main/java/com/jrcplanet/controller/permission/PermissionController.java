@@ -24,7 +24,7 @@ public class PermissionController {
     @RequestMapping(value = "treegrid", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<Permission> getPermTreeGrid(@RequestParam(value = "id", required = false) String id) {
-        return permissionService.getPermissions(id);
+        return permissionService.getPermissions(id,false);
     }
 
     @RequestMapping(value = "addPerm", produces = "application/json;charset=UTF-8")

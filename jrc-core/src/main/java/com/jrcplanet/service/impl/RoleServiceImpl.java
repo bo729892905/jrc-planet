@@ -1,5 +1,6 @@
 package com.jrcplanet.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.jrcplanet.domain.Role;
 import com.jrcplanet.mapper.RoleMapper;
 import com.jrcplanet.service.RoleService;
@@ -14,12 +15,12 @@ import java.util.List;
  * Created by rxb on 2016/1/28.
  */
 @Service
+@Transactional
 public class RoleServiceImpl implements RoleService {
 
     @Resource
     private RoleMapper roleMapper;
 
-    @Transactional
     @Override
     public int insertRole(Role role) {
         return roleMapper.insertRole(role);
@@ -33,5 +34,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int setPermissionsToRole(String roleId, List<String> perIdList) {
         return roleMapper.setPermissionsToRole(roleId, perIdList);
+    }
+
+    @Override
+    public List<Role> getRoleList(Role role) {
+        PageHelper.startPage(role.getPage(), role.getRows());
+        return roleMapper.getRoleList(role);
     }
 }

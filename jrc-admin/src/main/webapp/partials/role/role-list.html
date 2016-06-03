@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<table id="roleList"></table>
+
+<div id="roleToolBar">
+    <div id="initialRoleToolBar" class="visible-tool-bar">
+        <a id="toCreateRole" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="iconCls:'icon-add',plain:true">新建</a>
+        <a id="toDeleteRole" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="iconCls:'icon-remove',plain:true">删除</a>
+    </div>
+    <div id="deleteRoleToolBar" class="hidden-tool-bar">
+        <a id="deleteRole" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="iconCls:'icon-ok',plain:true">确定</a>
+        <a id="cancelDeleteRole" href="javascript:void(0)" class="easyui-linkbutton"
+           data-options="iconCls:'icon-undo',plain:true">取消</a>
+    </div>
+    <input id="roleSearch" class="easyui-searchbox" style="width:300px"/>
+    <div id="roleSearchMenu">
+        <div data-options="name:'name'" style="height: 25px">名称</div>
+        <div data-options="name:'code'" style="height: 25px">编码</div>
+    </div>
+</div>
+
+<div id="createRoleWin"></div>
+
+<!--<script src="js/roleList.js"></script>-->
+<script type="text/javascript">
+    $(function () {
+        LazyLoad.js(['js/roleList.js'], function () {
+            RoleListOpt.init();
+        });
+    });
+</script>

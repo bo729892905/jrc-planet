@@ -33,6 +33,10 @@ public class Permission extends BaseEntity {
      * 描述
      */
     private String remark;
+    /**
+     * 树形结构状态
+     */
+    private String state;
 
     private List<Permission> children;
 
@@ -90,5 +94,13 @@ public class Permission extends BaseEntity {
 
     public void setChildren(List<Permission> children) {
         this.children = children;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

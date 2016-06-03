@@ -33,4 +33,16 @@
             (#{roleId}, #{perId})
         </foreach>
     </insert>
+
+    <select id="getRoleList" parameterType="com.jrcplanet.domain.Role" resultType="com.jrcplanet.domain.Role">
+        SELECT * from t_res_role
+        <where>
+            <if test="name != null">
+                and name like CONCAT('%',#{name},'%')
+            </if>
+            <if test="code != null">
+                and code = #{code}
+            </if>
+        </where>
+    </select>
 </mapper>

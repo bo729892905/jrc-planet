@@ -8,7 +8,17 @@
     padding: 0;
 }
 
+.panel-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #777;
+    height: 32px;
+    line-height: 32px;
+    padding-left:28px;
+}
+
 .layout-panel-west .panel-title {
+    padding-left:0;
     height: 30px;
     line-height: 30px;
     text-align: center;

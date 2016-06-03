@@ -38,10 +38,10 @@ public interface PermissionService {
 
     void autoSavePerm();
 
-    List<Permission> getPermissions(String id);
+    List<Permission> getPermissions(String id,boolean containChild);
 
     default List<Permission> getPermissions(){
-        return getPermissions(null);
+        return getPermissions(null,true);
     };
 
     List<Permission> getChildrenByParent(String parentId);

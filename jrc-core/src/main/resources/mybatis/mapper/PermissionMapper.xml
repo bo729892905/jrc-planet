@@ -40,7 +40,10 @@
     </select>
 
     <select id="getChildrenByParent" resultType="com.jrcplanet.domain.Permission">
-        SELECT p.* from t_res_permission p
+        SELECT
+        p.*,
+        if((select count(0) from t_res_permission p1 where p1.parent_id=p.id)=0,'open','closed') as state
+        from t_res_permission p
         <where>
             AND p.visible=true
             <if test="parentId == null">

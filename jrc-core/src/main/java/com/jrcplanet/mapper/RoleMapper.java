@@ -34,4 +34,6 @@ public interface RoleMapper {
      * @return int
      */
     int setPermissionsToRole(@Param("roleId") String roleId, @Param("perIdList") List<String> perIdList);
+
+    List<Role> getRoleList(Role role);
 }

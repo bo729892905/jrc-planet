@@ -30,4 +30,6 @@ public interface RoleService {
      * @return int
      */
     int setPermissionsToRole(String roleId, List<String> perIdList);
+
+    List<Role> getRoleList(Role role);
 }
