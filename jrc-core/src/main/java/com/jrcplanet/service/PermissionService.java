@@ -45,4 +45,6 @@ public interface PermissionService {
     };
 
     List<Permission> getChildrenByParent(String parentId);
+
+    int movePerm(String targetId, String sourceId);
 }

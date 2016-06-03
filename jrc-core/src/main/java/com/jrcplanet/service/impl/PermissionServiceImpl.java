@@ -85,4 +85,9 @@ public class PermissionServiceImpl implements PermissionService {
     public int updateByIdSelective(Permission perm) {
         return permissionMapper.updateByIdSelective(perm);
     }
+
+    @Override
+    public int movePerm(String targetId, String sourceId) {
+        return permissionMapper.movePerm(targetId, sourceId);
+    }
 }

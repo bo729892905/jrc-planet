@@ -119,7 +119,7 @@
     $.extend($.fn.window.defaults, { loadingMessage: $.easyui.loading.defaults.msg });
     $.extend($.fn.dialog.defaults, { loadingMessage: $.easyui.loading.defaults.msg });
     $.extend($.fn.datagrid.defaults, { loadingMessage: $.easyui.loading.defaults.msg });
-    $.extend($.fn.datalist.defaults, { loadingMessage: $.easyui.loading.defaults.msg });
+    /*$.extend($.fn.datalist.defaults, { loadingMessage: $.easyui.loading.defaults.msg });*/
     $.extend($.fn.propertygrid.defaults, { loadingMessage: $.easyui.loading.defaults.msg });
     $.extend($.fn.combogrid.defaults, { loadingMessage: $.easyui.loading.defaults.msg });
     $.extend($.fn.treegrid.defaults, { loadingMessage: $.easyui.loading.defaults.msg });

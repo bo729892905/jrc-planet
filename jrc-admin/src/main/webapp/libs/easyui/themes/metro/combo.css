@@ -1,3 +1,20 @@
+.combo {
+  display: inline-block;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  border-width: 1px;
+  border-style: solid;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.combo .combo-text {
+  font-size: 12px;
+  border: 0px;
+  margin: 0;
+  padding: 0px 2px;
+  vertical-align: baseline;
+}
 .combo-arrow {
   width: 18px;
   height: 20px;
@@ -21,6 +38,10 @@
 .combo-panel {
   background-color: #fff;
 }
+.combo {
+  border-color: #ddd;
+  background-color: #fff;
+}
 .combo-arrow {
   background-color: #ffffff;
 }
@@ -32,4 +53,8 @@
 }
 .combo .textbox-icon-disabled:hover {
   cursor: default;
+}
+.textbox-invalid {
+  border-color: #ffa8a8;
+  background-color: #fff3f3;
 }

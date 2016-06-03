@@ -1,5 +1,7 @@
 package com.jrcplanet.domain;
 
+import com.jrcplanet.util.ValidateUtil;
+
 import java.util.List;
 
 /**
@@ -39,7 +41,7 @@ public class Permission extends BaseEntity {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = ValidateUtil.isEmpty(name) ? null : name;
     }
 
     public String getUrl() {
@@ -47,7 +49,7 @@ public class Permission extends BaseEntity {
     }
 
     public void setUrl(String url) {
-        this.url = url;
+        this.url = ValidateUtil.isEmpty(url) ? null : url;
     }
 
     public Integer getPerType() {
@@ -63,7 +65,7 @@ public class Permission extends BaseEntity {
     }
 
     public void setParentId(String parentId) {
-        this.parentId = parentId;
+        this.parentId = ValidateUtil.isEmpty(parentId) ? null : parentId;
     }
 
     public Boolean getVisible() {
@@ -79,7 +81,7 @@ public class Permission extends BaseEntity {
     }
 
     public void setRemark(String remark) {
-        this.remark = remark;
+        this.remark = ValidateUtil.isEmpty(remark) ? null : remark;
     }
 
     public List<Permission> getChildren() {

@@ -158,4 +158,9 @@
           remark = #{remark,jdbcType=VARCHAR}
         where id = #{id,jdbcType=VARCHAR}
     </update>
+    <update id="movePerm">
+        UPDATE t_res_permission
+        SET parent_id=#{targetId}
+        WHERE id=#{sourceId}
+    </update>
 </mapper>

@@ -40,4 +40,11 @@ public class PermissionController {
         permissionService.updateByIdSelective(perm);
         return JsonData.createSuccessData(perm);
     }
+
+    @RequestMapping(value = "movePerm", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public JsonData movePerm(@RequestParam("targetId") String targetId,@RequestParam("sourceId")String sourceId) {
+        permissionService.movePerm(targetId,sourceId);
+        return JsonData.createSuccessData();
+    }
 }

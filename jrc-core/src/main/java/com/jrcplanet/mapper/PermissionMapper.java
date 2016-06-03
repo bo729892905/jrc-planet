@@ -32,4 +32,6 @@ public interface PermissionMapper {
     int updateByIdSelective(Permission record);
 
     int updateById(Permission record);
+
+    int movePerm(@Param("targetId") String targetId, @Param("sourceId") String sourceId);
 }

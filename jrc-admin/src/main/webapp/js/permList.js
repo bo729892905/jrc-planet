@@ -48,6 +48,18 @@ PermGridOpt.initTreeGrid = function () {
             if (visible) {//编辑状态禁止选择其他行
                 return false;
             }
+        },
+        onBeforeDrop:function(targetRow,sourceRow) {
+            /*var accept=false
+            MessageUtil.confirm("确定要移动到此处吗？", function (rlt) {
+                if(rlt) {
+                    accept=true
+                }
+            });
+            return accept;*/
+        },
+        onDrop:function(targetRow,sourceRow) {
+            PermGridOpt.moveFn(targetRow.id,sourceRow.id);
         }
     });
 };
@@ -92,6 +104,7 @@ PermGridOpt.toAddRootFn = function () {
         }]
     });
 
+    obj.treegrid("disableDnd");
     obj.treegrid('select', uuid);
     obj.treegrid("beginEdit", uuid);
     PermGridOpt.tempIds.push(uuid);
@@ -153,6 +166,7 @@ PermGridOpt.endAddFn = function () {
 PermGridOpt.reInitToolBar = function () {
     $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
     $('#initialPermToolBar').removeClass('hidden-tool-bar').addClass('visible-tool-bar');
+    $('#' + PermGridOpt.treeListId).treegrid('enableDnd');
 };
 
 /**
@@ -163,7 +177,7 @@ PermGridOpt.toEditFn = function () {
     var selected = obj.treegrid("getSelected");
     if (selected) {
         var id = selected.id;
-        obj.treegrid("disableDnd",id)
+        obj.treegrid("disableDnd");
         obj.treegrid("beginEdit", id);
 
         $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
@@ -218,9 +232,11 @@ PermGridOpt.updateFn = function (rlt) {
  * @param data
  */
 PermGridOpt.callbackUpdate = function (data) {
-    $('#' + PermGridOpt.treeListId).treegrid("acceptChanges");
+    var obj = $('#' + PermGridOpt.treeListId);
+    obj.treegrid("acceptChanges");
     PermGridOpt.reInitToolBar();
-    MessageUtil.msgslide("修改成功！")
+    obj.treegrid('enableDnd');
+    MessageUtil.msgslide("修改成功！");
 };
 
 PermGridOpt.cancelEditFn = function () {
@@ -228,4 +244,17 @@ PermGridOpt.cancelEditFn = function () {
     var selected = obj.treegrid("getSelected");
     obj.treegrid("cancelEdit", selected.id);
     PermGridOpt.reInitToolBar();
+};
+
+PermGridOpt.moveFn=function(targetId,sourceId) {
+    BaseUtil.ajax({
+        url: ctx + "/perm/movePerm",
+        type: "POST",
+        data: {targetId:targetId,sourceId:sourceId},
+        callback: PermGridOpt.callbackMove
+    });
+};
+
+PermGridOpt.callbackMove = function (data) {
+    MessageUtil.msgslide("移动成功！");
 };
