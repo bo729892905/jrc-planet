@@ -32,7 +32,7 @@ var RoleListOpt = {
             toolbar: '#roleToolBar',
             onOpen: RoleListOpt.initSearchBox
         };
-        EasyuiUtil.initDatagrid(this.listId, opt)
+        EasyuiUtil.initDatagrid(this.listId, opt);
     },
 
     /**
@@ -66,7 +66,7 @@ var RoleListOpt = {
      * 开始新建角色
      */
     toCreateFn: function () {
-        var win = $('#' + RoleListOpt.createWinId)
+        var win = $('#' + RoleListOpt.createWinId);
         var content = win.text();
         if (content) {//若已初始化直接打开
             win.dialog("open");
