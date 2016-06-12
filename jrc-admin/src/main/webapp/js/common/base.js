@@ -15,7 +15,7 @@ BaseUtil.uuid = function () {
     return s.join("");
 };
 
-BaseUtil.ajax=function(obj) {
+BaseUtil.ajax = function (obj) {
     $.easyui.loading();
     obj.url = obj.url || '';
     $.ajax({
@@ -23,24 +23,45 @@ BaseUtil.ajax=function(obj) {
         url: obj.url,
         data: obj.data || '',
         timeout: obj.limiTime || 120000,
-        traditional:true,
-        success: function(data){
+        traditional: true,
+        success: function (data) {
             $.easyui.loaded();
             data = (typeof data == 'object' ? data : $.parseJSON(data));
 
-            if(data.result){
+            if (data.result) {
                 obj.callback && obj.callback(data);
-            }else {
+            } else {
                 //待完善
             }
         },
-        error: function(errorMsg){
+        error: function (errorMsg) {
             $.easyui.loaded();
-            if(errorMsg.statusText == 'timeout'){
+            if (errorMsg.statusText == 'timeout') {
                 MessageUtil.alert("<span class='f-red'>请求超时！</span>");
-            }else{
+            } else {
                 MessageUtil.alert("<span class='f-red'>系统错误！</span>");
             }
         }
     });
+};
+
+BaseUtil.serialize = function (id) {
+    var urlParamBody = $("#" + id).serialize();
+    urlParamBody = decodeURIComponent(urlParamBody, true);
+    var param = urlParamBody.split("&");
+    var data = {};
+    param.forEach(function (e) {
+        var key = e.split('=')[0], value = e.split('=')[1];
+        if (data[key] == null || data[key] == undefined) {
+            data[key] = value;
+        } else {
+            var o = data[key];
+            if (Object.prototype.toString.call(o) === '[object Array]') {
+                o.push(data[value]);
+            } else {
+                data[key] = [o, value];
+            }
+        }
+    });
+    return data;
 };

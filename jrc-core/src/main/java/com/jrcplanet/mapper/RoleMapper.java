@@ -12,15 +12,21 @@ import java.util.List;
  */
 @Repository
 public interface RoleMapper {
-    /**
-     * 新增用户
-     * @param role 角色
-     * @return int
-     */
-    int insertRole(Role role);
+    int deleteById(String id);
+
+    int insert(Role record);
+
+    int insertSelective(Role record);
+
+    Role selectById(String id);
+
+    int updateByIdSelective(Role record);
+
+    int updateById(Role record);
 
     /**
      * 根据用户查询角色
+     *
      * @param userId 角色id
      * @return List<Role>
      */
@@ -29,11 +35,19 @@ public interface RoleMapper {
     /**
      * 为角色设置权限
      *
-     * @param roleId 角色id
+     * @param roleId    角色id
      * @param perIdList 权限id列表
      * @return int
      */
     int setPermissionsToRole(@Param("roleId") String roleId, @Param("perIdList") List<String> perIdList);
 
     List<Role> getRoleList(Role role);
+
+    /**
+     * 将权限关联到角色
+     * @param roleId
+     * @param permIds
+     * @return
+     */
+    int relatePermsToRole(@Param("roleId") String roleId, @Param("permIds") String[] permIds);
 }

@@ -31,5 +31,10 @@ public interface RoleService {
      */
     int setPermissionsToRole(String roleId, List<String> perIdList);
 
+    /**
+     * 获取角色列表
+     * @param role
+     * @return
+     */
     List<Role> getRoleList(Role role);
 }

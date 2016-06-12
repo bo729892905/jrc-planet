@@ -21,6 +21,10 @@ public class Role extends BaseEntity {
      * 类型
      */
     private Integer roleType;
+    /**
+     * 权限列表
+     */
+    private String[] permIds;
 
     public String getName() {
         return name;
@@ -52,5 +56,13 @@ public class Role extends BaseEntity {
 
     public void setRoleType(Integer roleType) {
         this.roleType = roleType;
+    }
+
+    public String[] getPermIds() {
+        return permIds;
+    }
+
+    public void setPermIds(String[] permIds) {
+        this.permIds = permIds;
     }
 }

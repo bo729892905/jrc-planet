@@ -7,27 +7,118 @@
     <sql id="roleTable">t_res_role</sql>
     <sql id="userRoleTable">t_res_user_role</sql>
 
-    <!-- 保存角色 -->
-    <insert id="insertRole" parameterType="com.jrcplanet.domain.Role">
-        INSERT INTO <include refid="roleTable"/>
-          (id, name, code, remark, role_type)
-        VALUES
-          (#{id},#{name},#{code},#{remark},#{roleType})
+    <resultMap id="BaseResultMap" type="com.jrcplanet.domain.Role">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="role_type" property="roleType" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id, name, code, remark, role_type
+    </sql>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_res_role
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from t_res_role
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.jrcplanet.domain.Role">
+        insert into t_res_role (id, name, code,
+          remark, role_type)
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+          #{remark,jdbcType=VARCHAR}, #{roleType,jdbcType=INTEGER})
     </insert>
+
+    <insert id="insertSelective" parameterType="com.jrcplanet.domain.Role">
+        insert into t_res_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="roleType != null">
+                role_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="roleType != null">
+                #{roleType,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByIdSelective" parameterType="com.jrcplanet.domain.Role">
+        update t_res_role
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="roleType != null">
+                role_type = #{roleType,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateById" parameterType="com.jrcplanet.domain.Role">
+        update t_res_role
+        set name = #{name,jdbcType=VARCHAR},
+          code = #{code,jdbcType=VARCHAR},
+          remark = #{remark,jdbcType=VARCHAR},
+          role_type = #{roleType,jdbcType=INTEGER}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 
     <!-- 根据用户查询角色 -->
     <select id="getRoleByUserId" parameterType="String" resultType="com.jrcplanet.domain.Role" useCache="true">
         SELECT
-          r.*
+        r.*
         FROM
-          <include refid="roleTable"/> r
-          INNER JOIN <include refid="userRoleTable"/> ur on r.id = ur.role_id
+        <include refid="roleTable"/>
+        r
+        INNER JOIN
+        <include refid="userRoleTable"/>
+        ur on r.id = ur.role_id
         WHERE ur.user_id=#{userId}
     </select>
 
     <insert id="setPermissionsToRole">
-        INSERT INTO <include refid="com.jrcplanet.mapper.PermissionMapper.rolePermissionTable"/>
-          (role_id, permission_id)
+        INSERT INTO
+        <include refid="com.jrcplanet.mapper.PermissionMapper.rolePermissionTable"/>
+        (role_id, permission_id)
         VALUES
         <foreach collection="perIdList" item="perId" separator=",">
             (#{roleId}, #{perId})
@@ -45,4 +136,13 @@
             </if>
         </where>
     </select>
+
+    <insert id="relatePermsToRole">
+        INSERT INTO t_res_role_permission
+          (role_id, permission_id)
+        VALUES
+        <foreach collection="permIds" item="permId" separator=",">
+          (#{roleId},#{permId})
+        </foreach>
+    </insert>
 </mapper>

@@ -23,7 +23,13 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public int insertRole(Role role) {
-        return roleMapper.insertRole(role);
+        int result = 0;
+        roleMapper.insert(role);
+        String[] permIds = role.getPermIds();
+        if (permIds.length > 0) {
+            result = roleMapper.relatePermsToRole(role.getId(), permIds);
+        }
+        return result;
     }
 
     @Override

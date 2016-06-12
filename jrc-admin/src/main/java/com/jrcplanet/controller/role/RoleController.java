@@ -3,6 +3,7 @@ package com.jrcplanet.controller.role;
 import com.github.pagehelper.Page;
 import com.jrcplanet.domain.Role;
 import com.jrcplanet.model.easyui.DataGrid;
+import com.jrcplanet.model.easyui.JsonData;
 import com.jrcplanet.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,5 +34,12 @@ public class RoleController {
         Page<Role> list = (Page) roleList;
 
         return new DataGrid(list.getTotal(), roleList);
+    }
+
+    @RequestMapping(value = "addRole", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public JsonData insert(Role role) {
+        roleService.insertRole(role);
+        return JsonData.createSuccessData(role);
     }
 }

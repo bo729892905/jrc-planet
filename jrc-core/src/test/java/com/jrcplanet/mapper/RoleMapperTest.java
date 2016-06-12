@@ -20,6 +20,6 @@ public class RoleMapperTest extends BaseTest {
         Role role = new Role();
         role.setName("管理员");
         role.setCode("admin");
-        roleMapper.insertRole(role);
+        roleMapper.insert(role);
     }
 }

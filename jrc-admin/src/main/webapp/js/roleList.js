@@ -88,21 +88,23 @@ var RoleListOpt = {
      * 保存角色
      */
     saveFn: function () {
-        $.easyui.loading();
-        $('#' + RoleListOpt.createFormId).form('submit', {
-            url: "user/addUser",
-            onSubmit: function () {
-                var isValid = $(this).form('validate');
-                if (!isValid) {
-                    $.easyui.loaded();
-                }
-                return isValid;	// 返回false终止表单提交
-            },
-            success: function (data) {
-                data = JSON.parse(data);
-                RoleListOpt.callbackSaveFn(data);
-            }
+        var data = BaseUtil.serialize(RoleListOpt.createFormId);
+        var checked = $("#rolePermTree").tree('getChecked');
+        var permIds = [];
+        checked.forEach(function (e) {
+            permIds.push(e.id);
         });
+        data.permIds = permIds;
+
+        var isValid = $(this).form('validate');
+        if (isValid) {
+            BaseUtil.ajax({
+                url: ctx + "/role/addRole",
+                type: "POST",
+                data: data,
+                callback: RoleListOpt.callbackSaveFn
+            });
+        }
     },
 
     /**
@@ -151,7 +153,7 @@ var RoleListOpt = {
                         type: "POST",
                         data: {id: id},
                         callback: RoleListOpt.callbackDeleteFn
-                    })
+                    });
                 }
             });
         } else {
