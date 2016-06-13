@@ -6,6 +6,7 @@ import com.jrcplanet.domain.User;
 import com.jrcplanet.service.PermissionService;
 import com.jrcplanet.service.RoleService;
 import com.jrcplanet.service.UserService;
+import com.jrcplanet.util.ValidateUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -48,19 +49,24 @@ public class PermissionRealm extends AuthorizingRealm {
         logger.info("doGetAuthorizationInfo....principals: " + p.toString());
         User user = (User) SecurityUtils.getSubject().getSession().getAttribute("loginUser");
 
-        Set<String> roleNameSet = new HashSet<>();
+        Set<String> roleCodeSet = new HashSet<>();
         Set<String> permissionSet = new HashSet<>();
 
         //获取用户权限
         List<Role> roleList = roleService.getRoleByUserId(user.getId());
 
         roleList.forEach(role -> {
-            roleNameSet.add(role.getName());
+            roleCodeSet.add(role.getCode());
             List<Permission> permissionList = permissionService.getPermissionByRole(role.getId());
-            permissionList.forEach(e -> permissionSet.add(e.getUrl()));
+            permissionList.forEach(e -> {
+                String url = e.getUrl();
+                if (!ValidateUtil.isEmpty(url)) {
+                    permissionSet.add(url);
+                }
+            });
         });
 
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleNameSet);
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleCodeSet);
         info.setStringPermissions(permissionSet);
 
         return info;

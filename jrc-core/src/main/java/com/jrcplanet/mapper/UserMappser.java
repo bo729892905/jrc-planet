@@ -42,4 +42,12 @@ public interface UserMappser {
     int setRolesToUser(@Param("userId") String userId, @Param("roleIdList") List<String> roleIdList);
 
     int deleteUser(@Param("ids") String[] ids);
+
+    /**
+     * 将角色关联到用户
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    int relateRoleToUser(@Param("userId") String userId, @Param("roleId") String roleId);
 }

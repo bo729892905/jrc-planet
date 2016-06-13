@@ -45,6 +45,10 @@ public class User extends BaseEntity {
 	 * 注册时间
 	 */
 	private Date registerDate;
+	/**
+	 * 角色id
+	 */
+	private String roleId;
 
 	public String getUsername() {
 		return username;
@@ -116,6 +120,14 @@ public class User extends BaseEntity {
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 
 	@Override

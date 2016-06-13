@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by rxb on 2016/6/3.
@@ -41,5 +42,11 @@ public class RoleController {
     public JsonData insert(Role role) {
         roleService.insertRole(role);
         return JsonData.createSuccessData(role);
+    }
+
+    @RequestMapping(value = "roleCombo", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<Role> getRoleCombo() {
+        return roleService.getRoleCombo();
     }
 }

@@ -2,6 +2,10 @@
  * Created by rxb on 2016/5/26.
  */
 var BaseUtil = {};
+/**
+ * 生成uuid
+ * @returns {string}
+ */
 BaseUtil.uuid = function () {
     var s = [];
     var hexDigits = "0123456789abcdef";
@@ -15,6 +19,10 @@ BaseUtil.uuid = function () {
     return s.join("");
 };
 
+/**
+ * 封装ajax请求
+ * @param obj
+ */
 BaseUtil.ajax = function (obj) {
     $.easyui.loading();
     obj.url = obj.url || '';
@@ -45,6 +53,11 @@ BaseUtil.ajax = function (obj) {
     });
 };
 
+/**
+ * 将表单序列化化为json
+ * @param id 表单id
+ * @returns {{}}
+ */
 BaseUtil.serialize = function (id) {
     var urlParamBody = $("#" + id).serialize();
     urlParamBody = decodeURIComponent(urlParamBody, true);

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 角色业务层操作实现类
@@ -38,13 +39,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public int setPermissionsToRole(String roleId, List<String> perIdList) {
-        return roleMapper.setPermissionsToRole(roleId, perIdList);
-    }
-
-    @Override
     public List<Role> getRoleList(Role role) {
         PageHelper.startPage(role.getPage(), role.getRows());
         return roleMapper.getRoleList(role);
+    }
+
+    @Override
+    public List<Role> getRoleCombo() {
+        return roleMapper.getRoleCombo();
     }
 }

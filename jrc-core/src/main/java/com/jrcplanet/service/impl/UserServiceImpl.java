@@ -4,6 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.jrcplanet.domain.User;
 import com.jrcplanet.mapper.UserMappser;
 import com.jrcplanet.service.UserService;
+import com.jrcplanet.util.EncryptUtil;
+import com.jrcplanet.util.ValidateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +21,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public int insertUser(User user) {
-        return userMappser.insertUser(user);
+        int result = 0;
+        user.setPassword(EncryptUtil.encryptMD5(user.getPassword()));
+        userMappser.insertUser(user);
+        String roleId = user.getRoleId();
+        if (!ValidateUtil.isEmpty(roleId)) {
+            result = userMappser.relateRoleToUser(user.getId(), roleId);
+        }
+        return result;
     }
 
     @Override

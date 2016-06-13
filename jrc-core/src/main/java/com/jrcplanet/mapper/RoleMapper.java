@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 角色持久层接口
@@ -32,15 +33,6 @@ public interface RoleMapper {
      */
     List<Role> getRoleByUserId(String userId);
 
-    /**
-     * 为角色设置权限
-     *
-     * @param roleId    角色id
-     * @param perIdList 权限id列表
-     * @return int
-     */
-    int setPermissionsToRole(@Param("roleId") String roleId, @Param("perIdList") List<String> perIdList);
-
     List<Role> getRoleList(Role role);
 
     /**
@@ -50,4 +42,10 @@ public interface RoleMapper {
      * @return
      */
     int relatePermsToRole(@Param("roleId") String roleId, @Param("permIds") String[] permIds);
+
+    /**
+     * 获取角色combo
+     * @return
+     */
+    List<Role> getRoleCombo();
 }

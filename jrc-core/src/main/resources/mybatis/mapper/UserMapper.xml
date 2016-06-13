@@ -58,4 +58,8 @@
             (#{userId},#{roleId})
         </foreach>
     </insert>
+
+    <insert id="relateRoleToUser">
+        insert into t_res_user_role (user_id,role_id) values (#{userId},#{roleId})
+    </insert>
 </mapper>

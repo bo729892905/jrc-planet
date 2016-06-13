@@ -115,16 +115,6 @@
         WHERE ur.user_id=#{userId}
     </select>
 
-    <insert id="setPermissionsToRole">
-        INSERT INTO
-        <include refid="com.jrcplanet.mapper.PermissionMapper.rolePermissionTable"/>
-        (role_id, permission_id)
-        VALUES
-        <foreach collection="perIdList" item="perId" separator=",">
-            (#{roleId}, #{perId})
-        </foreach>
-    </insert>
-
     <select id="getRoleList" parameterType="com.jrcplanet.domain.Role" resultType="com.jrcplanet.domain.Role">
         SELECT * from t_res_role
         <where>
@@ -145,4 +135,9 @@
           (#{roleId},#{permId})
         </foreach>
     </insert>
+
+    <select id="getRoleCombo" resultType="com.jrcplanet.domain.Role">
+        SELECT id,name from t_res_role
+    </select>
+
 </mapper>

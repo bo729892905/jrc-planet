@@ -3,6 +3,7 @@ package com.jrcplanet.service;
 import com.jrcplanet.domain.Role;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 角色业务层操作
@@ -24,17 +25,11 @@ public interface RoleService {
     List<Role> getRoleByUserId(String userId);
 
     /**
-     * 给角色设置权限
-     * @param roleId 角色id
-     * @param perIdList 权限id列表
-     * @return int
-     */
-    int setPermissionsToRole(String roleId, List<String> perIdList);
-
-    /**
      * 获取角色列表
      * @param role
      * @return
      */
     List<Role> getRoleList(Role role);
+
+    List<Role> getRoleCombo();
 }
