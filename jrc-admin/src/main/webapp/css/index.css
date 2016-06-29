@@ -153,15 +153,15 @@ html.panel-fit {
 }
 
 .accordion-tree .root-tree-node {
-    background: #444 url("../imgs/menu-setting.png") no-repeat scroll 150px center;;
+    background: #444 url("../imgs/menu-setting.png") no-repeat scroll 152px center;;
 }
 
 .accordion-tree .root-tree-node:hover {
-    background: #4A4A4A url("../imgs/menu-setting.png") no-repeat scroll 150px center;;
+    background: #4A4A4A url("../imgs/menu-setting.png") no-repeat scroll 152px center;;
 }
 
 .accordion-tree .root-tree-node-selected {
-    background:#353535 url("../imgs/menu-setting.png") no-repeat scroll 150px center;
+    background:#353535 url("../imgs/menu-setting.png") no-repeat scroll 152px center;
 }
 
 .accordion-tree .tree-expanded {
