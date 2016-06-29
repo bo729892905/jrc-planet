@@ -24,25 +24,32 @@
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
 
+    <bean id="anyRolesFilter" class="com.jrcplanet.security.realm.AnyRolesFilter"/>
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/to-login" />
-        <property name="successUrl" value="/" />
-        <property name="unauthorizedUrl" value="/errors/403.jsp" />
+        <property name="loginUrl" value="/to-login"/>
+        <property name="successUrl" value="/"/>
+        <property name="unauthorizedUrl" value="/errors/403.jsp"/>
+        <property name="filters">
+            <map>
+                <entry key="anyroles" value-ref="anyRolesFilter"/>
+            </map>
+        </property>
         <property name="filterChainDefinitions">
             <value>
-                /css/**    =anon
-                /js/**     =anon
+                /css/** =anon
+                /js/** =anon
                 /images/** =anon
                 /img/** =anon
                 /errors/** =anon
-                /libs/**   =anon
-                /login*    = anon
-                /**   = authc
+                /libs/** =anon
+                /login* = anon
+                /** = authc
             </value>
         </property>
     </bean>
+
     <!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 </beans>

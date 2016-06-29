@@ -27,7 +27,7 @@ public class RoleServiceImpl implements RoleService {
         int result = 0;
         roleMapper.insert(role);
         String[] permIds = role.getPermIds();
-        if (permIds.length > 0) {
+        if (permIds != null && permIds.length > 0) {
             result = roleMapper.relatePermsToRole(role.getId(), permIds);
         }
         return result;

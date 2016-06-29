@@ -39,7 +39,7 @@ public class PermissionRealm extends AuthorizingRealm {
     private PermissionService permissionService;
 
     /**
-     * 重写授权方法
+     * 授权方法
      *
      * @param p PrincipalCollection
      * @return AuthorizationInfo
@@ -73,7 +73,7 @@ public class PermissionRealm extends AuthorizingRealm {
     }
 
     /**
-     * 重写认证方法
+     * 认证方法
      *
      * @param token AuthenticationToken
      * @return AuthenticationInfo
