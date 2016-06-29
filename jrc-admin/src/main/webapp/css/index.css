@@ -107,7 +107,7 @@ html.panel-fit {
 }
 
 .console-sidebar {
-    background: #293038;
+    background: #444;
     color: #fefefe;
     font-size: 12px;
 }
@@ -135,7 +135,7 @@ html.panel-fit {
 }
 
 .accordion-tree .tree-node-hover {
-    background: #37424f;
+    background: #555;
     color: #fff;
 }
 
@@ -153,16 +153,15 @@ html.panel-fit {
 }
 
 .accordion-tree .root-tree-node {
-    background: #22282e;
-    margin-bottom: 1px;
+    background: #444 url("../imgs/menu-setting.png") no-repeat scroll 150px center;;
 }
 
 .accordion-tree .root-tree-node:hover {
-    background: #414d5c;
+    background: #4A4A4A url("../imgs/menu-setting.png") no-repeat scroll 150px center;;
 }
 
 .accordion-tree .root-tree-node-selected {
-    background: #37424f;
+    background:#353535 url("../imgs/menu-setting.png") no-repeat scroll 150px center;
 }
 
 .accordion-tree .tree-expanded {
@@ -185,6 +184,10 @@ html.panel-fit {
     margin-right: 5px;
 }
 
+.accordion-tree li{
+    border-top: 1px solid #4E4E4E;
+    border-bottom: 1px solid #393939;
+}
 .child-tree-sidebar {
     width: 180px;
     height: 100%;

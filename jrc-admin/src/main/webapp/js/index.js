@@ -19,7 +19,7 @@ var mainOpt = {
                 var roots = obj.tree("getRoots");
                 for (var i = 0; i < roots.length; i++) {
                     var rootTarget = roots[i].target;
-                    $(rootTarget).addClass("root-tree-node");
+                    $(rootTarget).addClass("root-tree-node root-tree-node-selected");
                 }
             },
             onBeforeSelect: function (node) {
@@ -38,10 +38,10 @@ var mainOpt = {
                 EasyuiUtil.addTab(mainOpt.mainTableId, opt);
             },
             onCollapse: function (node) {
-                $(node.target).addClass("root-tree-node-selected");
+                $(node.target).removeClass("root-tree-node-selected");
             },
             onExpand: function (node) {
-                $(node.target).removeClass("root-tree-node-selected");
+                $(node.target).addClass("root-tree-node-selected");
             }
         });
     },
