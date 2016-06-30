@@ -107,6 +107,7 @@ PermGridOpt.toAddRootFn = function () {
     obj.treegrid("disableDnd");
     obj.treegrid('select', uuid);
     obj.treegrid("beginEdit", uuid);
+    $('#'+PermGridOpt.treeFormId+' td[field="url"] .datagrid-editable-input').validatebox('disableValidation');//禁用校验
     PermGridOpt.tempIds.push(uuid);
 
     $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
@@ -135,6 +136,7 @@ PermGridOpt.toAddChildPermFn=function() {
 
         obj.treegrid('select', uuid);
         obj.treegrid("beginEdit", uuid);
+        $('#'+PermGridOpt.treeFormId+' td[field="url"] .datagrid-editable-input').validatebox('enableValidation');//启用校验
         PermGridOpt.tempIds.push(uuid);
 
         $('.panel.datagrid:visible .visible-tool-bar').removeClass('visible-tool-bar').addClass('hidden-tool-bar');
@@ -285,5 +287,7 @@ PermGridOpt.moveFn=function(targetId,sourceId) {
 };
 
 PermGridOpt.callbackMove = function (data) {
+    var obj = $('#' + PermGridOpt.treeListId);
+    obj.treegrid("acceptChanges");
     MessageUtil.msgslide("移动成功！");
 };

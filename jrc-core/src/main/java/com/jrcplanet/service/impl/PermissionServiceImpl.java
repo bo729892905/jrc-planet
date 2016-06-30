@@ -57,7 +57,7 @@ public class PermissionServiceImpl implements PermissionService {
                             logger.info("==> 保存权限 ur : " + permVal + "...");
                             Permission permission = new Permission();
                             permission.setUrl(permVal);
-                            permission.setName("");
+                            permission.setName("系统生成的权限");
                             permission.setVisible(true);
                             insertPermission(permission);
                         }

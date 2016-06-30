@@ -5,6 +5,7 @@ import com.jrcplanet.domain.Role;
 import com.jrcplanet.model.easyui.DataGrid;
 import com.jrcplanet.model.easyui.JsonData;
 import com.jrcplanet.service.RoleService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ public class RoleController {
         return new DataGrid(list.getTotal(), roleList);
     }
 
+    @RequiresPermissions(value="role:add")
     @RequestMapping(value = "addRole", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public JsonData insert(Role role) {
