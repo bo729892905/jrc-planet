@@ -17,16 +17,12 @@ public class PermissionMapperTest extends BaseTest {
     @Test
     public void testGetPermNames() throws Exception {
         List<String> permissions = permissionMapper.getPermUrls();
-        for (String permission : permissions) {
-            System.out.println(permission);
-        }
+        permissions.forEach(System.out::print);
     }
 
     @Test
     public void testGetChildrenByParent() throws Exception {
         List<Permission> permissions = permissionMapper.getChildrenByParent(null);
-        permissions.forEach(permission -> {
-            System.out.println(permission.getUrl());
-        });
+        permissions.forEach(System.out::print);
     }
 }
